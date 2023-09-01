@@ -235,52 +235,7 @@ export default function Home() {
                                                 <div className="product-image">
                                                     <a href="product-left.htm">
                                                         <img
-                                                            src={require("./../assets/images/brand/b2.jpg")}
-                                                            className="img-fluid lazyload"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="product-box-3 wow fadeInUp">
-                                            <div className="product-header">
-                                                <div className="product-image">
-                                                    <a href="product-left.htm">
-                                                        <img
-                                                            src={require("./../assets/images/brand/b3.jpg")}
-                                                            className="img-fluid lazyload"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="product-box-3 wow fadeInUp">
-                                            <div className="product-header">
-                                                <div className="product-image">
-                                                    <a href="product-left.htm">
-                                                        <img
-                                                            src={require("./../assets/images/brand/b4.jpg")}
-                                                            className="img-fluid lazyload"
-                                                            alt=""
-                                                        />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="product-box-3 wow fadeInUp">
-                                            <div className="product-header">
-                                                <div className="product-image">
-                                                    <a href="product-left.htm">
-                                                        <img
-                                                            src={require("./../assets/images/brand/b5.jpg")}
+                                                            src={require("./../assets/images/brand/b1.jpg")}
                                                             className="img-fluid lazyload"
                                                             alt=""
                                                         />
@@ -310,7 +265,7 @@ export default function Home() {
                                                 <div className="product-image">
                                                     <a href="product-left.htm">
                                                         <img
-                                                            src={require("./../assets/images/brand/b2.jpg")}
+                                                            src={require("./../assets/images/brand/b1.jpg")}
                                                             className="img-fluid lazyload"
                                                             alt=""
                                                         />
@@ -325,7 +280,7 @@ export default function Home() {
                                                 <div className="product-image">
                                                     <a href="product-left.htm">
                                                         <img
-                                                            src={require("./../assets/images/brand/b3.jpg")}
+                                                            src={require("./../assets/images/brand/b1.jpg")}
                                                             className="img-fluid lazyload"
                                                             alt=""
                                                         />
@@ -340,7 +295,7 @@ export default function Home() {
                                                 <div className="product-image">
                                                     <a href="product-left.htm">
                                                         <img
-                                                            src={require("./../assets/images/brand/b4.jpg")}
+                                                            src={require("./../assets/images/brand/b1.jpg")}
                                                             className="img-fluid lazyload"
                                                             alt=""
                                                         />
@@ -355,7 +310,52 @@ export default function Home() {
                                                 <div className="product-image">
                                                     <a href="product-left.htm">
                                                         <img
-                                                            src={require("./../assets/images/brand/b5.jpg")}
+                                                            src={require("./../assets/images/brand/b1.jpg")}
+                                                            className="img-fluid lazyload"
+                                                            alt=""
+                                                        />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="product-box-3 wow fadeInUp">
+                                            <div className="product-header">
+                                                <div className="product-image">
+                                                    <a href="product-left.htm">
+                                                        <img
+                                                            src={require("./../assets/images/brand/b1.jpg")}
+                                                            className="img-fluid lazyload"
+                                                            alt=""
+                                                        />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="product-box-3 wow fadeInUp">
+                                            <div className="product-header">
+                                                <div className="product-image">
+                                                    <a href="product-left.htm">
+                                                        <img
+                                                            src={require("./../assets/images/brand/b1.jpg")}
+                                                            className="img-fluid lazyload"
+                                                            alt=""
+                                                        />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="product-box-3 wow fadeInUp">
+                                            <div className="product-header">
+                                                <div className="product-image">
+                                                    <a href="product-left.htm">
+                                                        <img
+                                                            src={require("./../assets/images/brand/b1.jpg")}
                                                             className="img-fluid lazyload"
                                                             alt=""
                                                         />
@@ -2682,7 +2682,7 @@ export default function Home() {
                                 <div className="col-lg-6">
                                     <div className="slider-image">
                                         <img
-                                            src={require("./../assets/images/product/category/1.jpg")}
+                                            src={require("./../assets/images/product-category-1.jpg")}
                                             className="img-fluid lazyload"
                                             alt=""
                                         />
@@ -2935,7 +2935,7 @@ export default function Home() {
                                         <div className="deal-offer-contain">
                                             <a href="shop-left-sidebar.html" className="deal-image">
                                                 <img
-                                                    src={require("./../assets/images/vegetable/product/10.png")}
+                                                    src={require("./../assets/images/vegetable-product-1.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2954,7 +2954,7 @@ export default function Home() {
                                         <div className="deal-offer-contain">
                                             <a href="shop-left-sidebar.html" className="deal-image">
                                                 <img
-                                                    src={require("./../assets/images/vegetable/product/11.png")}
+                                                    src={require("./../assets/images/vegetable-product-1.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2973,7 +2973,7 @@ export default function Home() {
                                         <div className="deal-offer-contain">
                                             <a href="shop-left-sidebar.html" className="deal-image">
                                                 <img
-                                                    src={require("./../assets/images/vegetable/product/12.png")}
+                                                    src={require("./../assets/images/vegetable-product-1.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2992,7 +2992,7 @@ export default function Home() {
                                         <div className="deal-offer-contain">
                                             <a href="shop-left-sidebar.html" className="deal-image">
                                                 <img
-                                                    src={require("./../assets/images/vegetable/product/13.png")}
+                                                    src={require("./../assets/images/vegetable-product-1.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />

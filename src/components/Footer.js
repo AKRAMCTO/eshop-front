@@ -302,7 +302,7 @@ export default function Footer() {
 
           <div className="payment">
             <img
-              src={require("./../assets/images/payment/1.png")}
+              src={require("./../assets/images/payment-1.png")}
               className="lazyload"
               alt=""
             />

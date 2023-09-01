@@ -16,9 +16,9 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/page/:page" element={<DynamiquePage />} />
-        <Route path="/page-404" element={<Page404 />} />
+        <Route exact path="/" component={Home} />
+        <Route path="/page/:page" component={DynamiquePage} />
+        <Route path="/page-404" component={Page404} />
       </Switch>
     </BrowserRouter>
   );

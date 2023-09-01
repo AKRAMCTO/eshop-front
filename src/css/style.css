@@ -634,7 +634,7 @@ img{
 }
 
 .vendore-breadscrumb-section {
-  background-image: url("./../assets/images/vendor-page/breadcrumb.png");
+  background-image: url("./../assets/images/breadcrumb.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4222,7 +4222,7 @@ span {
   margin-top: -16px;
 }
 .banner-contain-3.banner-contain-bg {
-  background-image: url(./../assets/images/grocery/banner/11.jpg);
+  background-image: url(./../assets/images/grocery-banner-1.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -4810,7 +4810,7 @@ span {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url(./../assets/images/vegetable/shape.png);
+  background-image: url(./../assets/images/shape.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -4832,7 +4832,7 @@ span {
   color: #ffffff;
 }
 .category-box-2::after {
-  background-image: url(./../assets/images/cake/bg.jpg);
+  background-image: url(./../assets/images/cake-bg.jpg);
 }
 .category-box img {
   width: calc(38px + 7 * (100vw - 320px) / 1600);
@@ -5197,7 +5197,7 @@ footer::after {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url(./../assets/images/vegetable/footer-shape-11.png);
+  background-image: url(./../assets/images/footer-shape-11.png);
   background-repeat: no-repeat;
   z-index: -1;
 }
@@ -5213,7 +5213,7 @@ footer:before {
   height: 100%;
   bottom: 0;
   right: 0;
-  background-image: url(./../assets/images/vegetable/footer-shape-2.png);
+  background-image: url(./../assets/images/footer-shape-2.png);
   background-repeat: no-repeat;
   z-index: -1;
 }
@@ -9686,7 +9686,7 @@ header .location-box button i {
   position: absolute;
   bottom: 0;
   left: 0;
-  background-image: url(./../assets/images/furniture/banner/line.png);
+  background-image: url(./../assets/images/banner-line.png);
   width: 100%;
   height: 100%;
   top: 90%;
@@ -9726,7 +9726,7 @@ header .location-box button i {
   height: 20px;
   bottom: -15px;
   left: 0;
-  background: url(./../assets/images/furniture/banner/line.png) no-repeat center;
+  background: url(./../assets/images/banner-line.png) no-repeat center;
   background-size: contain;
   z-index: 1;
   opacity: 1;
@@ -11571,7 +11571,7 @@ header .offcanvas-backdrop {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url("./../assets/images/vegetable/newsletter/1.png");
+  background-image: url("./../assets/images/newsletter-1.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -11589,7 +11589,7 @@ header .offcanvas-backdrop {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url("./../assets/images/vegetable/newsletter/2.jpg");
+  background-image: url("./../assets/images/newsletter-1.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -11869,7 +11869,7 @@ header .offcanvas-backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(./../assets/images/grocery/banner/10.png);
+  background-image: url(./../assets/images/grocery-banner-1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   padding: calc(20px + 15 * (100vw - 320px) / 1600);
@@ -13569,7 +13569,7 @@ header .offcanvas-backdrop {
 }
 
 .product-bg-image {
-  background-image: url(./../assets/images/grocery/bg.jpg);
+  background-image: url(./../assets/images/images-grocery-bg.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -14506,7 +14506,7 @@ header .offcanvas-backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(./../assets/images/inner-page/coming-soon.jpg);
+  background-image: url(./../assets/images/coming-soon.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -16798,7 +16798,7 @@ header .offcanvas-backdrop {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url(./../assets/images/inner-page/log-in-bg.png);
+  background-image: url(./../assets/images/log-in-bg.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -19974,7 +19974,7 @@ header .offcanvas-backdrop {
 .business-section .business-contain::after {
   content: "";
   position: absolute;
-  background-image: url("./../assets/images/vendor-page/arrow.svg");
+  background-image: url("./../assets/images/arrow.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

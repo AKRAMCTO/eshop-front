@@ -38,7 +38,7 @@ export default function Page404() {
                     <div className="row">
                         <div className="col-12">
                             <div className="image-404">
-                                <img src={require('./../assets/images/inner-page/404.png')} className="img-fluid blur-up lazyload" alt="" />
+                                <img src={require('./../assets/images/404.png')} className="img-fluid blur-up lazyload" alt="" />
                             </div>
                         </div>
 

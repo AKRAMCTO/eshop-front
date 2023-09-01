@@ -168,7 +168,7 @@ export default function Heade() {
                                                                     className="drop-image"
                                                                 >
                                                                     <img
-                                                                        src={require("./../assets/images/vegetable/product/1.png")}
+                                                                        src={require("./../assets/images/vegetable-product-1.png")}
                                                                         className="lazyload"
                                                                         alt=""
                                                                     />
@@ -197,7 +197,7 @@ export default function Heade() {
                                                                     className="drop-image"
                                                                 >
                                                                     <img
-                                                                        src={require("./../assets/images/vegetable/product/2.png")}
+                                                                        src={require("./../assets/images/vegetable-product-1.png")}
                                                                         className="lazyload"
                                                                         alt=""
                                                                     />
