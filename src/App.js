@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   BrowserRouter,
   Switch,
@@ -14,13 +14,15 @@ const Page404 = React.lazy(() => import('./pages/Page404'));
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/page/:page" component={DynamiquePage} />
-        <Route path="/page-404" component={Page404} />
-      </Switch>
-    </BrowserRouter>
+    <Suspense fallback={`Loading ...`}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/page/:page" component={DynamiquePage} />
+          <Route path="/page-404" component={Page404} />
+        </Switch>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
