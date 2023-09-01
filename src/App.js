@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+// import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
+
+import Loading from './helpers/Loading';
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const Home = React.lazy(() => import('./pages/Home'))
+const DynamiquePage = React.lazy(() => import('./pages/DynamiquePage'));
+const Page404 = React.lazy(() => import('./pages/Page404'));
+
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Home />,
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/page/:page",
+//     element: <DynamiquePage />,
+//   },
+//   {
+//     path: "page-404",
+//     element: <Page404 />,
+//   },
+// ]);
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        {/* <Route path="/page/:page" element={<DynamiquePage />} /> */}
+        {/* <Route path="/page-404" element={<Page404 />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
