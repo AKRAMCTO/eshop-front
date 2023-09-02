@@ -9,8 +9,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Loading from "./components/Loading";
 
+import DynamiquePage from './pages/DynamiquePage';
 const Home = React.lazy(() => import('./pages/Home'))
-const DynamiquePage = React.lazy(() => import('./pages/DynamiquePage'));
+// const DynamiquePage = React.lazy(() => import('./pages/DynamiquePage'));
 const Page404 = React.lazy(() => import('./pages/Page404'));
 
 function App() {
