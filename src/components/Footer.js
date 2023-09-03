@@ -154,14 +154,14 @@ export default function Footer() {
               <div className="footer-title">
                 <h4>Useful Links</h4>
               </div>
-              <FooterMenu items={menus['footer-1'] ?? null} />
+              <FooterMenu items={(menus && menus['footer-1']) ? menus['footer-1'] : null} />
             </div>
 
             <div className="col-xl-2 col-sm-3">
               <div className="footer-title">
                 <h4>Help Center</h4>
               </div>
-              <FooterMenu items={menus['footer-2'] ?? null} />
+              <FooterMenu items={(menus && menus['footer-2']) ? menus['footer-2'] : null} />
             </div>
 
             <div className="col-xl-3 col-lg-4 col-sm-6">
