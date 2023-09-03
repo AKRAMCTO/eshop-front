@@ -1473,157 +1473,17 @@ export default function Home() {
                                     </div>
                                 </Slider>
                             </div>
-                        </div>
-                        <div className="col-xxl-3 col-xl-4 d-none d-xl-block">
-                            <div className="p-sticky">
-                                <div className="category-menu">
-                                    <h3>Shop By Product</h3>
-                                    <ul className="border-bottom-0">
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/decorations.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Decorations</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/pillows.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Bed Linen</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/cushions.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Cushions</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/blankets.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Blankets</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/gift.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Giftwraps</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/sleepware.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Sleepwear</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/bakeware.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">
-                                                        Cookware & Bakeware
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/room-fragrance.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Room Fragrance</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/tableware.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">
-                                                        Servingware & Tableware
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="category-list">
-                                                <img
-                                                    src={require("./../assets/images/furniture/icon/shower.svg")}
-                                                    className="lazyload"
-                                                    alt=""
-                                                />
-                                                <h5>
-                                                    <a href="shop-left-sidebar.html">Bath & Shower</a>
-                                                </h5>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            {(settings && settings?.banners === 'on') ? 
+                                <div className="section-t-space section-b-space">
+                                    <div className="row g-md-4 g-3">
+                                        <div className="col-md-12">
+                                            <BannerHorizontal keyBanner={'HPP2'} />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {(settings && settings?.banners === 'on') ? 
-                        <div className="section-t-space section-b-space">
-                            <div className="row g-md-4 g-3">
-                                <div className="col-md-12">
-                                    <BannerHorizontal keyBanner={'HPP2'} />
-                                </div>
-                            </div>
-                        </div>
-                        : 
-                        <div />
-                    }
-                </div>
-                <div className="container-fluid-lg">
-                    <div className="row g-sm-4 g-3">
-                        <div className="col-xxl-9 col-xl-8">
+                                : 
+                                <div />
+                            }
                             <div className="title d-block">
                                 <h2>Food Cupboard</h2>
                                 <span className="title-leaf">
@@ -2092,6 +1952,146 @@ export default function Home() {
                         </div>
                         <div className="col-xxl-3 col-xl-4 d-none d-xl-block">
                             <div className="p-sticky">
+                                <div className="category-menu">
+                                    <h3>Shop By Product</h3>
+                                    <ul className="border-bottom-0">
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/decorations.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Decorations</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/pillows.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Bed Linen</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/cushions.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Cushions</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/blankets.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Blankets</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/gift.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Giftwraps</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/sleepware.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Sleepwear</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/bakeware.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">
+                                                        Cookware & Bakeware
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/room-fragrance.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Room Fragrance</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/tableware.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">
+                                                        Servingware & Tableware
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="category-list">
+                                                <img
+                                                    src={require("./../assets/images/furniture/icon/shower.svg")}
+                                                    className="lazyload"
+                                                    alt=""
+                                                />
+                                                <h5>
+                                                    <a href="shop-left-sidebar.html">Bath & Shower</a>
+                                                </h5>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {(settings && settings?.banners === 'on') ? 
+                                    <div className="section-t-space section-b-space">
+                                        <div className="row g-md-4 g-3">
+                                            <div className="col-md-12">
+                                                <BannerVertical keyBanner={'HPP4'} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    : 
+                                    <div />
+                                }
                                 <div className="section-t-space">
                                     <div className="category-menu">
                                         <h3>Trending Products</h3>

@@ -1,37 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
+import { useMediaQuery } from 'react-responsive'
 import { getBanner } from '../queries/queries';
+import { DataProvider } from '../contexts/DataContext';
+import { Link } from 'react-router-dom';
 
 export default function BannerVertical({ keyBanner }) {
+    const { isTablet, isMobile } = useContext(DataProvider)
     const { data, isLoading, isIdle } = useQuery(
         [`Banner-${keyBanner}`, keyBanner],
         () => getBanner(keyBanner),
         { retry: true, refetchOnWindowFocus: false, keepPreviousData: true }
     );
 
-    console.log(`Banner ${keyBanner}`, data)
+    const currentImage = () => {
+        var image = data?.full_image_desktop
+        if(isTablet && data?.image_tablet) image = data?.full_image_tablet;
+        if(isMobile && data?.image_mobile) image = data?.full_image_mobile;
+        return image;
+    }
 
     return (
         <div className="home-contain hover-effect">
             {isLoading ?
                 <div style={{ background: 'gray', with: '100%', height: '100%', opacity: .3 }}></div>
-                
             :
             data ? 
                 <>
                     <div className="home-contain h-100 home-furniture">
-                        <img
-                            src={data?.full_image}
-                            className="bg-img lazyload"
-                            alt=""
-                        />
-                        <div className="home-detail p-top-left home-p-sm feature-detail mend-auto">
-                            <div>
-                                {data?.title && <h2 className="mt-0 theme-color text-kaushan fw-normal">{data?.title}</h2>}
-                                {data?.description && <div className="furniture-content banner-desc" dangerouslySetInnerHTML={{ __html: data?.description}} />}
-                                {data?.link && <a href="{data?.link}" className="shop-button btn btn-furniture mt-0 d-inline-block btn-md text-content">Achetez maintenant <i className="fa-solid fa-right-long ms-2"></i></a>}
-                            </div>
-                        </div>
+                        {(data?.script) ?
+                            <div 
+                                dangerouslySetInnerHTML={{
+                                    __html: data?.script
+                                }}
+                            />
+                        : 
+                            <Link to={data?.link}>
+                                <img
+                                    src={currentImage()}
+                                    className="bg-img lazyload"
+                                    alt=""
+                                />
+                            </Link>
+                        }
                     </div>
                 </>
             :

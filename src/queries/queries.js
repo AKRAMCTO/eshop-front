@@ -1,11 +1,22 @@
 import axios from "axios";
 
-// const REACT_APP_MAIN_URL = `http://127.0.0.1:8001/api`
-const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
+const REACT_APP_MAIN_URL = `http://127.0.0.1:8000/api`
+// const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
 
 export const getSiteSettings = async () => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/settings`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getMenus = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/menus`);
         if (res.data.status === true) {
             return res.data.data;
         }
@@ -48,6 +59,7 @@ export const getPage = async (keyPage) => {
 };
 
 export const saveNewsletter = async (data) => {
+    console.log('data => ', data)
     try {
         const res = await axios.post(
           `${REACT_APP_MAIN_URL}/newsletter`,

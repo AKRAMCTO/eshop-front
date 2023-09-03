@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
 import { Home, Mail, Phone } from 'react-feather';
+import FooterMenu from './FooterMenu';
 
 export default function Footer() {
-  const { settings } = React.useContext(DataProvider);
+  const { settings, menus } = useContext(DataProvider);
 
   return (
     <footer className="section-t-space">
@@ -153,77 +154,14 @@ export default function Footer() {
               <div className="footer-title">
                 <h4>Useful Links</h4>
               </div>
-
-              <div className="footer-contain">
-                <ul>
-                  <li>
-                    <a href="index.html" className="text-content">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Shop
-                    </a>
-                  </li>
-                  <li>
-                    <a href="about-us.html" className="text-content">
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="blog-list.html" className="text-content">
-                      Blog
-                    </a>
-                  </li>
-                  <li>
-                    <a href="contact-us.html" className="text-content">
-                      Contact Us
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <FooterMenu items={menus['footer-1'] ?? null} />
             </div>
 
             <div className="col-xl-2 col-sm-3">
               <div className="footer-title">
                 <h4>Help Center</h4>
               </div>
-
-              <div className="footer-contain">
-                <ul>
-                  <li>
-                    <a href="order-success.html" className="text-content">
-                      Your Order
-                    </a>
-                  </li>
-                  <li>
-                    <a href="user-dashboard.html" className="text-content">
-                      Your Account
-                    </a>
-                  </li>
-                  <li>
-                    <a href="order-tracking.html" className="text-content">
-                      Track Order
-                    </a>
-                  </li>
-                  <li>
-                    <a href="wishlist.html" className="text-content">
-                      Your Wishlist
-                    </a>
-                  </li>
-                  <li>
-                    <a href="search.html" className="text-content">
-                      Search
-                    </a>
-                  </li>
-                  <li>
-                    <a href="faq.html" className="text-content">
-                      FAQ
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <FooterMenu items={menus['footer-2'] ?? null} />
             </div>
 
             <div className="col-xl-3 col-lg-4 col-sm-6">
@@ -300,13 +238,15 @@ export default function Footer() {
             </div>
           }
 
-          <div className="payment">
-            <img
-              src={require("./../assets/images/payment-1.png")}
-              className="lazyload"
-              alt=""
-            />
-          </div>
+          {(settings && settings?.payment_images) &&
+            <div className="payment">
+              <img
+                src={settings?.payment_images}
+                className="lazyload"
+                alt=""
+              />
+            </div>
+          }
 
           <div className="social-link">
             <h6 className="text-content">Stay connected :</h6>

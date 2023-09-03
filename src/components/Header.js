@@ -64,20 +64,6 @@ export default function Heade() {
                                 }
 
                                 <div className="middle-box">
-                                    <div className="location-box">
-                                        <button
-                                            className="btn location-button"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#locationModal"
-                                        >
-                                            <span className="location-arrow">
-                                                <MapPin />
-                                            </span>
-                                            <span className="locat-name">Your Location</span>
-                                            <i className="fa-solid fa-angle-down"></i>
-                                        </button>
-                                    </div>
-
                                     <div className="search-box">
                                         <div className="input-group">
                                             <input
