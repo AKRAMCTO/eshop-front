@@ -1,22 +1,18 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function MenuPrimary() {
+export default function MenuPrimary({ menu, toggleMenu }) {
 
     return (  
         <div className="header-nav-middle">
             <div className="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
-                <div
-                    className="offcanvas offcanvas-collapse order-xl-2"
-                    id="primaryMenu"
-                >
+                <div className={`offcanvas offcanvas-collapse order-xl-2 ${(menu) ? 'show' : ''}`} id="primaryMenu">
                     <div className="offcanvas-header navbar-shadow">
                         <h5>Menu</h5>
                         <button
                             className="btn-close lead"
                             type="button"
-                            data-bs-dismiss="offcanvas"
-                            aria-label="Close"
+                            onClick={() => toggleMenu(false)}
                         ></button>
                     </div>
                     <div className="offcanvas-body">
@@ -60,6 +56,7 @@ export default function MenuPrimary() {
                         </ul>
                     </div>
                 </div>
+                <div className={`offcanvas-backdrop fade ${(menu) ? 'show' : ''}`} style={{ visibility: (menu) ? 'visible' : 'hidden' }}></div>
             </div>
         </div>
     )

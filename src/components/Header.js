@@ -1,13 +1,19 @@
-import React from 'react';
-import { AlignLeft, Headphones, Heart, MapPin, Search, ShoppingBag, User, X, Zap } from 'react-feather';
+import React, { useContext, useState } from 'react';
+import { Headphones, Heart, Search, ShoppingBag, User, X, Zap } from 'react-feather';
 import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
 import ContactPhone from './ContactPhone';
 import MenuPrimary from './MenuPrimary';
 import MenuCategories from './MenuCategories';
+import { TailSpin } from 'react-loader-spinner';
+import { AuthProvider } from '../contexts/AuthContext';
 
 export default function Heade() {
-    const { settings } = React.useContext(DataProvider);
+    const { settings, isMobile } = React.useContext(DataProvider);
+    const { userData, userId, authenticationFetching, authenticationLoading, logoutMutation } = useContext(AuthProvider);
+    const [ menu, setMenu ] = useState(false)
+
+    const toggleMenu = (value) => setMenu(value)
 
     return (
         <header className="pb-md-4 pb-0">
@@ -46,8 +52,7 @@ export default function Heade() {
                                 <button
                                     className="navbar-toggler d-xl-none d-inline navbar-menu-button"
                                     type="button"
-                                    data-bs-toggle="offcanvas"
-                                    data-bs-target="#MenuPrimary"
+                                    onClick={() => toggleMenu(true)}
                                 >
                                     <span className="navbar-toggler-icon">
                                         <i className="fa-solid fa-bars"></i>
@@ -107,15 +112,17 @@ export default function Heade() {
                                                 </div>
                                             </div>
                                         </li>
-                                        <li className="right-side">
+                                        <li className={`right-side d-block`}>
                                             <div className="onhover-dropdown">
                                                 <div className="delivery-login-box easy-contact">
                                                     <div className="delivery-icon">
                                                         <Headphones />
                                                     </div>
-                                                    <div className="delivery-detail">
-                                                        <h6>Recevez un apple gratuit</h6>
-                                                    </div>
+                                                    {(!isMobile) &&
+                                                        <div className="delivery-detail">
+                                                            <h6>Recevez un apple gratuit</h6>
+                                                        </div>
+                                                    }
                                                 </div>
                                                 <div className="onhover-div">
                                                     <ContactPhone />
@@ -236,25 +243,51 @@ export default function Heade() {
                                                     <User />
                                                 </div>
                                                 <div className="delivery-detail">
-                                                    <h6>Hello,</h6>
-                                                    <h5>My Account</h5>
+                                                    <h6>Hello,<br />{(userId && userData) ? userData.full_name : 'Guest'}</h6>
                                                 </div>
                                             </div>
 
                                             <div className="onhover-div onhover-div-login">
                                                 <ul className="user-box-name">
-                                                    <li className="product-box-contain">
-                                                        <i></i>
-                                                        <a href="./pages/login.html">Log In</a>
-                                                    </li>
 
-                                                    <li className="product-box-contain">
-                                                        <a href="./pages/sign-up.html">Register</a>
-                                                    </li>
-
-                                                    <li className="product-box-contain">
-                                                        <a href="./pages/forgot.html">Forgot Password</a>
-                                                    </li>
+                                                    {authenticationLoading || authenticationFetching ? (
+                                                        <TailSpin
+                                                            type="ThreeDots"
+                                                            color="#fff"
+                                                            secondaryColor="black"
+                                                            height={20}
+                                                            width={20}
+                                                            visible={authenticationLoading}
+                                                        />
+                                                    ) : userId ? (
+                                                        <>
+                                                            <li className="product-box-contain">
+                                                                <i></i>
+                                                                <Link to={`/account`}>Mon compte</Link>
+                                                            </li>
+                                                            <li className="product-box-contain">
+                                                                <button 
+                                                                    type='button'
+                                                                    onClick={logoutMutation}
+                                                                >
+                                                                    Se déconnecter
+                                                                </button>
+                                                            </li>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <li className="product-box-contain">
+                                                                <i></i>
+                                                                <Link to={`/login`}>Se connecter</Link>
+                                                            </li>
+                                                            <li className="product-box-contain">
+                                                                <Link to={`/register`}>Registre</Link>
+                                                            </li>
+                                                            <li className="product-box-contain">
+                                                                <Link to={`/forgot-password`}>Mot de passe oublié</Link>
+                                                            </li>
+                                                        </>
+                                                    )}
                                                 </ul>
                                             </div>
                                         </li>
@@ -272,7 +305,7 @@ export default function Heade() {
                         <div className="header-nav">
                             <MenuCategories />
 
-                            <MenuPrimary />
+                            <MenuPrimary menu={menu} toggleMenu={toggleMenu} />
 
                             <a className="header-nav-right" href="./pages/seller-become.html">
                                 <button className="btn deal-button">

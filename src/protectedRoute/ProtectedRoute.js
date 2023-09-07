@@ -1,12 +1,11 @@
-import React from 'react';
-import { useIntl } from 'react-intl';
+import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import Loading from '../components/Loading';
 import { AuthProvider } from '../contexts/AuthContext';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-export default function ProtectedRoute({ Component, path, ...args }) {
-  const { locale } = useIntl();
-  const { authenticationLoading, userId } = React.useContext(AuthProvider);
+
+export default function ProtectedRoute({ Component, path, ...args }) { 
+  const { authenticationLoading, userId } = useContext(AuthProvider);
+
   return (
     <Route
       {...args}
@@ -14,15 +13,7 @@ export default function ProtectedRoute({ Component, path, ...args }) {
       render={({ location }) => {
         if (authenticationLoading)
           return (
-            <div className="min-h-screen flex items-center justify-center">
-              <Loader
-                type="ThreeDots"
-                color="#b72b2b"
-                height={50}
-                width={50}
-                visible={authenticationLoading}
-              />
-            </div>
+            <Loading />
           );
         if (userId) {
           return <Component userId={userId} />;
@@ -30,7 +21,7 @@ export default function ProtectedRoute({ Component, path, ...args }) {
           return (
             <Redirect
               to={{
-                pathname: `/${locale}/app/login`,
+                pathname: `/login`,
                 state: { from: location },
               }}
             />

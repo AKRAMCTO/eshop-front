@@ -15,6 +15,14 @@ p{
 }
 .error-form{
   color: red;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-style: italic;
+}
+.newsletter-detail .error-form{
+  color: #fff;
+  margin: 3px 0 0;
 }
 
 .error-result, .success-result{
@@ -6273,6 +6281,9 @@ header .top-nav .navbar-top .rightside-box .right-side-menu .right-side .deliver
   align-items: center;
   cursor: pointer;
 }
+header .top-nav .navbar-top .rightside-box .right-side-menu .right-side .delivery-login-box .delivery-icon {
+  padding-right: 5px;
+}
 header .top-nav .navbar-top .rightside-box .right-side-menu .right-side .delivery-login-box .delivery-icon svg {
   color: #222222;
   margin-right: 14px;
@@ -6387,15 +6398,18 @@ header .onhover-dropdown .onhover-div-login .user-box-name li {
   display: block;
   width: 100%;
 }
-header .onhover-dropdown .onhover-div-login .user-box-name li a {
+header .onhover-dropdown .onhover-div-login .user-box-name li a, header .onhover-dropdown .onhover-div-login .user-box-name li button {
   color: #222222;
   display: block;
   position: relative;
+  border: 0;
+  padding: 0;
+  background: transparent;
 }
-header .onhover-dropdown .onhover-div-login .user-box-name li a:hover::after {
+header .onhover-dropdown .onhover-div-login .user-box-name li a:hover::after, header .onhover-dropdown .onhover-div-login .user-box-name li button:hover::after {
   width: 40%;
 }
-header .onhover-dropdown .onhover-div-login .user-box-name li a::after {
+header .onhover-dropdown .onhover-div-login .user-box-name li a::after, header .onhover-dropdown .onhover-div-login .user-box-name li button::after {
   content: "";
   position: absolute;
   width: 0;
@@ -6563,6 +6577,12 @@ header .header-nav .header-nav-left .dropdown-category {
 @media (max-width: 767px) {
   header .header-nav .header-nav-left .dropdown-category {
     display: none;
+  }
+}
+@media (max-width: 581px) {
+  header .onhover-dropdown .onhover-div{
+    right: -80px;
+    width: 250px;
   }
 }
 header .header-nav .header-nav-left .dropdown-category-2 {
@@ -11617,9 +11637,9 @@ header .offcanvas-backdrop {
 .newsletter-section .newsletter-box .newsletter-contain .newsletter-detail .input-box {
   position: relative;
 }
-.newsletter-section .newsletter-box .newsletter-contain .newsletter-detail .input-box form .form-group{
+/* .newsletter-section .newsletter-box .newsletter-contain .newsletter-detail .input-box form .form-group{
   height: 50px;
-}
+} */
 .newsletter-section .newsletter-box .newsletter-contain .newsletter-detail .input-box form input{
   width: 100%;
   height: 50px;
@@ -16907,14 +16927,14 @@ header .offcanvas-backdrop {
   margin-top: -6px;
 }
 .log-in-section .log-in-box .remember-box label {
-  font-size: 16px;
+  font-size: 13px;
 }
 .log-in-section .log-in-box .remember-box label span {
   font-weight: 500;
   color: var(--theme-color);
 }
 .log-in-section .log-in-box .forgot-password {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 500;
   display: block;
 }
@@ -18673,7 +18693,13 @@ header .offcanvas-backdrop {
   margin-bottom: calc(4px + 4 * (100vw - 320px) / 1600);
   line-height: 1.6;
 }
-.user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-detail a:hover {
+.user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-detail a, .user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-detail button{
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--theme-color);
+}
+.user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-detail a:hover , .user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-detail button:hover {
   color: var(--theme-color);
 }
 .user-dashboard-section .dashboard-right-sidebar .dashboard-order .order-contain {
@@ -19085,6 +19111,16 @@ header .offcanvas-backdrop {
   .user-dashboard-section .dashboard-right-sidebar .dashboard-profile .profile-detail .profile-name-detail {
     display: block;
   }
+}
+.user-dashboard-section .dashboard-right-sidebar .dashboard-profile .profile-detail .profile-name-detail button, 
+.user-dashboard-section .dashboard-right-sidebar .dashboard-profile .profile-about table button, 
+.user-dashboard-section .dashboard-right-sidebar .dashboard-home .dashboard-contant-title button{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--theme-color);
+  cursor: pointer;
+  font-size: calc(14px + 1 * (100vw - 320px) / 1600);
 }
 .user-dashboard-section .dashboard-right-sidebar .dashboard-profile .profile-detail .profile-name-detail h3 {
   font-weight: 400;

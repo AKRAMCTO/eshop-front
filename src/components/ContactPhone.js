@@ -27,11 +27,12 @@ export default function ContactPhone() {
         }
     }, [result]);
 
+    const phoneRegExp = /^0(5|6|7)[0-9]{8}$/
     const ValidationSchemaForm = object({
-        phone: string()
-            .min(1, 'Trop court!')
-            .max(10, 'Trop long!')
-            .required('Required')
+        phone: string().required('Required')
+                        .matches(phoneRegExp, 'Le numéro de téléphone doit être comme ça 0601020304')
+                        .min(1, 'Trop court!')
+                        .max(10, 'Trop long!')
     });
 
     const genInitialValues = () => ({ 
@@ -69,10 +70,10 @@ export default function ContactPhone() {
                         <li className="w-100 product-box-contain">
                             <div className="drop-cart">
                                 <input 
-                                    type="tel" 
+                                    type="string"
                                     className="form-control" 
                                     id="phone" 
-                                    placeholder="Enter Your Phone Number" 
+                                    placeholder="Exemple 0601020304" 
                                     maxLength="10" 
                                     onChange={handleChange}
                                     onBlur={handleBlur}

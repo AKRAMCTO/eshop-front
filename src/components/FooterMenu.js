@@ -10,7 +10,7 @@ export default function FooterMenu({ items }) {
             <ul>
                 {items.map((page, key) =>
                     <li key={key}>
-                        <Link to={`page/${page?.slug}`} className="text-content">
+                        <Link to={`/page/${page?.slug}`} className="text-content">
                             {page?.title}
                         </Link>
                     </li>

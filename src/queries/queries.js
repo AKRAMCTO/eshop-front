@@ -13,7 +13,6 @@ export const getSiteSettings = async () => {
         throw new Error(error);
     }
 };
-
 export const getMenus = async () => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/menus`);
@@ -24,7 +23,6 @@ export const getMenus = async () => {
         throw new Error(error);
     }
 };
-
 export const getSlide = async (keySlide) => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/slide/${keySlide}`);
@@ -35,7 +33,6 @@ export const getSlide = async (keySlide) => {
         throw new Error(error);
     }
 };
-
 export const getBanner = async (keyBanner) => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/banner/${keyBanner}`);
@@ -46,7 +43,6 @@ export const getBanner = async (keyBanner) => {
         throw new Error(error);
     }
 };
-
 export const getPage = async (keyPage) => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/page/${keyPage}`);
@@ -57,13 +53,24 @@ export const getPage = async (keyPage) => {
         throw new Error(error);
     }
 };
-
 export const saveNewsletter = async (data) => {
-    console.log('data => ', data)
     try {
         const res = await axios.post(
-          `${REACT_APP_MAIN_URL}/newsletter`,
-          data
+            `${REACT_APP_MAIN_URL}/newsletter`,
+            data
+        );
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+export const saveReminder = async (data) => {
+    try {
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/reminder`,
+            data
         );
         if (res.data.status === true) {
             return res.data.data;
@@ -73,16 +80,116 @@ export const saveNewsletter = async (data) => {
     }
 };
 
-export const saveReminder = async (data) => {
+
+
+// Auth
+export const userLogin = async data => {
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/login`,
+        data
+    );
+    if (res.data.status === true) {
+        return res.data;
+    }
+};
+export const userRegister = async data => {
     try {
-        const res = await axios.post(
-          `${REACT_APP_MAIN_URL}/reminder`,
-          data
-        );
+        const res = await axios.post(`${REACT_APP_MAIN_URL}/register`, data);
         if (res.data.status === true) {
-            return res.data.data;
+            return res.data;
         }
     } catch (error) {
-        throw new Error(error);
+        return error?.response?.data?.message
+    }
+};
+export const checkAuth = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    try {
+        const config = { headers: { Authorization: `Bearer ${token}` }};
+        const res = await axios.get(
+            `${REACT_APP_MAIN_URL}/customer-informations`,
+            config
+        );
+
+        if (res.data.status === true) {
+            return { userData: res.data.data };
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+export const requestPasswordReset = async data => {
+    try {
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/forgot-password`,
+            data
+        );
+        if (res.data.status === true) {
+            return { message: 'success' };
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+export const resetUserPassword = async data => {
+    try {
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/reset-password`,
+            data
+        );
+        if (res.data.status === true) {
+            return { message: 'success' };
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+export const editUserProfileInfo = async data => {
+    try {
+        const token = localStorage.getItem('ecowattAuthToken');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` },
+        };
+
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/customer-update`,
+            {
+                fname: data.fname,
+                lname: data.lname,
+                email: data.email,
+                type: data.type,
+                mobile: data.mobile
+            },
+            config
+        );
+        if (res.data.status === true) {
+            return { userData: res.data.data, message: 'success' };
+        }
+    } catch (error) {
+        console.log('editUserProfileInfo Error => ', error?.response?.data?.message)
+        return error?.response?.data?.message
+    }
+};
+export const changeUserPassword = async data => {
+    try {
+        const token = localStorage.getItem('ecowattAuthToken');
+        const config = {
+            headers: { Authorization: `Bearer ${token}` },
+        };
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/customer-update-password`,
+            {
+                old_password: data.old_password,
+                password: data.password,
+                password_confirmation: data.password_confirmation,
+            },
+            config
+        );
+        if (res.data.status === true) {
+            return { message: 'success' };
+        }
+    } catch (error) {
+        console.log('changeUserPassword Error => ', error?.response?.data?.message)
+        return error?.response?.data?.message
     }
 };

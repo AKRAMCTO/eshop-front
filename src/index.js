@@ -10,14 +10,17 @@ import './css/vendors/bootstrap.css'
 import './css/animate.min.css'
 import './css/bulk-style.css'
 import './css/style.css'
+import AuthContextProvider from './contexts/AuthContext';
 
 const queryClient = new QueryClient()
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient}>
-    <DataContextProvider>
-      <App />
-    </DataContextProvider>
+    <AuthContextProvider>
+      <DataContextProvider>
+        <App />
+      </DataContextProvider>
+    </AuthContextProvider>
   </QueryClientProvider>
 );

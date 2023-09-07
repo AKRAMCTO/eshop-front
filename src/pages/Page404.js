@@ -3,6 +3,7 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 
 import Layout from "../components/Layout";
 import { Helmet } from "react-helmet";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function Page404() {
     return (
@@ -11,27 +12,7 @@ export default function Page404() {
                 <title>Page 404 | Ecowatt</title>
             </Helmet>
 
-            <section className="breadscrumb-section pt-0">
-                <div className="container-fluid-lg">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="breadscrumb-contain">
-                                <h2>404 Page</h2>
-                                <nav>
-                                    <ol className="breadcrumb mb-0">
-                                        <li className="breadcrumb-item">
-                                            <a href="index.html">
-                                                <i className="fa-solid fa-house"></i>
-                                            </a>
-                                        </li>
-                                        <li className="breadcrumb-item active" aria-current="page">404</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Breadcrumb title={`Page 404`} />
 
             <section className="section-404 section-lg-space">
                 <div className="container-fluid-lg">

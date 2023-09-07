@@ -6,6 +6,7 @@ import { InfinitySpin } from "react-loader-spinner";
 import Layout from "../components/Layout";
 import { useQuery } from "react-query";
 import { getPage } from "../queries/queries";
+import Breadcrumb from "../components/Breadcrumb";
 
 export default function DynamiquePage() {
     const { page } = useParams();
@@ -42,27 +43,7 @@ export default function DynamiquePage() {
                 <title>{`${data?.title} | Ecowatt`}</title>
             </Helmet>
 
-            <section className="breadscrumb-section pt-0">
-                <div className="container-fluid-lg">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="breadscrumb-contain">
-                                <h2>Page</h2>
-                                <nav>
-                                    <ol className="breadcrumb mb-0">
-                                        <li className="breadcrumb-item">
-                                            <a href="index.html">
-                                                <i className="fa-solid fa-house"></i>
-                                            </a>
-                                        </li>
-                                        <li className="breadcrumb-item active" aria-current="page">{data.title}</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Breadcrumb title={data?.title} />
 
             <section className="section-404 section-lg-space">
                 <div className="container-fluid-lg">

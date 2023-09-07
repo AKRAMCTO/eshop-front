@@ -35,13 +35,21 @@ export default function BannerVertical({ keyBanner }) {
                                 }}
                             />
                         : 
-                            <Link to={data?.link}>
+                            ((data?.link) ? 
+                                <Link to={data?.link}>
+                                    <img
+                                        src={currentImage()}
+                                        className="bg-img lazyload"
+                                        alt=""
+                                    />
+                                </Link>
+                            :
                                 <img
                                     src={currentImage()}
                                     className="bg-img lazyload"
                                     alt=""
                                 />
-                            </Link>
+                            )
                         }
                     </div>
                 </>
