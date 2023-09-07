@@ -107,6 +107,8 @@ export default function ResetPassword() {
                                                             })
                                                         } else {
                                                             actions.setSubmitting(false);
+                                                            setErrorOpen(true);
+                                                            setErrorMessage(res);
                                                         }
                                                     } catch (error) {
                                                         setErrorOpen(true);

@@ -32,8 +32,8 @@ export default function ErrorSnackbar({ message, closeFunction }) {
         keys.map(row => 
           (typeof message[row] != 'array') ?
             <div className='my-2'>
-              <h4 className="text-uppercase mb-1 text-white">{row}</h4>
-              {message[row].map((line) => <h5 className="mr-3 text-white">&nbsp;&nbsp;&nbsp; -{line}</h5>)}
+              {/* <h4 className="text-uppercase mb-1 text-white">{row}</h4> */}
+              {message[row].map((line) => <h5 className="mr-3 text-white">{line}</h5>)}
             </div>
           :
             <h5 className="mr-3 text-white">- {row}</h5>

@@ -21,10 +21,10 @@ export default function MenuPrimary({ menu, toggleMenu }) {
                                 <Link className="nav-link" to={`/`}>Accueil</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={`/page/lentreprise`}>L’entreprise</Link>
+                                <Link className="nav-link" to={`/page/page-1`}>L’entreprise</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={`/page/notre-savoir-faire`}>Notre savoir faire</Link>
+                                <Link className="nav-link" to={`/page/page-2`}>Notre savoir faire</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/page-404`}>Page 404</Link>
