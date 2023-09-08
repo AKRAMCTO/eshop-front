@@ -7,7 +7,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
             <div className="title">
                 <h2>Mon compte</h2>
                 <span className="title-leaf">
-                    <img src={require("./../../assets/svg/leaf.svg")} alt="" className="icon-width bg-gray" />
+                    <img src={require("./../../assets/svg/leaf.png")} alt="" className="icon-width bg-gray" />
                 </span>
             </div>
 
@@ -20,8 +20,8 @@ export default function MyAccount({ userData, SelectModelForm }) {
                 <div className="row g-sm-4 g-3">
                     <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                         <div className="totle-contain">
-                            <img src={require("./../../assets/images/order.svg")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("./../../assets/images/order.svg")} className="blur-up lazyload" alt="" />
+                            <img src={require("./../../assets/images/order.png")} className="img-1 blur-up lazyload" alt="" />
+                            <img src={require("./../../assets/images/order.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
                                 <h5>Total Order</h5>
                                 <h3>3658</h3>
@@ -31,8 +31,8 @@ export default function MyAccount({ userData, SelectModelForm }) {
 
                     <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                         <div className="totle-contain">
-                            <img src={require("../../assets/images/pending.svg")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("../../assets/images/pending.svg")} className="blur-up lazyload" alt="" />
+                            <img src={require("../../assets/images/pending.png")} className="img-1 blur-up lazyload" alt="" />
+                            <img src={require("../../assets/images/pending.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
                                 <h5>Total Pending Order</h5>
                                 <h3>254</h3>
@@ -42,8 +42,8 @@ export default function MyAccount({ userData, SelectModelForm }) {
 
                     <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                         <div className="totle-contain">
-                            <img src={require("../../assets/images/wishlist.svg")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("../../assets/images/wishlist.svg")} className="blur-up lazyload" alt="" />
+                            <img src={require("../../assets/images/wishlist.png")} className="img-1 blur-up lazyload" alt="" />
+                            <img src={require("../../assets/images/wishlist.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
                                 <h5>Total Wishlist</h5>
                                 <h3>32158</h3>

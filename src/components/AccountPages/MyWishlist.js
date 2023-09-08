@@ -1,4 +1,5 @@
 import React from "react";
+import { X } from 'react-feather';
 
 export default function MyWishlist() {
 
@@ -7,7 +8,7 @@ export default function MyWishlist() {
             <div className="title">
                 <h2>My Wishlist History</h2>
                 <span className="title-leaf title-leaf-gray">
-                    <img src={require("./../../assets/svg/leaf.svg")} alt="" className="icon-width bg-gray" />
+                    <img src={require("./../../assets/svg/leaf.png")} alt="" className="icon-width bg-gray" />
                 </span>
             </div>
             <div className="row g-sm-4 g-3">
@@ -16,13 +17,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/2.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -75,13 +76,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/3.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -135,13 +136,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/4.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -197,13 +198,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/5.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -257,13 +258,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/6.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -317,13 +318,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/7.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>
@@ -376,13 +377,13 @@ export default function MyWishlist() {
                         <div className="product-header">
                             <div className="product-image">
                                 <a href="product-left-thumbnail.html">
-                                    <img src="../assets/images/cake/product/2.png"
+                                    <img src={require('./../../assets/images/furniture/1.png')}
                                         className="img-fluid blur-up lazyload" alt="" />
                                 </a>
 
                                 <div className="product-header-top">
                                     <button className="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
+                                        <X />
                                     </button>
                                 </div>
                             </div>

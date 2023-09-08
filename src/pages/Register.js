@@ -12,7 +12,7 @@ import ErrorSnackbar from "../components/ErrorSnackbar";
 import Breadcrumb from "../components/Breadcrumb";
 
 const SUPPORTED_FORMATS = ['application/pdf'];
-const FILE_SIZE = 102400
+const FILE_SIZE = 1024 * 2048
 
 export default function Register() {
     const { registerMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);

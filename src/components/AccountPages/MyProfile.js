@@ -9,7 +9,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
             <div className="title">
                 <h2>Mon Profil</h2>
                 <span className="title-leaf">
-                    <img src={require("./../../assets/svg/leaf.svg")} alt="" className="icon-width bg-gray" />
+                    <img src={require("./../../assets/svg/leaf.png")} alt="" className="icon-width bg-gray" />
                 </span>
             </div>
 

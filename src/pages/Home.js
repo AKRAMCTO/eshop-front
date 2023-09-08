@@ -1367,7 +1367,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/decorations.svg")}
+                                                    src={require("./../assets/images/furniture/icon/decorations.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1383,7 +1383,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/pillows.svg")}
+                                                    src={require("./../assets/images/furniture/icon/pillows.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1399,7 +1399,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/cushions.svg")}
+                                                    src={require("./../assets/images/furniture/icon/cushions.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1415,7 +1415,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/blankets.svg")}
+                                                    src={require("./../assets/images/furniture/icon/blankets.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1431,7 +1431,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/gift.svg")}
+                                                    src={require("./../assets/images/furniture/icon/gift.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1447,7 +1447,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/sleepware.svg")}
+                                                    src={require("./../assets/images/furniture/icon/sleepware.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1463,7 +1463,7 @@ export default function Home() {
                                         >
                                             <div>
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/bakeware.svg")}
+                                                    src={require("./../assets/images/furniture/icon/bakeware.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1958,7 +1958,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/decorations.svg")}
+                                                    src={require("./../assets/images/furniture/icon/decorations.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1970,7 +1970,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/pillows.svg")}
+                                                    src={require("./../assets/images/furniture/icon/pillows.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1982,7 +1982,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/cushions.svg")}
+                                                    src={require("./../assets/images/furniture/icon/cushions.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -1994,7 +1994,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/blankets.svg")}
+                                                    src={require("./../assets/images/furniture/icon/blankets.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2006,7 +2006,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/gift.svg")}
+                                                    src={require("./../assets/images/furniture/icon/gift.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2018,7 +2018,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/sleepware.svg")}
+                                                    src={require("./../assets/images/furniture/icon/sleepware.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2030,7 +2030,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/bakeware.svg")}
+                                                    src={require("./../assets/images/furniture/icon/bakeware.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2044,7 +2044,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/room-fragrance.svg")}
+                                                    src={require("./../assets/images/furniture/icon/room-fragrance.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2056,7 +2056,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/tableware.svg")}
+                                                    src={require("./../assets/images/furniture/icon/tableware.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />
@@ -2070,7 +2070,7 @@ export default function Home() {
                                         <li>
                                             <div className="category-list">
                                                 <img
-                                                    src={require("./../assets/images/furniture/icon/shower.svg")}
+                                                    src={require("./../assets/images/furniture/icon/shower.png")}
                                                     className="lazyload"
                                                     alt=""
                                                 />

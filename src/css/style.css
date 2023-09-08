@@ -3876,6 +3876,7 @@ body ::selection {
   position: fixed;
   z-index: 9;
   top: 0;
+  left: 0;
   opacity: 0;
   visibility: hidden;
   transition: 0.5s;
@@ -18410,7 +18411,7 @@ header .offcanvas-backdrop {
     top: 0;
     left: -320px;
     border-radius: 0;
-    z-index: 6;
+    z-index: 10;
     overflow-y: auto;
     overflow-x: hidden;
     transition: all 0.3s ease-in-out;
@@ -20011,7 +20012,7 @@ header .offcanvas-backdrop {
 .business-section .business-contain::after {
   content: "";
   position: absolute;
-  background-image: url("./../assets/images/arrow.svg");
+  background-image: url("./../assets/images/arrow.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -22353,13 +22354,14 @@ header .offcanvas-backdrop {
 }
 
 .image-upload{
-  margin-bottom: 35px;
+  margin-bottom: 0;
 }
 .image-upload label{
   display: block;
   padding: 0;
   cursor: pointer;
   width: 200px;
+  text-transform: capitalize;
 }
 .image-upload label img{
   display: block;

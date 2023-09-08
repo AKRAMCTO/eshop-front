@@ -7,6 +7,9 @@ import { editUserProfileInfo } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
 import { AuthProvider } from '../../contexts/AuthContext';
 
+const SUPPORTED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
+const FILE_SIZE = 1024 * 2048
+
 export default function Profile({ SelectModelTitle, modelClose }) {
     const { userData, updateProfile } = useContext(AuthProvider);
     const [avatarPreview, setAvatarPreview] = React.useState(((userData?.full_avatar) ? userData?.full_avatar : require("./../../assets/images/avatar.jpeg")));
@@ -40,7 +43,9 @@ export default function Profile({ SelectModelTitle, modelClose }) {
     }, [errorOpen])
 
     const ValidationSchemaForm = object({
-        avatar: mixed().test('Fichier taille', 'upload file', (value) => !value || (value && value.size <= 1024 * 1024)),
+        avatar: mixed().notRequired()
+                        .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
+                        .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
@@ -67,7 +72,6 @@ export default function Profile({ SelectModelTitle, modelClose }) {
             initialValues={genInitialValues()}
             validationSchema={ValidationSchemaForm}
             onSubmit={async (values, actions) => {
-                console.log('values => ', values)
                 try {
                     const res = await editUserProfileInfo({
                         avatar: values.avatar,
@@ -103,7 +107,7 @@ export default function Profile({ SelectModelTitle, modelClose }) {
             }) => (
                 <form onSubmit={handleSubmit}>
                     <div className="modal-body">
-                        <div className="col-12 d-flex justify-content-center">
+                        <div className="col-12 d-flex align-items-center flex-column justify-content-center  mb-4">
                             <div className="image-upload">
                                 <input 
                                     accept="image/*" 

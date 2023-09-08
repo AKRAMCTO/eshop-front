@@ -7,7 +7,7 @@ export default function MyOrders() {
             <div className="title">
                 <h2>My Orders History</h2>
                 <span className="title-leaf title-leaf-gray">
-                    <img src={require("./../../assets/svg/leaf.svg")} alt="" className="icon-width bg-gray" />
+                    <img src={require("./../../assets/svg/leaf.png")} alt="" className="icon-width bg-gray" />
                 </span>
             </div>
 

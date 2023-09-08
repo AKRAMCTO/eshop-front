@@ -2,18 +2,25 @@ import React, { useContext, useState } from 'react';
 import Loading from './Loading';
 import { Redirect } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
+import { DataProvider } from '../contexts/DataContext';
 
 export default function LayoutAccount({ type, ChooseType, children }) {
+  const { isMobile, isTablet } = useContext(DataProvider);
   const { userData } = useContext(AuthProvider);
+  const [menu, setMenu] = useState(false)
+
+  const toggleMenu = (status) => {
+    setMenu(status)
+  }
 
   return (
     <section className="user-dashboard-section section-b-space">
       <div className="container-fluid-lg">
         <div className="row">
           <div className="col-xxl-3 col-lg-4">
-            <div className="dashboard-left-sidebar">
+            <div className={`dashboard-left-sidebar ${((isMobile || isTablet) && menu) ? 'show' : ''}`}>
               <div className="close-button d-flex d-lg-none">
-                <button className="close-sidebar">
+                <button onClick={() => toggleMenu(false)} className={`close-sidebar`}>
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
@@ -113,13 +120,15 @@ export default function LayoutAccount({ type, ChooseType, children }) {
           </div>
 
           <div className="col-xxl-9 col-lg-8">
-            <button className="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show Menu</button>
+            <button onClick={() => toggleMenu(true)} className="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show Menu</button>
             <div className="dashboard-right-sidebar">
               <div className="tab-content" id="pills-tabContent">
                 {children}
               </div>
             </div>
           </div>
+
+          <div class={`bg-overlay ${((isMobile || isTablet) && menu) ? 'show' : ''}`}></div>
         </div>
       </div>
     </section>

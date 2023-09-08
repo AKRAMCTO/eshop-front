@@ -60,7 +60,6 @@ export default function Password({ SelectModelTitle, modelClose }) {
                         password: values.password,
                         password_confirmation: values.password_confirmation
                     });
-                    console.log('log => ', res)
                     if (res.message === 'success') {
                         setSuccess(true);
                         actions.resetForm({ 
