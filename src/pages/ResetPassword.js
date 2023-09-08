@@ -45,7 +45,7 @@ export default function ResetPassword() {
 
     const ValidationSchemaForm = object({
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
-        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
+        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         password_confirmation: string().required('Ce champ est obligatoire').oneOf([ref('password'), null], 'Passwords must match')
     });
 

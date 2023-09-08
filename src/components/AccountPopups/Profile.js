@@ -2,13 +2,14 @@ import React, { useContext, useEffect } from 'react';
 import ErrorSnackbar from '../ErrorSnackbar';
 import { Formik } from 'formik';
 import SuccessSnackbar from '../SuccessSnackbar';
-import { number, object, ref, string } from 'yup';
-import { changeUserPassword, editUserProfileInfo } from '../../queries/queries';
+import { number, object, mixed, string } from 'yup';
+import { editUserProfileInfo } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
 import { AuthProvider } from '../../contexts/AuthContext';
 
 export default function Profile({ SelectModelTitle, modelClose }) {
     const { userData, updateProfile } = useContext(AuthProvider);
+    const [avatarPreview, setAvatarPreview] = React.useState(((userData?.full_avatar) ? userData?.full_avatar : require("./../../assets/images/avatar.jpeg")));
     const [errorOpen, setErrorOpen] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -39,6 +40,7 @@ export default function Profile({ SelectModelTitle, modelClose }) {
     }, [errorOpen])
 
     const ValidationSchemaForm = object({
+        avatar: mixed().test('Fichier taille', 'upload file', (value) => !value || (value && value.size <= 1024 * 1024)),
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
@@ -46,6 +48,7 @@ export default function Profile({ SelectModelTitle, modelClose }) {
     });
 
     const genInitialValues = () => ({ 
+        avatar: null,
         fname: userData?.fname,
         lname: userData?.lname,
         email: userData?.email,
@@ -64,8 +67,10 @@ export default function Profile({ SelectModelTitle, modelClose }) {
             initialValues={genInitialValues()}
             validationSchema={ValidationSchemaForm}
             onSubmit={async (values, actions) => {
+                console.log('values => ', values)
                 try {
                     const res = await editUserProfileInfo({
+                        avatar: values.avatar,
                         fname: values.fname,
                         lname: values.lname,
                         email: values.email,
@@ -87,6 +92,7 @@ export default function Profile({ SelectModelTitle, modelClose }) {
             }}
         >
             {({
+                setFieldValue,
                 values,
                 errors,
                 touched,
@@ -97,6 +103,33 @@ export default function Profile({ SelectModelTitle, modelClose }) {
             }) => (
                 <form onSubmit={handleSubmit}>
                     <div className="modal-body">
+                        <div className="col-12 d-flex justify-content-center">
+                            <div className="image-upload">
+                                <input 
+                                    accept="image/*" 
+                                    type="file" 
+                                    className="form-control" 
+                                    id="avatar" 
+                                    name="avatar" 
+                                    style={{ display: 'none' }}
+                                    onChange={(event) => {
+                                        setFieldValue("avatar", event.currentTarget.files[0]);
+                                        const fileReader = new FileReader();
+                                        fileReader.onload = () => {
+                                            if (fileReader.readyState === 2) {
+                                                setAvatarPreview(fileReader.result);
+                                            }
+                                        };
+                                        fileReader.readAsDataURL(event.target.files[0]);
+                                    }}
+                                    onBlur={handleBlur} />
+                                <label htmlFor="avatar">
+                                    <img src={ avatarPreview } className="blur-up lazyload update_img" alt="" />
+                                    <strong>Changer l'avatar</strong>
+                                </label>
+                            </div>
+                            <span className='error-form'>{errors.avatar && touched.avatar && errors.avatar}</span>
+                        </div>
                         <div className="row g-4">
                             <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">

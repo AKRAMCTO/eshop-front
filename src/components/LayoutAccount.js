@@ -25,12 +25,13 @@ export default function LayoutAccount({ type, ChooseType, children }) {
                 <div className="profile-contain">
                   <div className="profile-image">
                     <div className="position-relative">
-                      <img src={require("./../assets/images/user-1.jpg")} className="blur-up lazyload update_img" alt="" />
-                      {/* <div className="cover-icon">
-                        <i className="fa-solid fa-pen">
-                          <input type="file" onchange="readURL(this,0)" />
-                        </i>
-                      </div> */}
+                      <img src={
+                              (userData?.full_avatar) ? 
+                                userData?.full_avatar
+                              :
+                                require("./../assets/images/avatar.jpeg")
+                            } 
+                            className="blur-up lazyload update_img" alt="" />
                     </div>
                   </div>
 

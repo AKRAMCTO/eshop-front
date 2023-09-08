@@ -22352,6 +22352,35 @@ header .offcanvas-backdrop {
   bottom: 110px;
 }
 
+.image-upload{
+  margin-bottom: 35px;
+}
+.image-upload label{
+  display: block;
+  padding: 0;
+  cursor: pointer;
+  width: 200px;
+}
+.image-upload label img{
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--theme-color1);
+  margin: 0 auto;
+}
+.image-upload label strong{
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #999;
+  text-align: center;
+  margin: 10px 0 7px;
+}
+.image-upload input{
+  display: none;
+}
+
 /**=====================
     RTL css
 ==========================**/

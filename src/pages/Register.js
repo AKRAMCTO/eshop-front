@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Formik } from 'formik';
-import { object, string, number, mixed, notRequired, when } from 'yup';
+import { object, string, number, mixed } from 'yup';
 import { Link } from "react-router-dom";
 import { TailSpin } from 'react-loader-spinner';
 
@@ -12,6 +12,7 @@ import ErrorSnackbar from "../components/ErrorSnackbar";
 import Breadcrumb from "../components/Breadcrumb";
 
 const SUPPORTED_FORMATS = ['application/pdf'];
+const FILE_SIZE = 102400
 
 export default function Register() {
     const { registerMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);
@@ -42,40 +43,34 @@ export default function Register() {
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
-        type: mixed().oneOf(['individual', 'professional', 'seller']).defined().required('Ce champ est obligatoire'),
+        type: string().oneOf(['individual', 'professional', 'seller']).defined().required('Ce champ est obligatoire'),
         mobile: number().required('Ce champ est obligatoire'),
-        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"),
-        rc: string().when("type", {
-            is: (type) => (type === 'professional' || type === 'seller'),
-            then: string().required("Ce champ est obligatoire"),
+        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
+        rc: string().when('type', {
+            is: (val) => ["professional", "seller"].includes(val), // (value === 'professional' || value === 'seller'),
+            then: (schema) => schema.required("Ce champ est obligatoire"),
         }),
-        ice: string().when("type", {
-            is: (type) => (type === 'professional' || type === 'seller'),
-            then: string().required("Ce champ est obligatoire"),
+        ice: string().when('type', {
+            is: (val) => ["professional", "seller"].includes(val), // (value === 'professional' || value === 'seller'),
+            then: (schema) => schema.required("Ce champ est obligatoire"),
         }),
         rc_file: mixed().when("type", {
-            is: 'seller',
-            then: mixed().required("Ce champ est obligatoire")
-                        .test('Fichier taille',
-                            'upload file', (value) => !value || (value && value.size <= 1024 * 1024))
-                        .test('format',
-                            'upload file', (value) => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
+            is: (val) => val === 'seller',
+            then: (schema) => schema.required("Ce champ est obligatoire")
+                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
+                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
         }),
         ice_file: mixed().when("type", {
-            is: 'seller',
-            then: mixed().required("Ce champ est obligatoire")
-                        .test('Fichier taille',
-                            'upload file', (value) => !value || (value && value.size <= 1024 * 1024))
-                        .test('format',
-                            'upload file', (value) => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
+            is: (val) => val === 'seller',
+            then: (schema) => schema.required("Ce champ est obligatoire")
+                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
+                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
         }),
         cin_file: mixed().when("type", {
-            is: 'seller',
-            then: mixed().required("Ce champ est obligatoire")
-                        .test('Fichier taille',
-                            'upload file', (value) => !value || (value && value.size <= 1024 * 1024))
-                        .test('format',
-                            'upload file', (value) => !value || (value && SUPPORTED_FORMATS.includes(value.type))),
+            is: (val) => val === 'seller',
+            then: (schema) => schema.required("Ce champ est obligatoire")
+                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
+                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
         }),
     });
 
@@ -136,6 +131,7 @@ export default function Register() {
                                             }}
                                         >
                                             {({
+                                                setFieldValue,
                                                 values,
                                                 errors,
                                                 touched,
@@ -224,21 +220,33 @@ export default function Register() {
                                                         <>
                                                             <div className="col-12">
                                                                 <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="rc_file" name="rc_file" onChange={handleChange} onBlur={handleBlur} value={values.rc_file} />
+                                                                    <input accept="application/pdf" type="file" className="form-control" id="rc_file" name="rc_file" 
+                                                                        onChange={(event) => {
+                                                                            setFieldValue("rc_file", event.currentTarget.files[0]);
+                                                                        }}
+                                                                        onBlur={handleBlur} />
                                                                     <label htmlFor="rc_file">RC file</label>
                                                                 </div>
                                                                 <span className='error-form'>{errors.rc_file && touched.rc_file && errors.rc_file}</span>
                                                             </div>
                                                             <div className="col-12">
                                                                 <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="ice_file" name="ice_file" onChange={handleChange} onBlur={handleBlur} value={values.ice_file} />
+                                                                    <input accept="application/pdf" type="file" className="form-control" id="ice_file" name="ice_file"
+                                                                        onChange={(event) => {
+                                                                            setFieldValue("ice_file", event.currentTarget.files[0]);
+                                                                        }}
+                                                                        onBlur={handleBlur} />
                                                                     <label htmlFor="ice_file">ICE file</label>
                                                                 </div>
                                                                 <span className='error-form'>{errors.ice_file && touched.ice_file && errors.ice_file}</span>
                                                             </div>
                                                             <div className="col-12">
                                                                 <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="cin_file" name="cin_file" onChange={handleChange} onBlur={handleBlur} value={values.cin_file} />
+                                                                    <input accept="application/pdf" type="file" className="form-control" id="cin_file" name="cin_file"
+                                                                        onChange={(event) => {
+                                                                            setFieldValue("cin_file", event.currentTarget.files[0]);
+                                                                        }}
+                                                                        onBlur={handleBlur} />
                                                                     <label htmlFor="cin_file">CIN file</label>
                                                                 </div>
                                                                 <span className='error-form'>{errors.cin_file && touched.cin_file && errors.cin_file}</span>
