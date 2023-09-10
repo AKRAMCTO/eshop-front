@@ -25,6 +25,13 @@ export default function MyAccountContainer() {
     const [ modelType, setModelType ] = useState(null)
     const [ modelTitle, setModelTitle ] = useState(null)
     const [ modelStatus, setModelStatus ] = useState(false)
+    
+    const [ currentAddressEdit, setCurrentAddressEdit ] = useState(null)
+    const selectCurrentAddress = (address) => {
+        setCurrentAddressEdit(address)
+        setModelType('editAddress')
+        setModelStatus(true)
+    }
   
     const SelectModelForm = (formType) => {
         setModelType(formType)
@@ -53,7 +60,7 @@ export default function MyAccountContainer() {
                 {(type === 'account') && <MyAccount userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'orders') && <MyOrders />}
                 {(type === 'wishlist') && <MyWishlist />}
-                {(type === 'addresses') && <MyAddresses SelectModelForm={SelectModelForm} />}
+                {(type === 'addresses') && <MyAddresses selectCurrentAddress={selectCurrentAddress} SelectModelForm={SelectModelForm} />}
                 {(type === 'profile') && <MyProfile userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'privacy') && <MyPrivacy />}
             </LayoutAccount>
@@ -62,7 +69,7 @@ export default function MyAccountContainer() {
                 {(modelType === 'password') && <Password SelectModelTitle={SelectModelTitle} modelClose={modelClose} />}
                 {(modelType === 'profile') && <Profile SelectModelTitle={SelectModelTitle} modelClose={modelClose} />}
                 {(modelType === 'addAddress') && <AddAddress SelectModelTitle={SelectModelTitle} modelClose={modelClose} />}
-                {(modelType === 'editAddress') && <EditAddress SelectModelTitle={SelectModelTitle} modelClose={modelClose} />}
+                {(modelType === 'editAddress') && <EditAddress address={currentAddressEdit} SelectModelTitle={SelectModelTitle} modelClose={modelClose} />}
             </ModelUpdate>
         </Layout>
     );

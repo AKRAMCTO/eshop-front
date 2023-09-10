@@ -92,6 +92,7 @@ export default function AuthContextProvider({ children }) {
     } = useQuery('addresses', getAddresses, {
         retry: 0,
         refetchOnWindowFocus: true,
+        keepPreviousData: true
     });
 
     /**

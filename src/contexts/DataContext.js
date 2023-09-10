@@ -40,7 +40,7 @@ export default function DataContextProvider({ children }) {
   const { data: countries } = useQuery('getCountries', getCountries, {
     retry: true,
     refetchOnWindowFocus: false,
-    // keepPreviousData: true
+    keepPreviousData: true
   });
 
   const { data: menus } = useQuery('menus', getMenus, {

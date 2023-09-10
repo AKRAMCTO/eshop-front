@@ -5,6 +5,7 @@ import SuccessSnackbar from '../SuccessSnackbar';
 import { object, ref, string } from 'yup';
 import { changeUserPassword } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
+import SuccessAnimation from '../SuccessAnimation';
 
 export default function Password({ SelectModelTitle, modelClose }) {
     const [errorOpen, setErrorOpen] = React.useState(false);
@@ -50,92 +51,96 @@ export default function Password({ SelectModelTitle, modelClose }) {
 
   return (
     <>
-        <Formik
-            initialValues={genInitialValues()}
-            validationSchema={ValidationSchemaForm}
-            onSubmit={async (values, actions) => {
-                try {
-                    const res = await changeUserPassword({
-                        old_password: values.old_password,
-                        password: values.password,
-                        password_confirmation: values.password_confirmation
-                    });
-                    if (res.message === 'success') {
-                        setSuccess(true);
-                        actions.resetForm({ 
-                            values: genInitialValues()
-                        })
-                    } else {
-                        actions.setSubmitting(false);
+        {errorOpen && (
+            <ErrorSnackbar message={errorMessage} closeFunction={closeError} />
+        )}
+        {success && (
+            <SuccessSnackbar message={`Mot de passe mis à jour avec succès`} />
+        )}
+        {(success) ?
+            <SuccessAnimation />
+        :
+            <Formik
+                initialValues={genInitialValues()}
+                validationSchema={ValidationSchemaForm}
+                onSubmit={async (values, actions) => {
+                    try {
+                        const res = await changeUserPassword({
+                            old_password: values.old_password,
+                            password: values.password,
+                            password_confirmation: values.password_confirmation
+                        });
+                        if (res.message === 'success') {
+                            setSuccess(true);
+                            actions.resetForm({ 
+                                values: genInitialValues()
+                            })
+                        } else {
+                            actions.setSubmitting(false);
+                            setErrorOpen(true);
+                            setErrorMessage(res);
+                        }
+                    } catch (error) {
                         setErrorOpen(true);
-                        setErrorMessage(res);
+                        setErrorMessage('Une erreur s\'est produite. Veuillez réessayer');
                     }
-                } catch (error) {
-                    setErrorOpen(true);
-                    setErrorMessage('Une erreur s\'est produite. Veuillez réessayer');
-                }
-            }}
-        >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-            }) => (
-                <form onSubmit={handleSubmit}>
-                    {errorOpen && (
-                        <ErrorSnackbar message={errorMessage} closeFunction={closeError} />
-                    )}
-                    {success && (
-                        <SuccessSnackbar message={`Mot de passe mis à jour avec succès`} />
-                    )}
-                    <div className="modal-body">
-                        <div className="row g-4">
-                            <div className="col-12">
-                                <div className="form-floating theme-form-floating">
-                                    <input type="password" className="form-control" id="old_password" name="old_password" onChange={handleChange} onBlur={handleBlur} value={values.old_password} />
-                                    <label for="old_password">Ancien mot de passe</label>
+                }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div className="modal-body">
+                            <div className="row g-4">
+                                <div className="col-12">
+                                    <div className="form-floating theme-form-floating">
+                                        <input type="password" className="form-control" id="old_password" name="old_password" onChange={handleChange} onBlur={handleBlur} value={values.old_password} />
+                                        <label for="old_password">Ancien mot de passe</label>
+                                    </div>
+                                    <span className='error-form'>{errors.old_password && touched.old_password && errors.old_password}</span>
                                 </div>
-                                <span className='error-form'>{errors.old_password && touched.old_password && errors.old_password}</span>
-                            </div>
-                            <div className="col-12 col-xxl-6">
-                                <div className="form-floating theme-form-floating">
-                                    <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-                                    <label for="password">Mot de passe</label>
+                                <div className="col-12 col-xxl-6">
+                                    <div className="form-floating theme-form-floating">
+                                        <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                                        <label for="password">Mot de passe</label>
+                                    </div>
+                                    <span className='error-form'>{errors.password && touched.password && errors.password}</span>
                                 </div>
-                                <span className='error-form'>{errors.password && touched.password && errors.password}</span>
-                            </div>
-                            <div className="col-12 col-xxl-6">
-                                <div className="form-floating theme-form-floating">
-                                    <input type="password" className="form-control" id="password_confirmation" name="password_confirmation" onChange={handleChange} onBlur={handleBlur} value={values.password_confirmation} />
-                                    <label for="password_confirmation">Confirmation mot de passe</label>
+                                <div className="col-12 col-xxl-6">
+                                    <div className="form-floating theme-form-floating">
+                                        <input type="password" className="form-control" id="password_confirmation" name="password_confirmation" onChange={handleChange} onBlur={handleBlur} value={values.password_confirmation} />
+                                        <label for="password_confirmation">Confirmation mot de passe</label>
+                                    </div>
+                                    <span className='error-form'>{errors.password_confirmation && touched.password_confirmation && errors.password_confirmation}</span>
                                 </div>
-                                <span className='error-form'>{errors.password_confirmation && touched.password_confirmation && errors.password_confirmation}</span>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <div className="modal-footer">
-                        <button disabled={isSubmitting} className="btn theme-bg-color btn-md fw-bold text-light" type="submit">
-                            {isSubmitting ?
-                                <TailSpin
-                                    type="ThreeDots"
-                                    color="#fff"
-                                    height={20}
-                                    width={20}
-                                    visible={isSubmitting}
-                                />
-                                :
-                                'Enregistrer'
-                            }
-                        </button>
-                    </div>
-                </form>
-            )}
-        </Formik>
+                        <div className="modal-footer">
+                            <button disabled={isSubmitting} className="btn theme-bg-color btn-md fw-bold text-light" type="submit">
+                                {isSubmitting ?
+                                    <TailSpin
+                                        type="ThreeDots"
+                                        color="#fff"
+                                        height={20}
+                                        width={20}
+                                        visible={isSubmitting}
+                                    />
+                                    :
+                                    'Enregistrer'
+                                }
+                            </button>
+                        </div>
+                    </form>
+                )}
+            </Formik>
+        }
     </>
   )
 }

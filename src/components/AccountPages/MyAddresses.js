@@ -6,7 +6,7 @@ import { AuthProvider } from "../../contexts/AuthContext";
 import ErrorSnackbar from "../ErrorSnackbar";
 import SuccessSnackbar from "../SuccessSnackbar";
 
-export default function MyAddresses({ SelectModelForm  }) {
+export default function MyAddresses({ selectCurrentAddress, SelectModelForm  }) {
     const { 
         listAddresses, addressesLoading, addressesFetching, removeAddressMutation,
         successAuthContext, emptySuccessAuthContext,
@@ -20,6 +20,10 @@ export default function MyAddresses({ SelectModelForm  }) {
 
     const removeSelectedAddress = async (key) => {
         await removeAddressMutation(key)
+    }
+
+    const changeCurrentAddress = (address) => {
+        selectCurrentAddress(address)
     }
 
     useEffect(() => {
@@ -94,7 +98,7 @@ export default function MyAddresses({ SelectModelForm  }) {
                         <h2 className="text-center my-5">Aucune adresse trouvée</h2>
                     :
                         <div className="row g-sm-4 g-3">
-                            {listAddresses.map((item, key) => <AddressBox key={key} SelectModelForm={SelectModelForm} remove={removeSelectedAddress} address={item} />)}
+                            {listAddresses.map((item, key) => <AddressBox key={key} changeCurrentAddress={changeCurrentAddress} remove={removeSelectedAddress} address={item} />)}
                         </div>
                 )
             }

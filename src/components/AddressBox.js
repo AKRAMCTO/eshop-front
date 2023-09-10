@@ -3,7 +3,7 @@ import Loading from './Loading';
 import { Redirect } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
 
-export default function AddressBox({ SelectModelForm, remove, address }) {
+export default function AddressBox({ changeCurrentAddress, remove, address }) {
 
   return (
     <div className="col-xl-6 col-lg-12 col-md-6">
@@ -45,7 +45,7 @@ export default function AddressBox({ SelectModelForm, remove, address }) {
         <div className="button-group">
           <button 
             type="button" 
-            onClick={() => SelectModelForm('editAddress')}
+            onClick={() => changeCurrentAddress(address)}
             className="btn btn-sm add-button w-100"
           >
             <i data-feather="edit"></i>
