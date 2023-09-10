@@ -53,7 +53,7 @@ export default function EditAddress({ SelectModelTitle }) {
             <ErrorSnackbar message={errorMessage} closeFunction={closeError} />
         )}
         {success && (
-            <SuccessSnackbar message={`Password updated successfully`} />
+            <SuccessSnackbar message={`Mot de passe mis à jour avec succès`} />
         )}
         <Formik
             initialValues={genInitialValues()}

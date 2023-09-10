@@ -128,7 +128,7 @@ export default function LayoutAccount({ type, ChooseType, children }) {
             </div>
           </div>
 
-          <div class={`bg-overlay ${((isMobile || isTablet) && menu) ? 'show' : ''}`}></div>
+          <div className={`bg-overlay ${((isMobile || isTablet) && menu) ? 'show' : ''}`}></div>
         </div>
       </div>
     </section>

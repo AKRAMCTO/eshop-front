@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 import {
+  getCities,
+  getCountries,
   getMenus,
   getSiteSettings,
 } from './../queries/queries';
@@ -34,6 +36,13 @@ export default function DataContextProvider({ children }) {
     refetchOnWindowFocus: false,
     // keepPreviousData: true
   });
+
+  const { data: countries } = useQuery('getCountries', getCountries, {
+    retry: true,
+    refetchOnWindowFocus: false,
+    // keepPreviousData: true
+  });
+
   const { data: menus } = useQuery('menus', getMenus, {
     retry: true,
     refetchOnWindowFocus: false,
@@ -45,6 +54,7 @@ export default function DataContextProvider({ children }) {
       value={{
         settings, 
         menus,
+        countries, 
         isDesktop,
         isTablet,
         isMobile

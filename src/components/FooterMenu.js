@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export default function FooterMenu({ items }) {
 
     if(!items || !items.length) return null
-    console.log('items => ', items)
     return (
         <div className="footer-contain">
             <ul>

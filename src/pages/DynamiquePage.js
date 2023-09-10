@@ -13,7 +13,7 @@ export default function DynamiquePage() {
     const { data, isLoading, error } = useQuery(
         ['getPage', page],
         () => getPage(page),
-        { retry: true, refetchOnWindowFocus: false, keepPreviousData: true }
+        { retry: true, refetchOnWindowFocus: false }
     );
 
 

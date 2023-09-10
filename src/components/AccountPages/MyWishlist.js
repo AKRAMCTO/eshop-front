@@ -46,7 +46,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -106,7 +106,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -168,7 +168,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -228,7 +228,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -288,7 +288,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -347,7 +347,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
@@ -406,7 +406,7 @@ export default function MyWishlist() {
                                 </h5>
                                 <div className="add-to-cart-box mt-2">
                                     <button className="btn btn-add-cart addcart-button"
-                                        tabindex="0">Add
+                                        tabIndex="0">Add
                                         <span className="add-icon">
                                             <i className="fa-solid fa-plus"></i>
                                         </span>

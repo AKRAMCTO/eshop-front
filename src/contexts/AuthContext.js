@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
     checkAuth,
-    editUserProfileInfo,
-    changeUserPassword,
     userLogin,
-    userRegister
+    userRegister,
+    getAddresses,
+    removeAddress
 } from './../queries/queries';
 export const AuthProvider = React.createContext();
 
 export default function AuthContextProvider({ children }) {
     const queryClient = useQueryClient();
     const [errorAuthContext, setErrorAuthContext] = useState(null)
+    const [successAuthContext, setSuccessAuthContext] = useState(null)
 
     /**
      * User Info
@@ -29,6 +30,7 @@ export default function AuthContextProvider({ children }) {
         queryClient.invalidateQueries('authentication');
     }
     const emptyErrorAuthContext = () => setErrorAuthContext(null)
+    const emptySuccessAuthContext = () => setSuccessAuthContext(null)
 
     /**
      * User Login
@@ -79,6 +81,36 @@ export default function AuthContextProvider({ children }) {
         localStorage.removeItem('ecowattAuthToken');
     });
 
+
+    /**
+     * List Addresses
+     */
+    const {
+        data: listAddresses,
+        isLoading: addressesLoading,
+        isFetching: addressesFetching
+    } = useQuery('addresses', getAddresses, {
+        retry: 0,
+        refetchOnWindowFocus: true,
+    });
+
+    /**
+     * Remove Address
+     */
+    const { mutate: removeAddressMutation } = useMutation(async key => {
+        await removeAddress(key);
+    },{
+        onSuccess: () => {
+            setSuccessAuthContext({removeAddress: 'Adresse supprimée avec succès'})
+            queryClient.invalidateQueries('addresses');
+        },
+        onError: (error) => {
+            setErrorAuthContext({removeAddress: error?.response?.data?.message})
+        },
+        throwOnError: true,
+    }
+);
+
     return (
         <AuthProvider.Provider
             value={{
@@ -91,7 +123,14 @@ export default function AuthContextProvider({ children }) {
                 loginMutation,
                 logoutMutation,
                 updateProfile,
-                emptyErrorAuthContext
+                emptyErrorAuthContext,
+                
+                listAddresses,
+                addressesLoading,
+                addressesFetching,
+                removeAddressMutation,
+                successAuthContext,
+                emptySuccessAuthContext
             }}
         >
             {children}

@@ -53,7 +53,7 @@ export default function MyAccountContainer() {
                 {(type === 'account') && <MyAccount userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'orders') && <MyOrders />}
                 {(type === 'wishlist') && <MyWishlist />}
-                {(type === 'addresses') && <MyAddresses />}
+                {(type === 'addresses') && <MyAddresses SelectModelForm={SelectModelForm} />}
                 {(type === 'profile') && <MyProfile userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'privacy') && <MyPrivacy />}
             </LayoutAccount>
