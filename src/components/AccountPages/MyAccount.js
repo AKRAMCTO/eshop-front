@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthProvider } from './../../contexts/AuthContext';
 
 export default function MyAccount({ userData, SelectModelForm }) {
+    const { listAddresses, addressesLoading, addressesFetching }  = useContext(AuthProvider)
+    const [addressDelivery, setAddressDelivery]  = useState(null)
+    const [addressInvoice, setAddressInvoice]  = useState(null)
+
+    useEffect(() => {
+        if(!addressesFetching && !addressesLoading && listAddresses && listAddresses.length){
+            let addressDelivery = listAddresses.filter(function (el) {return el.type === 'delivery' && el.is_default});
+            if(addressDelivery && addressDelivery.length) setAddressDelivery(addressDelivery[0])
+
+            let addressBilling = listAddresses.filter(function (el) {return el.type === 'billing' && el.is_default});
+            if(addressBilling && addressBilling.length) setAddressInvoice(addressBilling[0])
+        }
+    }, [addressesLoading, addressesFetching])
 
     return (
         <div className="dashboard-home">
@@ -12,8 +26,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
             </div>
 
             <div className="dashboard-user-name">
-                <h6 className="text-content">Hello, <b className="text-title">{userData?.full_name}</b></h6>
-                <p className="text-content">From your Mon compte Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or Modifier information.</p>
+                <h6 className="text-content">Bonjour, <b className="text-title">{userData?.full_name}</b></h6>
             </div>
 
             <div className="total-box">
@@ -23,7 +36,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                             <img src={require("./../../assets/images/order.png")} className="img-1 blur-up lazyload" alt="" />
                             <img src={require("./../../assets/images/order.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
-                                <h5>Total Order</h5>
+                                <h5>Total des commandes</h5>
                                 <h3>3658</h3>
                             </div>
                         </div>
@@ -34,7 +47,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                             <img src={require("../../assets/images/pending.png")} className="img-1 blur-up lazyload" alt="" />
                             <img src={require("../../assets/images/pending.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
-                                <h5>Total Pending Order</h5>
+                                <h5>Total des commandes en attente</h5>
                                 <h3>254</h3>
                             </div>
                         </div>
@@ -45,7 +58,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                             <img src={require("../../assets/images/wishlist.png")} className="img-1 blur-up lazyload" alt="" />
                             <img src={require("../../assets/images/wishlist.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
-                                <h5>Total Wishlist</h5>
+                                <h5>Listes de souhaits totales</h5>
                                 <h3>32158</h3>
                             </div>
                         </div>
@@ -69,34 +82,82 @@ export default function MyAccount({ userData, SelectModelForm }) {
                     </div>
                 </div>
 
-                <div className="col-xxl-6">
+                {/* <div className="col-xxl-6">
                     <div className="dashboard-contant-title">
                         <h4>Newsletters <a>Modifier</a></h4>
                     </div>
                     <div className="dashboard-detail">
                         <h6 className="text-content">You are currently not subscribed to any newsletter</h6>
                     </div>
-                </div>
-
+                </div> */}
+                
                 <div className="col-12">
                     <div className="dashboard-contant-title">
-                        <h4>Address Book <a>Modifier</a></h4>
+                        <h4>Les adresses</h4>
                     </div>
 
                     <div className="row g-4">
                         <div className="col-xxl-6">
                             <div className="dashboard-detail">
-                                <h6 className="text-content">Default Billing Address</h6>
-                                <h6 className="text-content">You have not set a default billing address.</h6>
-                                <a>Modifier Address</a>
+                                <h6 className="text-content">adresse de facturation par défaut</h6>
+                                {(addressInvoice && addressInvoice?.id) ? 
+                                    <div className="table-responsive address-table">
+                                        <table className="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Pays :</td>
+                                                    <td>{(addressInvoice?.country) ? addressInvoice?.country?.name : '-'}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ville :</td>
+                                                    <td>{(addressInvoice?.city) ? addressInvoice?.city?.name : '-'}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Line 1 :</td>
+                                                    <td>{addressInvoice?.line_1}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Line 2 :</td>
+                                                    <td>{addressInvoice?.line_2 ?? '-'}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                :
+                                    <h6 className="text-content">Vous n'avez pas défini d'adresse de facturation par défaut.</h6>
+                                }
                             </div>
                         </div>
 
                         <div className="col-xxl-6">
                             <div className="dashboard-detail">
-                                <h6 className="text-content">Default Shipping Address</h6>
-                                <h6 className="text-content">You have not set a default shipping address.</h6>
-                                <a>Modifier Address</a>
+                                <h6 className="text-content">Adresse de livraison par défaut</h6>
+                                {(addressDelivery && addressDelivery?.id) ? 
+                                    <div className="table-responsive address-table">
+                                        <table className="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Pays :</td>
+                                                    <td>{(addressDelivery?.country) ? addressDelivery?.country?.name  : '-'}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ville :</td>
+                                                    <td>{(addressDelivery?.city) ? addressDelivery?.city?.name  : '-'}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Line 1 :</td>
+                                                    <td>{addressDelivery?.line_1}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Line 2 :</td>
+                                                    <td>{addressDelivery?.line_2 ?? '-'}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                :
+                                    <h6 className="text-content">Vous n'avez pas défini d'adresse de livraison par défaut.</h6>
+                                }
                             </div>
                         </div>
                     </div>

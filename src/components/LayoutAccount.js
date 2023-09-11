@@ -105,7 +105,7 @@ export default function LayoutAccount({ type, ChooseType, children }) {
                   </button>
                 </li>
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <button 
                     className={`nav-link ${type === 'privacy' && 'active'}`} 
                     type="button"
@@ -114,7 +114,7 @@ export default function LayoutAccount({ type, ChooseType, children }) {
                     <i data-feather="user"></i>
                     Privacy
                   </button>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

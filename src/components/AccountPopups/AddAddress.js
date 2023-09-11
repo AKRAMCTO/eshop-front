@@ -7,14 +7,17 @@ import { addAddress, getCities } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
 import { DataProvider } from '../../contexts/DataContext';
 import SuccessAnimation from '../SuccessAnimation';
+import { useQueryClient } from 'react-query';
 
 export default function AddAddress({ SelectModelTitle, modelClose }) {
+    const queryClient = useQueryClient();
     const { countries } = useContext(DataProvider)
     const [errorOpen, setErrorOpen] = React.useState(false);
     const [selectedCountry, setSelectedCountry] = React.useState(null);
     const [listCities, setListCities] = React.useState([]);
     const [success, setSuccess] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+    
     const closeError = () => {
         setErrorOpen(false);
     };
@@ -72,10 +75,11 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
                     is_default: values.is_default
                 });
                 if (res.message === 'success') {
-                    setSuccess(true)
                     actions.resetForm({ 
                         values: genInitialValues
                     })
+                    queryClient.invalidateQueries('addresses');
+                    setSuccess(true)
                 } else {
                     actions.setSubmitting(false);
                 }

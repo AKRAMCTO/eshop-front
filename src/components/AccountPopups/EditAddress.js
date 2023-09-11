@@ -8,8 +8,10 @@ import ErrorSnackbar from '../ErrorSnackbar';
 import SuccessSnackbar from '../SuccessSnackbar';
 import { editAddress, getCities } from '../../queries/queries';
 import { DataProvider } from '../../contexts/DataContext';
+import { useQueryClient } from 'react-query';
 
 export default function EditAddress({ address, SelectModelTitle, modelClose }) {
+    const queryClient = useQueryClient();
     const { countries } = useContext(DataProvider)
     const [errorOpen, setErrorOpen] = React.useState(false);
     const [selectedCountry, setSelectedCountry] = React.useState(null);
@@ -75,10 +77,8 @@ export default function EditAddress({ address, SelectModelTitle, modelClose }) {
                     is_default: values.is_default
                 }, address?.id);
                 if (res.message === 'success') {
+                    queryClient.invalidateQueries('addresses');
                     setSuccess(true)
-                    actions.resetForm({
-                        values: getInitialValues
-                    })
                 } else {
                     actions.setSubmitting(false);
                 }
@@ -145,13 +145,13 @@ export default function EditAddress({ address, SelectModelTitle, modelClose }) {
                                     <div className="d-flex align-items-center">
                                         <input type="radio" id="delivery" name="type" checked={values.type === 'delivery'} onChange={handleChange} onBlur={handleBlur} value={`delivery`} />
                                         &nbsp;
-                                        <label htmlhtmlFor="delivery">Livraison</label>
+                                        <label htmlFor="delivery">Livraison</label>
                                     </div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <div className="d-flex align-items-center">
                                         <input type="radio" id="billing" name="type" checked={values.type === 'billing'} onChange={handleChange} onBlur={handleBlur} value={`billing`} />
                                         &nbsp;
-                                        <label htmlhtmlFor="billing">Facture</label>
+                                        <label htmlFor="billing">Facture</label>
                                     </div>
                                 </div>
                                 <span className='error-form'>{errors.type && touched.type && errors.type}</span>
@@ -185,7 +185,7 @@ export default function EditAddress({ address, SelectModelTitle, modelClose }) {
                                 <div className="d-flex align-items-center">
                                     <input type="checkbox" id="is_default" name="is_default" checked={values.is_default == 1} onChange={handleChange} onBlur={handleBlur} value={1} />
                                     &nbsp;
-                                    <label htmlhtmlFor="is_default">Définir par défaut</label>
+                                    <label htmlFor="is_default">Définir par défaut</label>
                                 </div>
                             </div>
                         </div>

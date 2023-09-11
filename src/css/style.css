@@ -20,6 +20,8 @@ p{
   font-size: 12px;
   font-style: italic;
 }
+div:not(.modal-body) .error-form{ margin: 0; }
+
 .newsletter-detail .error-form{
   color: #fff;
   margin: 3px 0 0;

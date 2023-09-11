@@ -23,7 +23,7 @@ export default function AuthContextProvider({ children }) {
         isFetching: authenticationFetching
     } = useQuery('authentication', checkAuth, {
         retry: 0,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: false
     });
 
     const updateProfile = () => {
@@ -90,9 +90,8 @@ export default function AuthContextProvider({ children }) {
         isLoading: addressesLoading,
         isFetching: addressesFetching
     } = useQuery('addresses', getAddresses, {
-        retry: 0,
-        refetchOnWindowFocus: true,
-        keepPreviousData: true
+        retry: 1,
+        refetchOnWindowFocus: false
     });
 
     /**
