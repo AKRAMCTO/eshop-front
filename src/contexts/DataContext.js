@@ -7,6 +7,7 @@ import {
   getCountries,
   getMenus,
   getSiteSettings,
+  getStructuredCategories,
 } from './../queries/queries';
 import { useMediaQuery } from 'react-responsive';
 
@@ -49,11 +50,18 @@ export default function DataContextProvider({ children }) {
     // keepPreviousData: true
   });
 
+  const { data: menuCategories } = useQuery('getStructuredCategories', getStructuredCategories, {
+    retry: true,
+    refetchOnWindowFocus: false,
+    // keepPreviousData: true
+  });
+
   return (
     <DataProvider.Provider
       value={{
         settings, 
         menus,
+        menuCategories,
         countries, 
         isDesktop,
         isTablet,

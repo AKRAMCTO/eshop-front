@@ -213,6 +213,16 @@ export const getAllCategories = async () => {
         throw new Error(error);
     }
 };
+export const getStructuredCategories = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/structured-categories`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 export const getFeaturedCategories = async () => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/featured-categories`);
