@@ -18,6 +18,8 @@ const ResetPassword = React.lazy(() => import('./pages/ResetPassword'))
 const Register = React.lazy(() => import('./pages/Register'))
 const Page404 = React.lazy(() => import('./pages/Page404'));
 const MyAccount = React.lazy(() => import('./pages/MyAccountContainer'));
+const Product = React.lazy(() => import('./pages/Product'));
+const Products = React.lazy(() => import('./pages/Products'));
 
 function App() {
   return (
@@ -30,7 +32,10 @@ function App() {
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/reset-password" component={ResetPassword} />
           <Route path="/page/:page" component={DynamiquePage} />
+          <Route path="/product/:product" component={Product} />
+          <Route path="/products" component={Products} />
           <Route path="/page-404" component={Page404} />
+          
           <ProtectedRoute path="/account" Component={MyAccount} />
         </Switch>
       </BrowserRouter>

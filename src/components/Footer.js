@@ -3,6 +3,7 @@ import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
 import { Home, Mail, Phone } from 'react-feather';
 import FooterMenu from './FooterMenu';
+import FooterCategory from './FooterCategory';
 
 export default function Footer() {
   const { settings, menus } = useContext(DataProvider);
@@ -96,7 +97,12 @@ export default function Footer() {
                   <ul className="address">
                     {(settings && settings?.store_address) &&
                       <li>
-                        <Home /> {settings?.store_address}
+                        <div
+                            className={`adress_html`}
+                            dangerouslySetInnerHTML={{
+                                __html: settings?.store_address
+                            }}
+                        />
                       </li>
                     }
                     {(settings && settings?.store_phone) &&
@@ -111,43 +117,9 @@ export default function Footer() {
 
             <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
               <div className="footer-title">
-                <h4>Categories</h4>
+                <h4>Catégories</h4>
               </div>
-
-              <div className="footer-contain">
-                <ul>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Vegetables & Fruit
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Beverages
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Meats & Seafood
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Frozen Foods
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Biscuits & Snacks
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop-left-sidebar.html" className="text-content">
-                      Grocery & Staples
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <FooterCategory items={(menus && menus['categories']) ? menus['categories'] : null} />
             </div>
 
             <div className="col-xl col-lg-2 col-sm-3">

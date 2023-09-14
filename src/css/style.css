@@ -2510,6 +2510,17 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   background-position: right !important;
 }
 
+.product-left-box .slick-slider{
+  padding-bottom: 40px;
+}
+.product-left-box .slick-dots{
+  bottom: -15px;
+}
+.product-left-box .slick-dots li{
+  width: 50px;
+  height: 50px;
+}
+
 /**=====================
      Slider scss
 ==========================**/
@@ -12461,7 +12472,7 @@ header .offcanvas-backdrop {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
   bottom: -5px;
   background-color: #ffffff;
@@ -13404,7 +13415,7 @@ header .offcanvas-backdrop {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
   bottom: -5px;
   background-color: #ffffff;
@@ -22444,6 +22455,9 @@ header .offcanvas-backdrop {
   }
 }
 
+.adress_html{width: 100%;}
+.adress_html p{margin: 0;}
+.adress_html strong{font-weight: 900;color: #fff;}
 
 /**=====================
     RTL css

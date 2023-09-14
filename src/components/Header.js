@@ -21,20 +21,20 @@ export default function Heade() {
                 <div className="container-fluid-lg">
                     <div className="row">
                         <div className="col-xxl-9 d-xxl-flex d-none">
-                            {(settings && settings?.store_address) && 
+                            {/* {(settings && settings?.store_address) && 
                                 <div className="top-left-header">
                                     <i className="iconly-Location icli text-white"></i>
                                     <span className="text-white">{settings?.store_address}</span>
                                 </div>
-                            }
+                            } */}
                             {(settings && settings?.store_email) && 
-                                <div className="top-left-header mx-5">
+                                <div className="top-left-header">
                                     <i className="iconly-Send icli text-white"></i>
                                     <span className="text-white">{settings?.store_email}</span>
                                 </div>
                             }
                             {(settings && settings?.store_fix) && 
-                                <div className="top-left-header">
+                                <div className="top-left-header mx-5">
                                     <i className="iconly-Call icli text-white"></i>
                                     <span className="text-white">{settings?.store_fix}</span>
                                 </div>

@@ -202,6 +202,85 @@ export const changeUserPassword = async data => {
 };
 
 
+// Categories
+export const getAllCategories = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/all-categories`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+export const getFeaturedCategories = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/featured-categories`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+// Brands
+export const getAllBrands = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/all-brands`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+export const getFeaturedBrands = async () => {
+    console.log('getFeaturedBrands')
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/featured-brands`);
+        console.log(res.data.data)
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+// Products
+export const getBestOffers = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-offers`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+export const getBestSellers = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-sellers`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+export const getSingleProduct = async (keyPage) => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/product/${keyPage}`);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+
 // Location
 export const getCountries = async () => {
     try {
@@ -227,8 +306,8 @@ export const getCities = async (keyCountry) => {
 
 // Addresses
 export const getAddresses = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const token = localStorage.getItem('ecowattAuthToken');
         const config = {headers: { Authorization: `Bearer ${token}` }};
 
         const res = await axios.get(`${REACT_APP_MAIN_URL}/addresses`, config);
@@ -236,7 +315,6 @@ export const getAddresses = async () => {
             return res.data.data;
         }
     } catch (error) {
-        console.log('getAddresses Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };

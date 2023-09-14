@@ -21,8 +21,6 @@ export default function HomeSlide() {
         slidesToScroll: 1
     };
 
-    console.log('HERE', data)
-
     return (
         <div className="col-xl-9 col-lg-8 ratio_50_1">
             {isLoading ?
