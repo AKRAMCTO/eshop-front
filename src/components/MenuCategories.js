@@ -28,7 +28,7 @@ export default function MenuCategories() {
                     <ul className="category-list">
                         {menuCategories.map((item, key) => 
                             <li className="onhover-category-list" key={`menu-category-${key}`}>
-                                <Link to={`/`} className="category-name">
+                                <Link to={`/products?category=${item?.slug}`} className="category-name">
                                     <h6>{item?.name}</h6>
                                     {(item?.childrens && item?.childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
                                 </Link>
@@ -38,7 +38,7 @@ export default function MenuCategories() {
                                             <ul>
                                                 {item?.childrens.map((sub, keysub) => 
                                                     <li key={`menu-sub-category-${keysub}`}>
-                                                        <Link to={`/`}>{sub?.name}</Link>
+                                                        <Link to={`/products?category=${sub?.slug}`}>{sub?.name}</Link>
                                                     </li>
                                                 )}
                                             </ul>

@@ -10,7 +10,7 @@ export default function FooterCategory({ items }) {
             <ul>
                 {items.map((item, key) =>
                     <li key={key}>
-                        <Link to={`/category/${item?.slug}`} className="text-content">
+                        <Link to={`/products?category=${item?.slug}`} className="text-content">
                             {item?.name}
                         </Link>
                     </li>

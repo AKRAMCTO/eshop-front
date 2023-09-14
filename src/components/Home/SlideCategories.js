@@ -66,7 +66,7 @@ export default function SlideCategories() {
                     <Slider {...settings}>
                         {data.map((item, key) => 
                             <div key={`category-${key}`}>
-                                <Link to={`/`} className="category-box category-dark">
+                                <Link to={`/products?category=${item?.slug}`} className="category-box category-dark">
                                     <div>
                                         <img src={item?.full_image ?? Icon} className="lazyload" alt={item?.name} />
                                         <h5>{item?.name}</h5>
