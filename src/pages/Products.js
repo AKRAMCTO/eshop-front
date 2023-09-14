@@ -9,44 +9,44 @@ import { getPage, getSingleProduct } from "../queries/queries";
 import Breadcrumb from "../components/Breadcrumb";
 
 export default function Products() {
-    const { product } = useParams();
-    const { data, isLoading, error } = useQuery(
-        ['getSingleProduct', product],
-        () => getSingleProduct(product),
-        { retry: true, refetchOnWindowFocus: false }
-    );
+    // const { product } = useParams();
+    // const { data, isLoading, error } = useQuery(
+    //     ['getSingleProduct', product],
+    //     () => getSingleProduct(product),
+    //     { retry: true, refetchOnWindowFocus: false }
+    // );
 
-    if (isLoading) {
-        return (
-            <div className="min-vh-100 px-4 py-2 d-flex align-items-center justify-content-center">
-                <Helmet>
-                    <title>Loading... | Ecowatt</title>
-                </Helmet>
-                <InfinitySpin
-                    type="ThreeDots"
-                    color="#2A3466"
-                    height={220}
-                    width={220}
-                    visible={isLoading}
-                />
-            </div>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <div className="min-vh-100 px-4 py-2 d-flex align-items-center justify-content-center">
+    //             <Helmet>
+    //                 <title>Loading... | Ecowatt</title>
+    //             </Helmet>
+    //             <InfinitySpin
+    //                 type="ThreeDots"
+    //                 color="#2A3466"
+    //                 height={220}
+    //                 width={220}
+    //                 visible={isLoading}
+    //             />
+    //         </div>
+    //     );
+    // }
     return (
         <Layout>
             <Helmet>
                 <title>{`Les produits | Ecowatt`}</title>
             </Helmet>
-            <Breadcrumb title={data?.title} />
+            <Breadcrumb title={`Les produits`} />
 
-            <section>
+            {/* <section>
                 <div className="container-fluid-lg">
                     <div className="row">
                         <div className="col-12">
                             <div id="CS1" className="slider-1 slider-animate product-wrapper no-arrow">
                                 <div>
                                     <div className="banner-contain-2 hover-effect">
-                                        <img src="../assets/images/furniture/banner/CS1.jpg" className="bg-img rounded-3 blur-up lazyload" alt="" />
+                                        <img src={require("./../assets/images/furniture/13.png")} className="bg-img rounded-3 blur-up lazyload" alt="" />
                                         <div
                                             className="banner-detail p-center-right position-relative shop-banner ms-auto banner-small">
                                             <div>
@@ -59,7 +59,7 @@ export default function Products() {
 
                                 <div>
                                     <div className="banner-contain-2 hover-effect">
-                                        <img src="../assets/images/shop/1.jpg" className="bg-img rounded-3 blur-up lazyload" alt="" />
+                                        <img src={require("./../assets/images/shop/1.jpg" className="bg-img rounded-3 blur-up lazyload" alt="" />
                                         <div
                                             className="banner-detail p-center-right position-relative shop-banner ms-auto banner-small">
                                             <div>
@@ -72,7 +72,7 @@ export default function Products() {
 
                                 <div>
                                     <div className="banner-contain-2 hover-effect">
-                                        <img src="../assets/images/shop/1.jpg" className="bg-img rounded-3 blur-up lazyload" alt="" />
+                                        <img src={require("./../assets/images/shop/1.jpg" className="bg-img rounded-3 blur-up lazyload" alt="" />
                                         <div
                                             className="banner-detail p-center-right position-relative shop-banner ms-auto banner-small">
                                             <div>
@@ -86,7 +86,7 @@ export default function Products() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             <section className="section-b-space shop-section">
                 <div className="container-fluid-lg">
                     <div className="row">
@@ -100,23 +100,23 @@ export default function Products() {
                                     <div className="filter-category">
                                         <div className="filter-title">
                                             <h2>Filters</h2>
-                                            <a href="javascript:void(0)">Clear All</a>
+                                            <a>Clear All</a>
                                         </div>
                                         <ul>
                                             <li>
-                                                <a href="javascript:void(0)">Vegetable</a>
+                                                <a>Vegetable</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)">Fruit</a>
+                                                <a>Fruit</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)">Fresh</a>
+                                                <a>Fresh</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)">Milk</a>
+                                                <a>Milk</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)">Meat</a>
+                                                <a>Meat</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -330,152 +330,6 @@ export default function Products() {
                                                     <div className="range-slider">
                                                         <input type="text" className="js-range-slider" value="" />
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="accordion-item">
-                                            <h2 className="accordion-header" id="headingSix">
-                                                <button className="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                                    aria-expanded="false" aria-controls="collapseSix">
-                                                    <span>Rating</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseSix" className="accordion-collapse collapse show"
-                                                aria-labelledby="headingSix">
-                                                <div className="accordion-body">
-                                                    <ul className="category-list custom-padding">
-                                                        <li>
-                                                            <div className="form-check ps-0 m-0 category-list-box">
-                                                                <input className="checkbox_animated" type="checkbox" />
-                                                                <div className="form-check-label">
-                                                                    <ul className="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <span className="text-content">(5 Star)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="form-check ps-0 m-0 category-list-box">
-                                                                <input className="checkbox_animated" type="checkbox" />
-                                                                <div className="form-check-label">
-                                                                    <ul className="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <span className="text-content">(4 Star)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="form-check ps-0 m-0 category-list-box">
-                                                                <input className="checkbox_animated" type="checkbox" />
-                                                                <div className="form-check-label">
-                                                                    <ul className="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <span className="text-content">(3 Star)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="form-check ps-0 m-0 category-list-box">
-                                                                <input className="checkbox_animated" type="checkbox" />
-                                                                <div className="form-check-label">
-                                                                    <ul className="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <span className="text-content">(2 Star)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div className="form-check ps-0 m-0 category-list-box">
-                                                                <input className="checkbox_animated" type="checkbox" />
-                                                                <div className="form-check-label">
-                                                                    <ul className="rating">
-                                                                        <li>
-                                                                            <i data-feather="star" className="fill"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i data-feather="star"></i>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <span className="text-content">(1 Star)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -811,29 +665,22 @@ export default function Products() {
                                             </button>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li>
-                                                    <a className="dropdown-item" id="pop" href="javascript:void(0)">Popularity</a>
+                                                    <a className="dropdown-item" id="pop">Popularity</a>
                                                 </li>
                                                 <li>
-                                                    <a className="dropdown-item" id="low" href="javascript:void(0)">Low - High
-                                                        Price</a>
+                                                    <a className="dropdown-item" id="low">Low - High Price</a>
                                                 </li>
                                                 <li>
-                                                    <a className="dropdown-item" id="high" href="javascript:void(0)">High - Low
-                                                        Price</a>
+                                                    <a className="dropdown-item" id="high">High - Low Price</a>
                                                 </li>
                                                 <li>
-                                                    <a className="dropdown-item" id="rating" href="javascript:void(0)">Average
-                                                        Rating</a>
+                                                    <a className="dropdown-item" id="aToz">A - Z Order</a>
                                                 </li>
                                                 <li>
-                                                    <a className="dropdown-item" id="aToz" href="javascript:void(0)">A - Z Order</a>
+                                                    <a className="dropdown-item" id="zToa">Z - A Order</a>
                                                 </li>
                                                 <li>
-                                                    <a className="dropdown-item" id="zToa" href="javascript:void(0)">Z - A Order</a>
-                                                </li>
-                                                <li>
-                                                    <a className="dropdown-item" id="off" href="javascript:void(0)">% Off - Hight To
-                                                        Low</a>
+                                                    <a className="dropdown-item" id="off">% Off - Hight To Low</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -842,21 +689,19 @@ export default function Products() {
                                     <div className="grid-option d-none d-md-block">
                                         <ul>
                                             <li className="three-grid">
-                                                <a href="javascript:void(0)">
-                                                    <img src="../assets/svg/grid-3.svg" className="blur-up lazyload" alt="" />
+                                                <a>
+                                                    <img src={require("./../assets/images/grid-3.png")} className="blur-up lazyload" alt="" />
                                                 </a>
                                             </li>
                                             <li className="grid-btn d-xxl-inline-block d-none active">
-                                                <a href="javascript:void(0)">
-                                                    <img src="../assets/svg/grid-4.svg"
-                                                        className="blur-up lazyload d-lg-inline-block d-none" alt="" />
-                                                    <img src="../assets/svg/grid.svg"
-                                                        className="blur-up lazyload img-fluid d-lg-none d-inline-block" alt="" />
+                                                <a>
+                                                    <img src={require("./../assets/images/grid-4.png")} className="blur-up lazyload d-lg-inline-block d-none" alt="" />
+                                                    <img src={require("./../assets/images/grid.png")} className="blur-up lazyload img-fluid d-lg-none d-inline-block" alt="" />
                                                 </a>
                                             </li>
                                             <li className="list-btn">
-                                                <a href="javascript:void(0)">
-                                                    <img src="../assets/svg/list.svg" className="blur-up lazyload" alt="" />
+                                                <a>
+                                                    <img src={require("./../assets/images/list.png")} className="blur-up lazyload" alt="" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -871,21 +716,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/2.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -960,21 +799,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/3.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1050,21 +883,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/4.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1142,21 +969,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/5.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1232,21 +1053,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/6.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1325,21 +1140,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/7.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1417,21 +1226,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/2.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1506,21 +1309,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/3.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1597,21 +1394,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/4.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1688,21 +1479,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/5.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1779,21 +1564,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/6.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1871,21 +1650,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/7.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -1963,21 +1736,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/2.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -2052,21 +1819,15 @@ export default function Products() {
                                         <div className="product-header">
                                             <div className="product-image">
                                                 <a href="product-bundle.html">
-                                                    <img src="../assets/images/cake/product/3.png"
+                                                    <img src={require("./../assets/images/2.png")}
                                                         className="img-fluid blur-up lazyload" alt="" />
                                                 </a>
 
                                                 <ul className="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        <a data-bs-toggle="modal"
                                                             data-bs-target="#view">
                                                             <i data-feather="eye"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                        <a href="compare.html">
-                                                            <i data-feather="refresh-cw"></i>
                                                         </a>
                                                     </li>
 
@@ -2142,21 +1903,21 @@ export default function Products() {
                             <nav className="custome-pagination">
                                 <ul className="pagination justify-content-center">
                                     <li className="page-item disabled">
-                                        <a className="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
+                                        <a className="page-link" tabindex="-1" aria-disabled="true">
                                             <i className="fa-solid fa-angles-left"></i>
                                         </a>
                                     </li>
                                     <li className="page-item active">
-                                        <a className="page-link" href="javascript:void(0)">1</a>
+                                        <a className="page-link">1</a>
                                     </li>
                                     <li className="page-item" aria-current="page">
-                                        <a className="page-link" href="javascript:void(0)">2</a>
+                                        <a className="page-link">2</a>
                                     </li>
                                     <li className="page-item">
-                                        <a className="page-link" href="javascript:void(0)">3</a>
+                                        <a className="page-link">3</a>
                                     </li>
                                     <li className="page-item">
-                                        <a className="page-link" href="javascript:void(0)">
+                                        <a className="page-link">
                                             <i className="fa-solid fa-angles-right"></i>
                                         </a>
                                     </li>
