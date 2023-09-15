@@ -24,7 +24,7 @@ const Products = React.lazy(() => import('./pages/Products'));
 function App() {
   return (
     <Suspense fallback={<Loading />}>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/register" component={Register} />
