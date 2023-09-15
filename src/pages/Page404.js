@@ -26,7 +26,7 @@ export default function Page404() {
                         <div className="col-12">
                             <div className="contain-404">
                                 <h3 className="text-content">La page que vous recherchez est introuvable. Le lien vers cette adresse est peut-être obsolète ou nous l'avons peut-être déplacé depuis la dernière fois que vous l'avez ajouté à vos favoris.</h3>
-                                <Link to={`/`} className="btn d-inline-block btn-md text-white theme-bg-color mt-4 mx-auto">Back To Home Screen</Link>
+                                <Link to={`/`} className="btn d-inline-block btn-md text-white theme-bg-color mt-4 mx-auto">Retour à l'accueil</Link>
                             </div>
                         </div>
                     </div>

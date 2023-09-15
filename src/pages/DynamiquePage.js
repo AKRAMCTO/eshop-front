@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useParams, redirect } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
 
 import Layout from "../components/Layout";
@@ -10,7 +10,7 @@ import Breadcrumb from "../components/Breadcrumb";
 
 export default function DynamiquePage() {
     const { page } = useParams();
-    const { data, isLoading, error } = useQuery(
+    const { data, isLoading } = useQuery(
         ['getPage', page],
         () => getPage(page),
         { retry: true, refetchOnWindowFocus: false }
@@ -33,10 +33,14 @@ export default function DynamiquePage() {
             </div>
         );
     }
-    if (error) {
-        if (error.response.data.redirect)
-        return <redirect to={`/page-404`} />;
+    
+    if (!data?.status && data?.redirect) {
+        return <Redirect to={`/page-404`} />;
     }
+    // if (error) {
+    //     if (error.response.data.redirect)
+    //     return <redirect to={`/page-404`} />;
+    // }
     return (
         <Layout>
             <Helmet>

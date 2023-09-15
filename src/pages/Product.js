@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
 import { useQuery } from "react-query";
 
@@ -12,7 +12,7 @@ import Gallery from "../components/Product/Gallery";
 
 export default function Product() {
     const { product } = useParams();
-    const { data, isLoading, error } = useQuery(
+    const { data, isLoading } = useQuery(
         ['getSingleProduct', product],
         () => getSingleProduct(product),
         { retry: true, refetchOnWindowFocus: false }
@@ -34,10 +34,11 @@ export default function Product() {
             </div>
         );
     }
-    if (error) {
-        if (error.response.data.redirect)
-        return <redirect to={`/page-404`} />;
+    
+    if (!data?.status && data?.redirect) {
+        return <Redirect to={`/page-404`} />;
     }
+
     return (
         <Layout>
             <Helmet>
@@ -251,7 +252,7 @@ export default function Product() {
                 </div>
             </section>
 
-            {(data?.accessories && data?.accessories.length) && 
+            {(data?.accessories && data?.accessories.length) ? 
                 <section className="product-list-section section-b-space">
                     <div className="container-fluid-lg">
                         <div className="title">
@@ -265,6 +266,8 @@ export default function Product() {
                         </div>
                     </div>
                 </section>
+                :
+                null
             }
 
             <section className="section-b-space">
@@ -432,7 +435,7 @@ export default function Product() {
                 </div>
             </section>
 
-            {(data?.related && data?.related.length) && 
+            {(data?.related && data?.related.length) ? 
                 <section className="product-list-section section-b-space">
                     <div className="container-fluid-lg">
                         <div className="title">
@@ -446,6 +449,8 @@ export default function Product() {
                         </div>
                     </div>
                 </section>
+                :
+                null
             }
         </Layout>
     );

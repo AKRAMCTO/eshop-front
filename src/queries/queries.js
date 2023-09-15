@@ -50,7 +50,7 @@ export const getPage = async (keyPage) => {
             return res.data.data;
         }
     } catch (error) {
-        throw new Error(error);
+        return error?.response?.data;
     }
 };
 export const saveNewsletter = async (data) => {
@@ -286,7 +286,8 @@ export const getSingleProduct = async (keyPage) => {
             return res.data.data;
         }
     } catch (error) {
-        throw new Error(error);
+        // throw new Error(error);
+        return error?.response?.data;
     }
 };
 

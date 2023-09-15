@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 export default function FooterCategory({ items }) {
 
-    console.log('items')
     if(!items || !items.length) return null
     return (
         <div className="footer-contain">
