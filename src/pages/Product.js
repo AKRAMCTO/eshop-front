@@ -267,7 +267,7 @@ export default function Product() {
                 </section>
             }
 
-            <section>
+            <section className="section-b-space">
                 <div className="container-fluid-lg">
                     <div className="row">
                         <div className="col-12">
