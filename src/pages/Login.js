@@ -19,7 +19,6 @@ export default function Login() {
     };
 
     useEffect(() => {
-        console.log('errorOpen => ', errorOpen)
         if(errorOpen){
             let timer = setTimeout(() => {
                 setErrorOpen(false)
@@ -32,7 +31,6 @@ export default function Login() {
 
     useEffect(() => {
         if(errorAuthContext && errorAuthContext['login']){
-            console.log('errorAuthContext => ', errorAuthContext)
             setErrorOpen(true)
         }
     }, [errorAuthContext])

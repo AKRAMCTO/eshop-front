@@ -29,11 +29,11 @@ export default function ErrorSnackbar({ message, closeFunction }) {
     >
       
       {(typeof message == 'object') ?
-        keys.map(row => 
+        keys.map((row, keyCont) => 
           (typeof message[row] != 'array') ?
-            <div className='my-2'>
+            <div className='my-2' key={`error-container-${keyCont}`}>
               {/* <h4 className="text-uppercase mb-1 text-white">{row}</h4> */}
-              {message[row].map((line) => <h5 className="mr-3 text-white">{line}</h5>)}
+              {message[row].map((line, rowKey) => <h5 key={`error-list-${rowKey}`} className="mr-3 text-white">{line}</h5>)}
             </div>
           :
             <h5 className="mr-3 text-white">- {row}</h5>

@@ -112,8 +112,8 @@ export default function Register() {
                                         <h4>Créer un nouveau compte</h4>
                                     </div>
 
-                                    {errorOpen && (
-                                        <ErrorSnackbar message={errorMessage} closeFunction={closeError} />
+                                    {(errorAuthContext && errorAuthContext['register']) && (
+                                        <ErrorSnackbar message={errorAuthContext['register']} closeFunction={closeError} />
                                     )}
 
                                     <div className="input-box">
@@ -122,12 +122,12 @@ export default function Register() {
                                             validationSchema={ValidationSchemaForm}
                                             onSubmit={async (values) => {
                                                 setErrorOpen(false);
-                                                try {
-                                                    await registerMutation(values);
-                                                } catch (error) {
-                                                    setErrorOpen(true);
-                                                    setErrorMessage('Error register');
-                                                }
+                                                await registerMutation(values);
+                                                // try {
+                                                // } catch (error) {
+                                                //     setErrorOpen(true);
+                                                //     setErrorMessage('Error register');
+                                                // }
                                             }}
                                         >
                                             {({
@@ -140,7 +140,7 @@ export default function Register() {
                                                 handleSubmit,
                                                 isSubmitting,
                                             }) => (
-                                                <form onSubmit={handleSubmit}>
+                                                <form onSubmit={handleSubmit} className="row g-4">
                                                     <div className="col-12">
                                                         <div className="d-flex align-items-center justify-content-between">
                                                             <div className="d-flex align-items-center">
@@ -297,7 +297,7 @@ export default function Register() {
 
                                     <div className="sign-up-box">
                                         <h4>Vous avez déjà un compte?</h4>
-                                        <Link href={`login`}>Se connecter</Link>
+                                        <Link to={`/login`}>Se connecter</Link>
                                     </div>
                                 </div>
                             </div>

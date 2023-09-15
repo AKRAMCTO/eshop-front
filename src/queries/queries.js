@@ -93,16 +93,12 @@ export const userLogin = async data => {
     }
 };
 export const userRegister = async data => {
-    try {
-        const config = {
-            headers: { "Content-Type": "multipart/form-data" }
-        };
-        const res = await axios.post(`${REACT_APP_MAIN_URL}/register`, data, config);
-        if (res.data.status === true) {
-            return res.data;
-        }
-    } catch (error) {
-        return error?.response?.data?.message
+    const config = {
+        headers: { "Content-Type": "multipart/form-data" }
+    };
+    const res = await axios.post(`${REACT_APP_MAIN_URL}/register`, data, config);
+    if (res.data.status === true) {
+        return res.data;
     }
 };
 export const checkAuth = async () => {
