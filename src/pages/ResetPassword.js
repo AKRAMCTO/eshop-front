@@ -79,7 +79,7 @@ export default function ResetPassword() {
                             <div className="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
                                 <div className="d-flex align-items-center justify-content-center h-100">
                                     <div className="log-in-box">
-                                        <div className="log-in-title">
+                                        <div className="log-in-title mb-4">
                                             <h3>Bienvenue chez Ecowatt</h3>
                                             <h4>Réinitialiser le mot de passe</h4>
                                         </div>

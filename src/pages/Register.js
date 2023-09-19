@@ -10,16 +10,19 @@ import { AuthProvider } from "../contexts/AuthContext";
 import AuthLayout from "../components/AuthLayout";
 import ErrorSnackbar from "../components/ErrorSnackbar";
 import Breadcrumb from "../components/Breadcrumb";
-
-const SUPPORTED_FORMATS = ['application/pdf'];
-const FILE_SIZE = 1024 * 2048
+import { Eye, EyeOff } from "react-feather";
 
 export default function Register() {
     const { registerMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);
     const [errorOpen, setErrorOpen] = React.useState(false);
+    const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+
     const closeError = () => {
         setErrorOpen(false);
+    };
+    const togglePasswordStatus = () => {
+        setPasswordStatus(!passwordStatus);
     };
 
     useEffect(() => {
@@ -47,31 +50,13 @@ export default function Register() {
         mobile: number().required('Ce champ est obligatoire'),
         password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         rc: string().when('type', {
-            is: (val) => ["professional", "seller"].includes(val), // (value === 'professional' || value === 'seller'),
+            is: (val) => ["professional"].includes(val),
             then: (schema) => schema.required("Ce champ est obligatoire"),
         }),
         ice: string().when('type', {
-            is: (val) => ["professional", "seller"].includes(val), // (value === 'professional' || value === 'seller'),
+            is: (val) => ["professional"].includes(val),
             then: (schema) => schema.required("Ce champ est obligatoire"),
-        }),
-        rc_file: mixed().when("type", {
-            is: (val) => val === 'seller',
-            then: (schema) => schema.required("Ce champ est obligatoire")
-                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
-                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
-        }),
-        ice_file: mixed().when("type", {
-            is: (val) => val === 'seller',
-            then: (schema) => schema.required("Ce champ est obligatoire")
-                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
-                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
-        }),
-        cin_file: mixed().when("type", {
-            is: (val) => val === 'seller',
-            then: (schema) => schema.required("Ce champ est obligatoire")
-                                    .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
-                                    .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
-        }),
+        })
     });
 
     const genInitialValues = () => ({ 
@@ -82,10 +67,7 @@ export default function Register() {
         mobile: '',
         password: '',
         rc: '',
-        ice: '',
-        rc_file: '',
-        ice_file: '',
-        cin_file: ''
+        ice: ''
     });
 
     return (
@@ -107,7 +89,7 @@ export default function Register() {
 
                             <div className="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
                                 <div className="log-in-box">
-                                    <div className="log-in-title">
+                                    <div className="log-in-title mb-4">
                                         <h3>Bienvenue chez Ecowatt</h3>
                                         <h4>Créer un nouveau compte</h4>
                                     </div>
@@ -121,13 +103,8 @@ export default function Register() {
                                             initialValues={genInitialValues()}
                                             validationSchema={ValidationSchemaForm}
                                             onSubmit={async (values) => {
-                                                setErrorOpen(false);
-                                                await registerMutation(values);
-                                                // try {
-                                                // } catch (error) {
-                                                //     setErrorOpen(true);
-                                                //     setErrorMessage('Error register');
-                                                // }
+                                                setErrorOpen(false)
+                                                await registerMutation(values)
                                             }}
                                         >
                                             {({
@@ -146,17 +123,12 @@ export default function Register() {
                                                             <div className="d-flex align-items-center">
                                                                 <input type="radio" id="individual" name="type" checked={values.type === 'individual'} onChange={handleChange} onBlur={handleBlur} value={`individual`} />
                                                                 &nbsp;
-                                                                <label htmlFor="individual">Individual</label>
+                                                                <label htmlFor="individual">Particulier</label>
                                                             </div>
                                                             <div className="d-flex align-items-center">
                                                                 <input type="radio" id="professional" name="type" checked={values.type === 'professional'} onChange={handleChange} onBlur={handleBlur} value={`professional`} />
                                                                 &nbsp;
                                                                 <label htmlFor="professional">Professional</label>
-                                                            </div>
-                                                            <div className="d-flex align-items-center">
-                                                                <input type="radio" id="seller" name="type" checked={values.type === 'seller'} onChange={handleChange} onBlur={handleBlur} value={`seller`} />
-                                                                &nbsp;
-                                                                <label htmlFor="seller">Vendeur</label>
                                                             </div>
                                                         </div>
                                                         <span className='error-form'>{errors.type && touched.type && errors.type}</span>
@@ -189,15 +161,20 @@ export default function Register() {
                                                         </div>
                                                         <span className='error-form'>{errors.mobile && touched.mobile && errors.mobile}</span>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 form-group-password">
                                                         <div className="form-floating theme-form-floating">
-                                                            <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                                                            <input type={(passwordStatus) ? "text" : "password"} className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
                                                             <label htmlFor="password">Mot de passe</label>
+                                                            {(passwordStatus) ? 
+                                                                <Eye onClick={togglePasswordStatus} />
+                                                                : 
+                                                                <EyeOff onClick={togglePasswordStatus} />
+                                                            }
                                                         </div>
                                                         <span className='error-form'>{errors.password && touched.password && errors.password}</span>
                                                     </div>
                                                     
-                                                    {(values.type === 'professional' || values.type === 'seller') && 
+                                                    {(values.type === 'professional') && 
                                                         <>
                                                             <div className="col-12">
                                                                 <div className="form-floating theme-form-floating">
@@ -212,44 +189,6 @@ export default function Register() {
                                                                     <label htmlFor="ice">ICE</label>
                                                                 </div>
                                                                 <span className='error-form'>{errors.ice && touched.ice && errors.ice}</span>
-                                                            </div>
-                                                        </>
-                                                    }
-                                                    
-                                                    {(values.type === 'seller') && 
-                                                        <>
-                                                            <div className="col-12">
-                                                                <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="rc_file" name="rc_file" 
-                                                                        onChange={(event) => {
-                                                                            setFieldValue("rc_file", event.currentTarget.files[0]);
-                                                                        }}
-                                                                        onBlur={handleBlur} />
-                                                                    <label htmlFor="rc_file">RC file</label>
-                                                                </div>
-                                                                <span className='error-form'>{errors.rc_file && touched.rc_file && errors.rc_file}</span>
-                                                            </div>
-                                                            <div className="col-12">
-                                                                <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="ice_file" name="ice_file"
-                                                                        onChange={(event) => {
-                                                                            setFieldValue("ice_file", event.currentTarget.files[0]);
-                                                                        }}
-                                                                        onBlur={handleBlur} />
-                                                                    <label htmlFor="ice_file">ICE file</label>
-                                                                </div>
-                                                                <span className='error-form'>{errors.ice_file && touched.ice_file && errors.ice_file}</span>
-                                                            </div>
-                                                            <div className="col-12">
-                                                                <div className="form-floating theme-form-floating">
-                                                                    <input accept="application/pdf" type="file" className="form-control" id="cin_file" name="cin_file"
-                                                                        onChange={(event) => {
-                                                                            setFieldValue("cin_file", event.currentTarget.files[0]);
-                                                                        }}
-                                                                        onBlur={handleBlur} />
-                                                                    <label htmlFor="cin_file">CIN file</label>
-                                                                </div>
-                                                                <span className='error-form'>{errors.cin_file && touched.cin_file && errors.cin_file}</span>
                                                             </div>
                                                         </>
                                                     }

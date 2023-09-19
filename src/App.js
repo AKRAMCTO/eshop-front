@@ -15,6 +15,7 @@ const Home = React.lazy(() => import('./pages/Home'))
 const Login = React.lazy(() => import('./pages/Login'))
 const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'))
 const ResetPassword = React.lazy(() => import('./pages/ResetPassword'))
+const RegisterSeller = React.lazy(() => import('./pages/RegisterSeller'))
 const Register = React.lazy(() => import('./pages/Register'))
 const Page404 = React.lazy(() => import('./pages/Page404'));
 const MyAccount = React.lazy(() => import('./pages/MyAccountContainer'));
@@ -27,6 +28,7 @@ function App() {
       <BrowserRouter basename="/">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/devenir-vendeur" component={RegisterSeller} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />

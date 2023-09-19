@@ -126,21 +126,6 @@ export default function EditAddress({ address, SelectModelTitle, modelClose }) {
                     <div className="modal-body">
                         <div className="row g-4">
                             <div className="col-12">
-                                <div className="form-floating theme-form-floating">
-                                    <input type="text" className="form-control" id="line_1" name="line_1" onChange={handleChange} onBlur={handleBlur} value={values.line_1} />
-                                    <label htmlFor="line_1">Ligne 1</label>
-                                </div>
-                                <span className='error-form'>{errors.line_1 && touched.line_1 && errors.line_1}</span>
-                            </div>
-                            <div className="col-12">
-                                <div className="form-floating theme-form-floating">
-                                    <input type="text" className="form-control" id="line_2" name="line_2" onChange={handleChange} onBlur={handleBlur} value={values.line_2} />
-                                    <label htmlFor="line_2">Ligne 2</label>
-                                </div>
-                                <span className='error-form'>{errors.line_2 && touched.line_2 && errors.line_2}</span>
-                            </div>
-
-                            <div className="col-12">
                                 <div className="d-flex align-items-center justify-content-start">
                                     <div className="d-flex align-items-center">
                                         <input type="radio" id="delivery" name="type" checked={values.type === 'delivery'} onChange={handleChange} onBlur={handleBlur} value={`delivery`} />
@@ -155,6 +140,21 @@ export default function EditAddress({ address, SelectModelTitle, modelClose }) {
                                     </div>
                                 </div>
                                 <span className='error-form'>{errors.type && touched.type && errors.type}</span>
+                            </div>
+
+                            <div className="col-12">
+                                <div className="form-floating theme-form-floating">
+                                    <input type="text" className="form-control" id="line_1" name="line_1" onChange={handleChange} onBlur={handleBlur} value={values.line_1} />
+                                    <label htmlFor="line_1">Ligne 1</label>
+                                </div>
+                                <span className='error-form'>{errors.line_1 && touched.line_1 && errors.line_1}</span>
+                            </div>
+                            <div className="col-12">
+                                <div className="form-floating theme-form-floating">
+                                    <input type="text" className="form-control" id="line_2" name="line_2" onChange={handleChange} onBlur={handleBlur} value={values.line_2} />
+                                    <label htmlFor="line_2">Ligne 2</label>
+                                </div>
+                                <span className='error-form'>{errors.line_2 && touched.line_2 && errors.line_2}</span>
                             </div>
 
                             <div className="col-12 col-xl-6">

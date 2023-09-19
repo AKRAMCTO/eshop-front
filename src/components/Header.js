@@ -259,7 +259,7 @@ export default function Heade() {
                                                             width={20}
                                                             visible={authenticationLoading}
                                                         />
-                                                    ) : userId ? (
+                                                    ) : (userId ? (
                                                         <>
                                                             <li className="product-box-contain">
                                                                 <i></i>
@@ -287,7 +287,7 @@ export default function Heade() {
                                                                 <Link to={`/forgot-password`}>Mot de passe oublié</Link>
                                                             </li>
                                                         </>
-                                                    )}
+                                                    ))}
                                                 </ul>
                                             </div>
                                         </li>
@@ -307,12 +307,21 @@ export default function Heade() {
 
                             <MenuPrimary menu={menu} toggleMenu={toggleMenu} />
 
-                            <a className="header-nav-right" href="./pages/seller-become.html">
-                                <button className="btn deal-button">
-                                    <Zap />
-                                    <span>Devenir vendeur</span>
-                                </button>
-                            </a>
+                            {(!authenticationLoading && !authenticationFetching)
+                                ?
+                                    (!userId ? 
+                                        <Link to={`/devenir-vendeur`} className="header-nav-right">
+                                            <button className="btn deal-button">
+                                                <Zap />
+                                                <span>Devenir vendeur</span>
+                                            </button>
+                                        </Link>
+                                    :
+                                        <div />
+                                    )
+                                :
+                                <div />
+                            }
                         </div>
                     </div>
                 </div>

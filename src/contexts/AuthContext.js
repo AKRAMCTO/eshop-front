@@ -4,6 +4,7 @@ import {
     checkAuth,
     userLogin,
     userRegister,
+    userRegisterSeller,
     getAddresses,
     removeAddress
 } from './../queries/queries';
@@ -72,6 +73,23 @@ export default function AuthContextProvider({ children }) {
     });
 
     /**
+     * User Register
+     */
+    const { mutate: registerSellerMutation } = useMutation(userRegisterSeller, {
+        onSuccess: data => {
+            if (data.status === true) {
+                setSuccessAuthContext({registerSeller: data?.message})
+                // localStorage.setItem('ecowattAuthToken', data.token);
+                // queryClient.invalidateQueries('authentication');
+            }
+        },
+        onError: (error) => {
+            setErrorAuthContext({register: error?.response?.data?.message})
+        },
+        throwOnError: true,
+    });
+
+    /**
      * User Logout
      */
     const { mutate: logoutMutation } = useMutation(() => {
@@ -119,6 +137,7 @@ export default function AuthContextProvider({ children }) {
                 authenticationLoading,
                 userData: data?.userData ?? null,
                 userId: data?.userData?.id ?? null,
+                registerSellerMutation,
                 registerMutation,
                 loginMutation,
                 logoutMutation,

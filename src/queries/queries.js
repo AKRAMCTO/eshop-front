@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const REACT_APP_MAIN_URL = `http://127.0.0.1:8000/api`
-const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
+const REACT_APP_MAIN_URL = `http://127.0.0.1:8001/api`
+// const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
 
 export const getSiteSettings = async () => {
     try {
@@ -97,6 +97,15 @@ export const userRegister = async data => {
         headers: { "Content-Type": "multipart/form-data" }
     };
     const res = await axios.post(`${REACT_APP_MAIN_URL}/register`, data, config);
+    if (res.data.status === true) {
+        return res.data;
+    }
+};
+export const userRegisterSeller = async data => {
+    const config = {
+        headers: { "Content-Type": "multipart/form-data" }
+    };
+    const res = await axios.post(`${REACT_APP_MAIN_URL}/register-seller`, data, config);
     if (res.data.status === true) {
         return res.data;
     }

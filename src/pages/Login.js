@@ -9,13 +9,19 @@ import { object, string } from "yup";
 import { Formik } from "formik";
 import ErrorSnackbar from "../components/ErrorSnackbar";
 import Breadcrumb from "../components/Breadcrumb";
+import { Eye, EyeOff } from "react-feather";
 
 export default function Login() {
     const { loginMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);
     const [errorOpen, setErrorOpen] = React.useState(false);
+    const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+    
     const closeError = () => {
         setErrorOpen(false);
+    };
+    const togglePasswordStatus = () => {
+        setPasswordStatus(!passwordStatus);
     };
 
     useEffect(() => {
@@ -64,7 +70,7 @@ export default function Login() {
 
                             <div className="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
                                 <div className="log-in-box">
-                                    <div className="log-in-title">
+                                    <div className="log-in-title mb-4">
                                         <h3>Bienvenue chez Ecowatt</h3>
                                         <h4>Connectez-vous à votre compte</h4>
                                     </div>
@@ -100,10 +106,15 @@ export default function Login() {
                                                         <span className='error-form'>{errors.email && touched.email && errors.email}</span>
                                                     </div>
 
-                                                    <div className="col-12">
+                                                    <div className="col-12 form-group-password">
                                                         <div className="form-floating theme-form-floating log-in-form">
-                                                            <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                                                            <input type={(passwordStatus) ? "text" : "password"}className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
                                                             <label htmlFor="password">Mot de passe</label>
+                                                            {(passwordStatus) ? 
+                                                                <Eye onClick={togglePasswordStatus} />
+                                                                : 
+                                                                <EyeOff onClick={togglePasswordStatus} />
+                                                            }
                                                         </div>
                                                         <span className='error-form'>{errors.password && touched.password && errors.password}</span>
                                                     </div>
