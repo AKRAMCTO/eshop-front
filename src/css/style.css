@@ -21802,6 +21802,11 @@ header .offcanvas-backdrop {
 }
 .product-section .right-box-contain .note-box .cart-button {
   animation: shake 150ms 2 linear;
+  background-color: #ff4d02 !important;
+}
+.product-section .right-box-contain .note-box .cart-button svg{
+  margin-right: 10px;
+  width: 20px;
 }
 .product-section .right-box-contain .note-box .product-qty {
   width: auto;
@@ -21861,7 +21866,9 @@ header .offcanvas-backdrop {
   flex-wrap: wrap;
   gap: calc(5px + 3 * (100vw - 320px) / 1600);
   align-items: center;
-  color: #777;
+  color: #000;
+  font-weight: 800;
+  cursor: pointer;
 }
 .product-section .right-box-contain .buy-box a svg {
   width: 17px;

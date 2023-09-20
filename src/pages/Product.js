@@ -9,6 +9,7 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import SlideProducts from "../components/SlideProducts";
 import Gallery from "../components/Product/Gallery";
+import { Heart, ShoppingCart } from "react-feather";
 
 export default function Product() {
     const { product } = useParams();
@@ -172,12 +173,15 @@ export default function Product() {
                                                 </div>
                                             </div>
 
-                                            <button className="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                            <button className="btn btn-md bg-dark cart-button text-white w-100">
+                                                <ShoppingCart />
+                                                Add To Cart
+                                            </button>
                                         </div>
 
                                         <div className="buy-box">
-                                            <a href="wishlist.html">
-                                                <i data-feather="heart"></i>
+                                            <a>
+                                                <Heart />
                                                 <span>Add To Wishlist</span>
                                             </a>
                                         </div>
