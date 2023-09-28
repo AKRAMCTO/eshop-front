@@ -6850,12 +6850,13 @@ header .header-nav .header-nav-left .category-dropdown .category-list li a i {
   }
 }
 header .header-nav .header-nav-right .deal-button {
-  color: var(--theme-color);
+  color: #fff;
   padding: calc(6px + 9 * (100vw - 320px) / 1600) calc(11px + 9 * (100vw - 320px) / 1600);
   position: relative;
   border-radius: 5px;
   overflow: hidden;
   z-index: 0;
+  background-color: #ff4d02;
 }
 header .header-nav .header-nav-right .deal-button::before {
   content: "";
@@ -6864,7 +6865,7 @@ header .header-nav .header-nav-right .deal-button::before {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: var(--theme-color);
+  background-color: #fff;
   opacity: 0.1;
   z-index: -1;
 }
@@ -9656,7 +9657,7 @@ header .location-box button i {
 }
 
 .header-bottom {
-  border-bottom: 1px solid rgba(19, 32, 105, 0.9921568627);
+  /* border-bottom: 1px solid rgba(19, 32, 105, 0.9921568627); */
   padding-bottom: 8px;
 }
 
@@ -12525,12 +12526,13 @@ header .offcanvas-backdrop {
 }
 .product-box .product-image .product-option li {
   position: relative;
-  width: 33.33%;
+  /* width: 33.33%; */
+  padding: 0 10px;
 }
-.product-box .product-image .product-option li a {
+.product-box .product-image .product-option li a , .product-box .product-image .product-option li button {
   color: #222222;
 }
-.product-box .product-image .product-option li a svg {
+.product-box .product-image .product-option li a svg , .product-box .product-image .product-option li button svg {
   width: 17px;
   height: auto;
   color: #4a5568;
@@ -13411,6 +13413,7 @@ header .offcanvas-backdrop {
   background-color: #f8f8f8;
   border-radius: 5px;
   transition: all 0.4s ease-in-out;
+  /* border: 1px solid #ececec; */
 }
 .product-box-3.theme-bg-white {
   background-color: #ffffff;
@@ -21861,7 +21864,7 @@ header .offcanvas-backdrop {
     justify-content: center;
   }
 }
-.product-section .right-box-contain .buy-box a {
+.product-section .right-box-contain .buy-box a, .product-section .right-box-contain .buy-box button {
   display: flex;
   flex-wrap: wrap;
   gap: calc(5px + 3 * (100vw - 320px) / 1600);
@@ -21870,8 +21873,11 @@ header .offcanvas-backdrop {
   font-weight: 800;
   cursor: pointer;
 }
-.product-section .right-box-contain .buy-box a svg {
-  width: 17px;
+.product-section .right-box-contain .buy-box a, .product-section .right-box-contain .buy-box button.active {
+  color: #e42c34;
+}
+.product-section .right-box-contain .buy-box a svg, .product-section .right-box-contain .buy-box button svg {
+  width: 20px;
   height: auto;
 }
 .product-section .right-box-contain .pickup-box {
@@ -22499,6 +22505,27 @@ header .offcanvas-backdrop {
 .adress_html{width: 100%;}
 .adress_html p{margin: 0;}
 .adress_html strong{font-weight: 900;color: #fff;}
+
+.notifi-wishlist{
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: #222222;
+}
+.notifi-wishlist.active{
+  color: #e42c34;
+}
+
+header{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 99;
+  background-color: #fff;
+  padding-bottom: 0 !important;
+  box-shadow: 0 0 10px 1px rgba(0,0,0,.13);
+  margin-bottom: 1.5rem;
+}
 
 /**=====================
     RTL css

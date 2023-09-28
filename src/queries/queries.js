@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const REACT_APP_MAIN_URL = `http://127.0.0.1:8001/api`
+// const REACT_APP_MAIN_URL = `http://127.0.0.1:8000/api`
 const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
 
 export const getSiteSettings = async () => {
@@ -113,7 +113,7 @@ export const userRegisterSeller = async data => {
 export const checkAuth = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const config = { headers: { Authorization: `Bearer ${token}` }};
+        const config = { headers: { Authorization: `Bearer ${token}` } };
         const res = await axios.get(
             `${REACT_APP_MAIN_URL}/customer-informations`,
             config
@@ -156,7 +156,7 @@ export const editUserProfileInfo = async data => {
     try {
         const token = localStorage.getItem('ecowattAuthToken');
         const config = {
-            headers: { 
+            headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"
             }
@@ -320,11 +320,11 @@ export const getCities = async (keyCountry) => {
 };
 
 
-// Addresses
+// ADDRESSE
 export const getAddresses = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const config = {headers: { Authorization: `Bearer ${token}` }};
+        const config = { headers: { Authorization: `Bearer ${token}` } };
 
         const res = await axios.get(`${REACT_APP_MAIN_URL}/addresses`, config);
         if (res.data.status === true) {
@@ -337,7 +337,7 @@ export const getAddresses = async () => {
 export const addAddress = async data => {
     try {
         const token = localStorage.getItem('ecowattAuthToken');
-        const config = {headers: { Authorization: `Bearer ${token}` }};
+        const config = { headers: { Authorization: `Bearer ${token}` } };
 
         const res = await axios.post(
             `${REACT_APP_MAIN_URL}/add-address`,
@@ -362,7 +362,7 @@ export const addAddress = async data => {
 export const editAddress = async (data, keyAddress) => {
     try {
         const token = localStorage.getItem('ecowattAuthToken');
-        const config = {headers: { Authorization: `Bearer ${token}` }};
+        const config = { headers: { Authorization: `Bearer ${token}` } };
 
         const res = await axios.post(
             `${REACT_APP_MAIN_URL}/update-address/${keyAddress}`,
@@ -387,7 +387,7 @@ export const editAddress = async (data, keyAddress) => {
 export const removeAddress = async (keyAddress) => {
     try {
         const token = localStorage.getItem('ecowattAuthToken');
-        const config = {headers: { Authorization: `Bearer ${token}` }};
+        const config = { headers: { Authorization: `Bearer ${token}` } };
 
         const res = await axios.get(`${REACT_APP_MAIN_URL}/remove-address/${keyAddress}`, config);
         if (res.data.status === true) {
@@ -396,5 +396,164 @@ export const removeAddress = async (keyAddress) => {
     } catch (error) {
         console.log('removeAddress Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
+    }
+};
+
+
+// WISHLIST
+export const getWishlistItems = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.get(
+        `${REACT_APP_MAIN_URL}/wishlist`,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const addToWishlist = async (id) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/wishlist/store`,
+        { product: id },
+        config
+    );
+
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const removeFromWishlist = async (id) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/wishlist/remove`,
+        { product: id },
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const cleatWishlist = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.get(
+        `${REACT_APP_MAIN_URL}/wishlist/clear`,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const getWishlistItemsGuest = async () => {
+    const wishlist = JSON.parse(localStorage.getItem('ecowattWishlist'))
+    
+    console.log('getWishlistItemsGuest => ', wishlist, wishlist.length)
+
+    if(wishlist && wishlist.length){
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/guest-wishlist`,
+            { products: wishlist }
+        );
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    }
+    return []
+};
+
+
+// CART
+export const getCartItems = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.get(
+        `${REACT_APP_MAIN_URL}/cart`,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const addToCart = async (data) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/cart/store`,
+        data,
+        config
+    );
+
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const updateToCart = async (data) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/cart/update`,
+        data,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const removeCart = async (data) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/cart/remove`,
+        data,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const clearCart = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.get(
+        `${REACT_APP_MAIN_URL}/cart/clear`,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+};
+export const cleanCart = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.get(
+        `${REACT_APP_MAIN_URL}/cart/clean`,
+        config
+    );
+    if (res.data.status === true) {
+        return res.data.data;
     }
 };

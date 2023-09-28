@@ -63,7 +63,7 @@ export default function ContactPhone() {
                     <ul className="cart-list">
                         <li className="w-100 product-box-contain">
                             <div className="drop-cart">
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                <p>Profitez de notre expertise sans engagement ! Laissez-nous vous aider en planifiant un appel gratuit pour discuter de vos besoins.</p>
                             </div>
                         </li>
 

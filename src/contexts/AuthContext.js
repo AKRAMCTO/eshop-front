@@ -94,7 +94,7 @@ export default function AuthContextProvider({ children }) {
      */
     const { mutate: logoutMutation } = useMutation(() => {
         queryClient.setQueryData('authentication', () => {
-            return { userData: { userId: null } };
+            return { userData: { userId: null, userData: null, isLoggedIn: false } };
         });
         localStorage.removeItem('ecowattAuthToken');
     });
@@ -109,6 +109,7 @@ export default function AuthContextProvider({ children }) {
         isFetching: addressesFetching
     } = useQuery('addresses', getAddresses, {
         retry: 1,
+        enabled: (data?.userData?.id ? true : false),
         refetchOnWindowFocus: false
     });
 
@@ -137,6 +138,7 @@ export default function AuthContextProvider({ children }) {
                 authenticationLoading,
                 userData: data?.userData ?? null,
                 userId: data?.userData?.id ?? null,
+                isLoggedIn: (data?.userData && data?.userData?.id) ? true : false,
                 registerSellerMutation,
                 registerMutation,
                 loginMutation,

@@ -7,10 +7,12 @@ import MenuPrimary from './MenuPrimary';
 import MenuCategories from './MenuCategories';
 import { TailSpin } from 'react-loader-spinner';
 import { AuthProvider } from '../contexts/AuthContext';
+import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 
 export default function Heade() {
     const { settings, isMobile } = React.useContext(DataProvider);
-    const { userData, userId, authenticationFetching, authenticationLoading, logoutMutation } = useContext(AuthProvider);
+    const { isLoggedIn, userData, userId, authenticationFetching, authenticationLoading, logoutMutation } = useContext(AuthProvider);
+    const { wishlistItemsLength, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading } = useContext(CartAndWishlistProvider);
     const [ menu, setMenu ] = useState(false)
 
     const toggleMenu = (value) => setMenu(value)
@@ -74,7 +76,7 @@ export default function Heade() {
                                             <input
                                                 type="search"
                                                 className="form-control"
-                                                placeholder="I'm searching for..."
+                                                placeholder="Rechercher sur Ecowatt"
                                                 aria-label="Recipient's username"
                                                 aria-describedby="button-addon2"
                                             />
@@ -94,7 +96,7 @@ export default function Heade() {
                                             <input
                                                 type="text"
                                                 className="form-control search-type"
-                                                placeholder="Search here.."
+                                                placeholder="Rechercher sur Ecowatt"
                                             />
                                             <span className="input-group-text close-search">
                                                 <X />
@@ -130,12 +132,24 @@ export default function Heade() {
                                             </div>
                                         </li>
                                         <li className="right-side">
-                                            <a
-                                                href="wishlist.html"
+                                            <Link
+                                                to={(isLoggedIn) ? `/account/wishlist` : `wishlist`}
                                                 className="btn p-0 position-relative header-wishlist"
                                             >
                                                 <Heart />
-                                            </a>
+                                                <span className="position-absolute top-0 start-100 translate-middle badge">
+                                                    {(wishlistItemsLoading || addWishlistLoading || removeWishlistLoading) ? 
+                                                        <TailSpin
+                                                            color="#fff"
+                                                            height={10}
+                                                            width={10}
+                                                            visible={!wishlistItemsLoading || addWishlistLoading || removeWishlistLoading}
+                                                        />
+                                                    :
+                                                        wishlistItemsLength
+                                                    }
+                                                </span>
+                                            </Link>
                                         </li>
                                         <li className="right-side">
                                             <div className="onhover-dropdown header-badge">
@@ -144,12 +158,7 @@ export default function Heade() {
                                                     className="btn p-0 position-relative header-wishlist"
                                                 >
                                                     <ShoppingBag />
-                                                    <span className="position-absolute top-0 start-100 translate-middle badge">
-                                                        2
-                                                        <span className="visually-hidden">
-                                                            unread messages
-                                                        </span>
-                                                    </span>
+                                                    <span className="position-absolute top-0 start-100 translate-middle badge">2</span>
                                                 </button>
 
                                                 <div className="onhover-div">
@@ -243,7 +252,7 @@ export default function Heade() {
                                                     <User />
                                                 </div>
                                                 <div className="delivery-detail">
-                                                    <h6>Hello,<br />{(userId && userData) ? userData.full_name : 'Guest'}</h6>
+                                                    <h6>Hello,<br />{(isLoggedIn) ? userData.full_name : 'Guest'}</h6>
                                                 </div>
                                             </div>
 
@@ -281,7 +290,7 @@ export default function Heade() {
                                                                 <Link to={`/login`}>Se connecter</Link>
                                                             </li>
                                                             <li className="product-box-contain">
-                                                                <Link to={`/register`}>Registre</Link>
+                                                                <Link to={`/register`}>Inscrivez-vous</Link>
                                                             </li>
                                                             <li className="product-box-contain">
                                                                 <Link to={`/forgot-password`}>Mot de passe oublié</Link>

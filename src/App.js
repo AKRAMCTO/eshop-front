@@ -22,6 +22,9 @@ const MyAccount = React.lazy(() => import('./pages/MyAccountContainer'));
 const Product = React.lazy(() => import('./pages/Product'));
 const Products = React.lazy(() => import('./pages/Products'));
 
+// GUEST
+const GuestWishlist = React.lazy(() => import('./pages/GuestWishlist'));
+
 function App() {
   return (
     <Suspense fallback={<Loading />}>
@@ -38,7 +41,9 @@ function App() {
           <Route path="/products" component={Products} />
           <Route path="/page-404" component={Page404} />
           
-          <ProtectedRoute path="/account" Component={MyAccount} />
+          <Route path="/wishlist" component={GuestWishlist} />
+          
+          <ProtectedRoute path="/account/:key?" Component={MyAccount} />
         </Switch>
       </BrowserRouter>
     </Suspense>

@@ -9,10 +9,10 @@ export default function Loading() {
             <title>Loading... | Ecowatt</title>
         </Helmet>
         <InfinitySpin
-            type="ThreeDots"
-            color="#2A3466"
-            height={220}
-            width={220}
+          type="ThreeDots"
+          color="#2A3466"
+          height={220}
+          width={220}
         />
     </div>
   );

@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import Loading from './Loading';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
 import { DataProvider } from '../contexts/DataContext';
+import { Heart, Home, MapPin, ShoppingBag, User } from 'react-feather';
 
-export default function LayoutAccount({ type, ChooseType, children }) {
+export default function LayoutAccount({ type, children }) {
   const { isMobile, isTablet } = useContext(DataProvider);
   const { userData } = useContext(AuthProvider);
   const [menu, setMenu] = useState(false)
@@ -51,58 +52,53 @@ export default function LayoutAccount({ type, ChooseType, children }) {
 
               <ul className="nav nav-pills user-nav-pills">
                 <li className="nav-item">
-                  <button 
+                  <Link
                     className={`nav-link ${type === 'account' && 'active'}`} 
-                    type="button"
-                    onClick={() => ChooseType('account')}
+                    to={`/account`}
                   >
-                    <i data-feather="home"></i>
+                    <Home />
                     Tableau de bord
-                  </button>
+                  </Link>
                 </li>
 
                 <li className="nav-item">
-                  <button 
+                  <Link 
                     className={`nav-link ${type === 'orders' && 'active'}`} 
-                    type="button"
-                    onClick={() => ChooseType('orders')}
+                    to={`/account/orders`}
                   >
-                    <i data-feather="shopping-bag"></i>
+                    <ShoppingBag />
                     Commandes
-                  </button>
+                  </Link>
                 </li>
 
                 <li className="nav-item">
-                  <button 
+                  <Link 
                     className={`nav-link ${type === 'wishlist' && 'active'}`} 
-                    type="button"
-                    onClick={() => ChooseType('wishlist')}
+                    to={`/account/wishlist`}
                   >
-                    <i data-feather="heart"></i>
+                    <Heart />
                     Wishlist
-                  </button>
+                  </Link>
                 </li>
 
                 <li className="nav-item">
-                  <button 
+                  <Link 
                     className={`nav-link ${type === 'addresses' && 'active'}`} 
-                    type="button"
-                    onClick={() => ChooseType('addresses')}
+                    to={`/account/addresses`}
                   >
-                    <i data-feather="map-pin"></i>
+                    <MapPin />
                     Address
-                  </button>
+                  </Link>
                 </li>
 
                 <li className="nav-item">
-                  <button 
+                  <Link 
                     className={`nav-link ${type === 'profile' && 'active'}`} 
-                    type="button"
-                    onClick={() => ChooseType('profile')}
+                    to={`/account/profile`}
                   >
-                    <i data-feather="user"></i>
+                    <User />
                     Profile
-                  </button>
+                  </Link>
                 </li>
 
                 {/* <li className="nav-item">

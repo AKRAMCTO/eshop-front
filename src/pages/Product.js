@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams, Redirect } from "react-router-dom";
-import { InfinitySpin } from "react-loader-spinner";
+import { InfinitySpin, TailSpin } from "react-loader-spinner";
 import { useQuery } from "react-query";
 
 import { getSingleProduct } from "../queries/queries";
@@ -10,6 +10,8 @@ import Breadcrumb from "../components/Breadcrumb";
 import SlideProducts from "../components/SlideProducts";
 import Gallery from "../components/Product/Gallery";
 import { Heart, ShoppingCart } from "react-feather";
+import { CartAndWishlistProvider } from "../contexts/CartAndWishlistContext";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export default function Product() {
     const { product } = useParams();
@@ -18,6 +20,45 @@ export default function Product() {
         () => getSingleProduct(product),
         { retry: true, refetchOnWindowFocus: false }
     );
+    const { isLoggedIn } = useContext(AuthProvider)
+    const { wishListDataKeys, addToWishListMutation, storeGuestWishlistItem, removeFromWishListMutation, removeGuestWishlistItem } = useContext(CartAndWishlistProvider)
+    const [addItemInWishlist, setAddItemInWishlist] = useState(false)
+    const [addLoading, setAddLoading] = useState(false)
+    const [removeLoading, setRemoveLoading] = useState(false)
+
+    useEffect(() => {
+        if(data && wishListDataKeys.includes(data?.id)){
+            setAddItemInWishlist(true)
+        }else{
+            setAddItemInWishlist(false)
+        }
+    },[data, wishListDataKeys])
+
+    const handleAddToWishList = async () => {
+        setAddLoading(true);
+        try {
+            if(isLoggedIn) await addToWishListMutation(data?.id);
+            else await storeGuestWishlistItem(data?.id);
+            setAddLoading(false);
+            // setAddItemInWishlist(true);
+        } catch (error) {
+            // console.log('addToWishListMutation error => ', error)
+            // if (error.response.data.message === 'Item founded on the Wishlist') {
+            //     setAddItemInWishlist(true);
+            // }
+            setAddLoading(false);
+        }
+    };
+    const handleRemoveFromWishList = async () => {
+        setRemoveLoading(true);
+        try {
+            if(isLoggedIn) await removeFromWishListMutation(data?.id);
+            else await removeGuestWishlistItem(data?.id);
+            setRemoveLoading(false);
+        } catch (error) {
+            setRemoveLoading(false);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -35,7 +76,6 @@ export default function Product() {
             </div>
         );
     }
-    
     if (!data?.status && data?.redirect) {
         return <Redirect to={`/page-404`} />;
     }
@@ -180,10 +220,22 @@ export default function Product() {
                                         </div>
 
                                         <div className="buy-box">
-                                            <a>
-                                                <Heart />
-                                                <span>Add To Wishlist</span>
-                                            </a>
+                                            {(addLoading || removeLoading) ? 
+                                                <TailSpin
+                                                    color="#2A3466"
+                                                    height={16}
+                                                    width={16}
+                                                    visible={addLoading}
+                                                />
+                                            : 
+                                                <button 
+                                                    onClick={(addItemInWishlist) ? handleRemoveFromWishList : handleAddToWishList}
+                                                    type="button" 
+                                                    className={`notifi-wishlist ${addItemInWishlist && 'active'}`}
+                                                >
+                                                    <Heart /> <span>Add To Wishlist</span>
+                                                </button>
+                                            }
                                         </div>
 
                                         <div className="pickup-box">

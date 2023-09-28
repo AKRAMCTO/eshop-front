@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import Layout from "./../components/Layout";
@@ -18,13 +18,19 @@ import Password from "../components/AccountPopups/Password";
 import Profile from "../components/AccountPopups/Profile";
 import AddAddress from "../components/AccountPopups/AddAddress";
 import EditAddress from "../components/AccountPopups/EditAddress";
+import { useParams, Redirect } from "react-router-dom";
 
 export default function MyAccountContainer() {
+    const { key } = useParams();
     const { userData } = useContext(AuthProvider);
-    const [ type, setType ] = useState('account')
+    const [ type, setType ] = useState(key)
     const [ modelType, setModelType ] = useState(null)
     const [ modelTitle, setModelTitle ] = useState(null)
     const [ modelStatus, setModelStatus ] = useState(false)
+
+    useEffect(() => {
+        setType(key)
+    }, [key])
     
     const [ currentAddressEdit, setCurrentAddressEdit ] = useState(null)
     const selectCurrentAddress = (address) => {
@@ -44,8 +50,10 @@ export default function MyAccountContainer() {
         setModelStatus(status)
         setModelTitle(null)
     }
-    const ChooseType = (newType) => {
-      setType(newType)
+
+    const pages = ['account', 'orders', 'wishlist', 'addresses', 'profile']
+    if(key && !pages.includes(key)){
+        return <Redirect to={`/page-404`} />;
     }
 
     return (
@@ -56,13 +64,12 @@ export default function MyAccountContainer() {
             
             <Breadcrumb title={`Tableau de bord utilisateur`} />
 
-            <LayoutAccount ChooseType={ChooseType} type={type}>
-                {(type === 'account') && <MyAccount userData={userData} SelectModelForm={SelectModelForm} />}
+            <LayoutAccount type={type}>
+                {(!type || type === 'account') && <MyAccount userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'orders') && <MyOrders />}
                 {(type === 'wishlist') && <MyWishlist />}
                 {(type === 'addresses') && <MyAddresses selectCurrentAddress={selectCurrentAddress} SelectModelForm={SelectModelForm} />}
                 {(type === 'profile') && <MyProfile userData={userData} SelectModelForm={SelectModelForm} />}
-                {/* {(type === 'privacy') && <MyPrivacy />} */}
             </LayoutAccount>
 
             <ModelUpdate title={modelTitle} modelStatus={modelStatus} modelClose={modelClose}>

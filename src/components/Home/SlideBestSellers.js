@@ -105,7 +105,7 @@ export default function SlideBestSellers() {
                                                         <Link to={`/product/${item?.slug}`} className="text-title" >
                                                             <h6 className="name">{item?.title}</h6>
                                                         </Link>
-                                                        <span>500 G</span>
+                                                        <span>{`${item?.units_measurement} ${item?.values}`}</span>
                                                         <h6 className="price theme-color">$ 10.00</h6>
                                                     </div>
                                                 </div>

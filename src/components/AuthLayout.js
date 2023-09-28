@@ -4,13 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
 
 export default function AuthLayout({ children }) {
-  const { userData, userId, authenticationFetching, authenticationLoading } = useContext(AuthProvider);
+  const { isLoggedIn, authenticationFetching, authenticationLoading } = useContext(AuthProvider);
 
   if(authenticationFetching || authenticationLoading){
     return <Loading />
   }
 
-  if(userId && userData) {
+  if(isLoggedIn) {
     return <Redirect to="/" />
   }
 
