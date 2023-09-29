@@ -7,12 +7,13 @@ import { AuthProvider } from '../../contexts/AuthContext';
 
 export default function ProductBox({ product, isWishlist = false }) {
     const { 
+        wishListDataKeys, 
         addToWishListMutation, removeFromWishListMutation, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading,
         getWishlistItemsGuestLoading, storeGuestWishlistItem, removeGuestWishlistItem
     
     } = useContext(CartAndWishlistProvider)
     const { isLoggedIn } = useContext(AuthProvider)
-    // const [addItemInWishlist, setAddItemInWishlist] = useState(false)
+    const [ addItemInWishlist, setAddItemInWishlist ] = useState(false)
     const [addLoading, setAddLoading] = useState(false)
     const [removeLoading, setRemoveLoading] = useState(false)
 
@@ -37,6 +38,16 @@ export default function ProductBox({ product, isWishlist = false }) {
             setRemoveLoading(false);
         }
     };
+
+    useEffect(() => {
+        if(!isWishlist){
+            if(wishListDataKeys.includes(product?.id)){
+                setAddItemInWishlist(true)
+            }else{
+                setAddItemInWishlist(false)
+            }
+        }
+    },[wishListDataKeys])
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -92,9 +103,9 @@ export default function ProductBox({ product, isWishlist = false }) {
                                     />
                                 : 
                                     <button 
-                                        onClick={() => handleAddToWishList()}
+                                        onClick={(addItemInWishlist) ? handleRemoveFromWishList : handleAddToWishList}
                                         type="button" 
-                                        className="notifi-wishlist"
+                                        className={`notifi-wishlist ${addItemInWishlist && 'active'}`}
                                     >
                                         <Heart />
                                     </button>
