@@ -39,7 +39,7 @@ export default function Password({ SelectModelTitle, modelClose }) {
 
     const ValidationSchemaForm = object({
         old_password: string().required('Ce champ est obligatoire'),
-        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
+        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         password_confirmation: string().required('Ce champ est obligatoire').oneOf([ref('password'), null], 'Passwords must match')
     });
 

@@ -48,7 +48,7 @@ export default function Register() {
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
         type: string().oneOf(['individual', 'professional', 'seller']).defined().required('Ce champ est obligatoire'),
         mobile: number().required('Ce champ est obligatoire'),
-        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
+        password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         rc: string().when('type', {
             is: (val) => ["professional"].includes(val),
             then: (schema) => schema.required("Ce champ est obligatoire"),

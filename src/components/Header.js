@@ -18,7 +18,7 @@ export default function Heade() {
     const toggleMenu = (value) => setMenu(value)
 
     return (
-        <header className="pb-md-4 pb-0">
+        <header className="pb-md-2 pb-0">
             <div className="header-top">
                 <div className="container-fluid-lg">
                     <div className="row">
