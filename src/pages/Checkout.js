@@ -27,6 +27,7 @@ export default function Checkout() {
     if(orderID){
       const timer = setTimeout(() => {
         if(orderID) {
+          // window.location.href = 'http://127.0.0.1:8000/complete-payment/' + orderID
           window.location.href = 'https://dev.ecowatt.ma/complete-payment/' + orderID
         }
       }, 3000);
