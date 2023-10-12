@@ -168,7 +168,8 @@ export default function AuthContextProvider({ children }) {
                 successAuthContext,
                 emptySuccessAuthContext,
 
-                listOrders, 
+                listOrders,
+                listOrdersCounter: listOrders?.length ?? 0,
                 ordersLoading,
                 ordersFetching
             }}

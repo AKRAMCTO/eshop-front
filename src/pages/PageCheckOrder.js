@@ -17,6 +17,7 @@ export default function PageCheckOrder() {
     const [loading, setLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [orderRef, setOrderRef] = useState(null)
+    const [orderEmail, setOrderEmail] = useState(null)
 
     useEffect(() => {
         if(loading) {
@@ -26,21 +27,18 @@ export default function PageCheckOrder() {
     }, [loading])
 
     const fetchOrder = async () => {
-        if(orderRef){
+        if(orderRef && orderEmail){
             if(isError) setIsError(false)
             setLoading(true)
             try {
-                const res = await getOrder(orderRef);
-                console.log('fetchOrder res => ', res)
+                const res = await getOrder({ref: orderRef, email: orderEmail});
                 if (res.message === 'success') {
                     setOrder(res?.data)
                 }else{
                     setIsError(true)
-                    console.log('fetchOrder not found => ', res)
                 }
             } catch (error) {
                 setIsError(true)
-                console.log('fetchOrder => ', error)
             }
             setLoading(false)
         }else{
@@ -49,8 +47,11 @@ export default function PageCheckOrder() {
     }
 
     const addOrderRed = async (key) => {
-        console.log('addOrderRed')
         setOrderRef(key)
+        if(isError) setIsError(false)
+    }
+    const addOrderEmail = async (key) => {
+        setOrderEmail(key)
         if(isError) setIsError(false)
     }
 
@@ -69,11 +70,17 @@ export default function PageCheckOrder() {
             <section className="section-404 section-lg-space">
                 
                 <div className="container-fluid-lg">
-                    <div className="row align-items-center justify-content-center">
+                    <div className="row flex-column align-items-center justify-content-center">
                         <div className="col-12 col-md-6">
                             <div className="form-floating theme-form-floating">
                                 <input type="text" autoFocus className={`form-control text-center ${isError ? 'input-error' : ''}`} id="orderRef" name="orderRef" value={orderRef} onChange={e => addOrderRed(e.target.value)} />
                                 <label htmlFor="orderRef">Ref</label>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-6 mt-4">
+                            <div className="form-floating theme-form-floating">
+                                <input type="text" className={`form-control text-center ${isError ? 'input-error' : ''}`} id="email" name="email" value={orderEmail} onChange={e => addOrderEmail(e.target.value)} />
+                                <label htmlFor="email">Email</label>
                             </div>
                         </div>
                         <div className="col-12">

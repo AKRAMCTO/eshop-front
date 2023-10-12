@@ -414,9 +414,9 @@ export const getOrders = async () => {
         return error?.response?.data?.message
     }
 };
-export const getOrder = async (id) => {
+export const getOrder = async (data) => {
     try {
-        const res = await axios.get(`${REACT_APP_MAIN_URL}/order/${id}`);
+        const res = await axios.post(`${REACT_APP_MAIN_URL}/order`, data);
         if (res.data.status === true) {
             return { data: res.data.data, message: 'success' };
         }

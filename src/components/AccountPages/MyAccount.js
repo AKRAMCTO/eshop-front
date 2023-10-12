@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthProvider } from './../../contexts/AuthContext';
 
 export default function MyAccount({ userData, SelectModelForm }) {
-    const { listAddresses, addressesLoading, addressesFetching }  = useContext(AuthProvider)
+    const { listAddresses, addressesLoading, addressesFetching, listOrdersCounter }  = useContext(AuthProvider)
     const [addressDelivery, setAddressDelivery]  = useState(null)
     const [addressInvoice, setAddressInvoice]  = useState(null)
 
@@ -37,12 +37,12 @@ export default function MyAccount({ userData, SelectModelForm }) {
                             <img src={require("./../../assets/images/order.png")} className="blur-up lazyload" alt="" />
                             <div className="totle-detail">
                                 <h5>Total des commandes</h5>
-                                <h3>3658</h3>
+                                <h3>{ listOrdersCounter }</h3>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                    {/* <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
                         <div className="totle-contain">
                             <img src={require("../../assets/images/pending.png")} className="img-1 blur-up lazyload" alt="" />
                             <img src={require("../../assets/images/pending.png")} className="blur-up lazyload" alt="" />
@@ -62,7 +62,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                                 <h3>32158</h3>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
