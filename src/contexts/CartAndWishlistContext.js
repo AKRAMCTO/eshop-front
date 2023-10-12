@@ -195,6 +195,10 @@ export default function CartAndWishlistContext({ children }) {
 
       queryClient.invalidateQueries('cartItemsGuest')
     }
+    const clearGuestCartItem = () =>{
+      localStorage.setItem('ecowattCart', JSON.stringify([]));
+      queryClient.invalidateQueries('cartItemsGuest')
+    }
 
     
 
@@ -307,6 +311,7 @@ export default function CartAndWishlistContext({ children }) {
               getCartItemsGuestLoading,
               storeGuestCartItem,
               removeGuestCartItem,
+              clearGuestCartItem,
 
               // WISHLIST
               wishlistItems: wishListData,

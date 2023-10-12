@@ -6792,6 +6792,8 @@ header .header-nav .header-nav-left .category-dropdown .category-list {
   flex-wrap: wrap;
   gap: 25px;
   padding: 20px 25px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 header .header-nav .header-nav-left .category-dropdown .category-list li {
   display: block;

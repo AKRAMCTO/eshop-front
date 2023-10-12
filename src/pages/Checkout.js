@@ -11,8 +11,8 @@ import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 import { AuthCheckout, GuestCheckout } from '../queries/queries';
 
 export default function Checkout() {
-  const { authenticationLoading, authenticationFetching, isLoggedIn, listAddresses } = useContext(AuthProvider);
-  const { cartItems, getCartItemsGuestLoading, clearAfterCheckout } = useContext(CartAndWishlistProvider)
+  const { authenticationLoading, authenticationFetching, isLoggedIn } = useContext(AuthProvider);
+  const { cartItems, clearGuestCartItem, getCartItemsGuestLoading, clearAfterCheckout } = useContext(CartAndWishlistProvider)
   const [ loading, setLoading ] = useState(false)
   const [ orderSuccess, setOrderSuccess ] = useState(null)
   const [ orderError, setOrderError ] = useState(null)
@@ -27,6 +27,9 @@ export default function Checkout() {
     if(orderID){
       const timer = setTimeout(() => {
         if(orderID) {
+          if(!isLoggedIn) {
+            clearGuestCartItem()
+          }
           // window.location.href = 'http://127.0.0.1:8000/complete-payment/' + orderID
           window.location.href = 'https://dev.ecowatt.ma/complete-payment/' + orderID
         }
