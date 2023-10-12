@@ -400,6 +400,32 @@ export const removeAddress = async (keyAddress) => {
 };
 
 
+// MY ORDERS
+export const getOrders = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    try {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/orders`, config);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+export const getOrder = async (id) => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/order/${id}`);
+        if (res.data.status === true) {
+            return { data: res.data.data, message: 'success' };
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+
+
 // WISHLIST
 export const getWishlistItems = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
@@ -459,8 +485,6 @@ export const cleatWishlist = async () => {
 export const getWishlistItemsGuest = async () => {
     const wishlist = JSON.parse(localStorage.getItem('ecowattWishlist'))
     
-    console.log('getWishlistItemsGuest => ', wishlist, wishlist.length)
-
     if(wishlist && wishlist.length){
         const res = await axios.post(
             `${REACT_APP_MAIN_URL}/guest-wishlist`,
@@ -477,13 +501,21 @@ export const getWishlistItemsGuest = async () => {
 // CART
 export const getCartItems = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
+    let cart = localStorage.getItem('ecowattCart');
+
+    if(cart) cart = JSON.parse(cart)
+    else cart = []
+
+    if(cart.length > 0){
+        await getCombineCartItems()
+        localStorage.setItem('ecowattCart', JSON.stringify([]));
+    }
+
     const config = {
         headers: { Authorization: `Bearer ${token}` },
     };
-    const res = await axios.get(
-        `${REACT_APP_MAIN_URL}/cart`,
-        config
-    );
+    const res = await axios.get(`${REACT_APP_MAIN_URL}/cart`, config);
+
     if (res.data.status === true) {
         return res.data.data;
     }
@@ -495,7 +527,7 @@ export const addToCart = async (data) => {
     };
     const res = await axios.post(
         `${REACT_APP_MAIN_URL}/cart/store`,
-        data,
+        {product: data?.id, quantity: data?.quantity},
         config
     );
 
@@ -510,7 +542,7 @@ export const updateToCart = async (data) => {
     };
     const res = await axios.post(
         `${REACT_APP_MAIN_URL}/cart/update`,
-        data,
+        {cart_id: data?.cart_id, product: data?.id, quantity: data?.quantity},
         config
     );
     if (res.data.status === true) {
@@ -524,13 +556,14 @@ export const removeCart = async (data) => {
     };
     const res = await axios.post(
         `${REACT_APP_MAIN_URL}/cart/remove`,
-        data,
+        {cart_id: data},
         config
     );
     if (res.data.status === true) {
         return res.data.data;
     }
 };
+/*
 export const clearCart = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
     const config = {
@@ -555,5 +588,83 @@ export const cleanCart = async () => {
     );
     if (res.data.status === true) {
         return res.data.data;
+    }
+    return [];
+};
+*/
+export const getCartItemsGuest = async () => {
+    const cart = localStorage.getItem('ecowattCart');
+
+    if(cart && cart.length){
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/guest-cart`,
+            { products: cart }
+        );
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    }
+};
+export const getCombineCartItems = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    let cart = localStorage.getItem('ecowattCart');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+
+    if(cart) cart = JSON.parse(cart)
+    else cart = []
+
+    if(cart && cart.length){
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/cart/combine`,
+            { products: cart },
+            config
+        );
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+        return [];
+    }
+    return [];
+};
+
+
+// CHECKOUT
+export const AuthCheckout = async (data) => {
+    const cart = localStorage.getItem('ecowattCart');
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+
+    if(cart && cart.length){
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/checkout`,
+            data,
+            config
+        );
+        if (res.data.status === true) {
+            return res.data;
+        }
+    }
+};
+export const GuestCheckout = async (data) => {
+    const cart = localStorage.getItem('ecowattCart');
+    const token = localStorage.getItem('ecowattAuthToken');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+
+    if(cart && cart.length){
+       data["cart"] = cart
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/guest-checkout`,
+            data,
+            config
+        );
+        if (res.data.status === true) {
+            return res.data;
+        }
     }
 };

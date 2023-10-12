@@ -1,113 +1,202 @@
 import React, { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
-    //   addToCart,
-    addToWishlist,
-    //   getCartItems,
-    getWishlistItems,
-    //   removeFromCart,
-    removeFromWishlist,
-    //   getGuestCartItems,
-    //   addToGuestCart,
-    getWishlistItemsGuest,
-    //   editCart,
-    //   removeFromGuestCart,
-    //   editGuestCart,
+  // WISHLIST
+  addToWishlist,
+  getWishlistItems,
+  removeFromWishlist,
+  getWishlistItemsGuest,
+  // CART
+  getCartItems,
+  addToCart,
+  removeCart,
+  getCartItemsGuest,
+  // cleanCart,
+  getCombineCartItems,
+  updateToCart,
 } from './../queries/queries';
 import { AuthProvider } from './AuthContext';
+
 export const CartAndWishlistProvider = React.createContext();
 export default function CartAndWishlistContext({ children }) {
+  const { isLoggedIn } = React.useContext(AuthProvider);
     const queryClient = useQueryClient();
+    
+    const [cartData, setCartData] = React.useState([]);
+    const [cartCalculation, setCartCalculation] = React.useState(null);
+    const [cartDataChecker, setCartDataChecker] = React.useState([]);
+    const [cartDataKeys, setCartDataKeys] = React.useState([]);
+
     const [wishListData, setWishListData] = React.useState([]);
     const [wishListDataKeys, setWishListDataKeys] = React.useState([]);
-    const [coupon, setCoupon] = React.useState('');
-    const { isLoggedIn } = React.useContext(AuthProvider);
+    
+    useEffect(() => {
+      if(cartData.length){
+        let result = cartData.map(a => a.id);
+        setCartDataKeys(result ?? [])
+
+        let result_2 = cartData.map(a => ({id: a.id, quantity: a.quantity}));
+        setCartDataChecker(result_2 ?? [])
+      }else{
+        setCartDataKeys([])
+        setCartDataChecker([])
+      }
+    },[cartData])
+
+    useEffect(() => {
+      if(wishListData.length){
+        let result = wishListData.map(a => a.id);
+        setWishListDataKeys(result ?? [])
+      }else{
+        setWishListDataKeys([])
+      }
+    },[wishListData])
+
     /**
-     * Cart Main Fetch
-    const {
-      data: cartData,
-      isLoading: cartItemsLoading,
-      isError: isGetCartError,
-      error: getCartError,
-      isIdle: cartIdle,
-      isFetching: cartItemsFetching,
-    } = useQuery(['cartItems', userId, deliveryCountry, coupon], getCartItems, {
-      refetchOnWindowFocus: false,
-      enabled: !authenticationLoading && userId,
-      retry: true,
-      keepPreviousData: true,
-    });
-    const {
-      data: guestCartData,
-      isLoading: guestCartItemsLoading,
-      isError: isGuestGetCartError,
-      error: getGuestCartError,
-      isFetching: guestCartItemsFetching,
-      isIdle: guestCartItemsIdle,
-    } = useQuery(['guestCartItems', deliveryCountry, coupon], getGuestCartItems, {
-      refetchOnWindowFocus: false,
-      enabled:
-        !authenticationLoading &&
-        !userId &&
-        // !deliveryCountriesIdle &&
-        !deliveryCountriesLoading,
-      retry: true,
-      keepPreviousData: true,
-    });
-    const [addToCartMutation] = useMutation(addToCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['cartItems', userId, deliveryCountry, coupon],
-          () => data
-        );
-      },
-      throwOnError: true,
-    });
-    const [addToGuestCartMutation] = useMutation(addToGuestCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['guestCartItems', deliveryCountry, coupon],
-          () => data
-        );
-      },
-      throwOnError: true,
-    });
-    const [removeFromCartMutation] = useMutation(removeFromCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['cartItems', userId, deliveryCountry, coupon],
-          () => data
-        );
-      },
-      throwOnError: true,
-    });
-    const [removeFromGuestCartMutation] = useMutation(removeFromGuestCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['guestCartItems', deliveryCountry, coupon],
-          () => data
-        );
-      },
-    });
-    const [editCartMutation] = useMutation(editCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['cartItems', userId, deliveryCountry, coupon],
-          () => data
-        );
-      },
-      throwOnError: true,
-    });
-    const [editGuestCartMutation] = useMutation(editGuestCart, {
-      onSuccess: data => {
-        queryCache.setQueryData(
-          ['guestCartItems', deliveryCountry, coupon],
-          () => data
-        );
-      },
-      throwOnError: true,
-    });
+     * Cart Authenticated
      */
+    const { data, isLoading: cartItemsLoading, isFetching: cartItemsFetching } = useQuery(['cartItems'], getCartItems, {
+      refetchOnWindowFocus: false,
+      enabled: isLoggedIn,
+      retry: false, // true
+      keepPreviousData: true,
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      }
+    });
+    const { mutate: addToCartMutation, isLoading: addCartLoading} = useMutation(addToCart, {
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+    const { mutate: updateToCartMutation, isLoading: updateCartLoading} = useMutation(updateToCart, {
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+    const { mutate: removeFromCartMutation, isLoading: removeCartLoading} = useMutation(removeCart, {
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+    /*
+    const { mutate: cleanFromCartMutation, isLoading: cleanCartLoading} = useMutation(cleanCart, {
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+    */
+    const { mutate: combineFromCartMutation, isLoading: combineCartLoading} = useMutation(getCombineCartItems, {
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+
+    /**
+     * Cart Guest
+     */
+    const { isLoading: getCartItemsGuestLoading } = useQuery(['cartItemsGuest'], getCartItemsGuest, {
+      refetchOnWindowFocus: false,
+      enabled: !isLoggedIn,
+      retry: true,
+      onSuccess: (data) => {
+        setCartData(data?.items ?? [])
+        setCartCalculation({
+          subtotal: data?.subtotal ?? 0,
+          discount: data?.discount ?? 0,
+          shipping_cost: data?.shipping_cost ?? 0,
+          coupon_cost: data?.coupon_cost ?? 0,
+          total: data?.total ?? 0
+        })
+      },
+      throwOnError: true,
+    });
+    const storeGuestCartItem = (item) => {
+      let items = JSON.parse(localStorage.getItem('ecowattCart'));
+      items = items === null ? [] : items;
+      let exists = false
+
+      if(items.length){
+        items.forEach(val =>{
+          if(val.id === item.id){
+            val.quantity = item.quantity
+            exists = true
+          }
+        });
+      }
+
+      if(!items.length || !exists){
+        items = [...items, item]
+      }
+
+      localStorage.setItem('ecowattCart',JSON.stringify(items));
+      queryClient.invalidateQueries('cartItemsGuest')
+    }
+    const removeGuestCartItem = (item) =>{
+      let i = 0;
+      let itemToSave = []
+      let storedValues = JSON.parse(localStorage.getItem('ecowattCart'));
+
+      storedValues.forEach(val =>{
+        if(val.id !== item){
+          console.log(val)
+          itemToSave[i] = val;
+          i++;
+        }
+      });
+      localStorage.setItem('ecowattCart', JSON.stringify(itemToSave));
+
+      queryClient.invalidateQueries('cartItemsGuest')
+    }
+
+    
 
     /**
      * Wishlist Authenticated
@@ -188,85 +277,53 @@ export default function CartAndWishlistContext({ children }) {
       queryClient.invalidateQueries('wishlistItemsGuest')
     }
 
-    useEffect(() => {
-      if(wishListData.length){
-        let result = wishListData.map(a => a.id);
-        console.log(result)
-        setWishListDataKeys(result ?? [])
-      }else{
-        setWishListDataKeys([])
-      }
-    },[wishListData])
+    const clearAfterCheckout = () => {
 
-    /**
-     * Coupon
-    const [checkCouponMutation, { isLoading: isCheckingCoupon }] = useMutation(
-      checkCoupon,
-  
-      {
-        onSuccess: data => {
-          setCoupon(data.code);
-        },
-        throwOnError: true,
-      }
-    );
-    */
+    }
+
     return (
         <CartAndWishlistProvider.Provider
             value={{
-                // cartItems: cartData?.cartItems,
-                // cartTotal: cartData?.cartTotal,
-                // cartMessage: cartData?.message,
-                // cartSubtotal: cartData?.cartSubtotal,
-                // shippingCost: cartData?.shippingCost,
-                // couponCost: cartData?.couponCost,
-                // guestCartItems: guestCartData?.cartItems,
-                // guestCartTotal: guestCartData?.cartTotal,
-                // guestCartSubtotal: guestCartData?.cartSubtotal,
-                // guestShippingCost: guestCartData?.shippingCost,
-                // guestCouponCost: guestCartData?.coupon_cost,
-                // cartIdle,
-                // cartItemsLoading,
-                // guestCartItemsLoading,
-                // isGuestGetCartError,
-                // getGuestCartError,
-                // guestCartItemsIdle,
-                // isGetCartError,
+              // CART
+              cartItems: cartData,
+              cartCalculation,
+              cartDataKeys,
+              cartDataChecker,
+              cartItemsLength: cartData?.length ?? 0,
+              addToCartMutation,
+              updateToCartMutation,
+              removeFromCartMutation,
+              // cleanFromCartMutation,
+              combineFromCartMutation,
 
-                // getCartError,
-                // addToCartMutation,
-                // removeFromCartMutation,
-                // addToGuestCartMutation,
-                // removeFromGuestCartMutation,
-                // editGuestCartMutation,
-                // editCartMutation,
-                // cartItemsFetching,
-                // guestCartItemsFetching,
-                // sideCartItems: userId ? cartData?.cartItems : guestCartData?.cartItems,
-                // sideCartSubTotal: userId
-                //   ? cartData?.cartSubtotal
-                //   : guestCartData?.cartSubtotal,
-                // sideCartCouponCost: userId
-                //   ? cartData?.couponCost
-                //   : guestCartData?.coupon_cost,
+              cartItemsLoading,
+              cartItemsFetching,
+              addCartLoading,
+              updateCartLoading,
+              removeCartLoading,
+              // cleanCartLoading,
+              combineCartLoading,
 
-                wishlistItems: wishListData,
-                wishListDataKeys,
-                wishlistItemsLength: wishListData?.length ?? 0,
-                addToWishListMutation,
-                removeFromWishListMutation,
-                wishlistItemsLoading,
-                addWishlistLoading,
-                removeWishlistLoading,
+              getCartItemsGuestLoading,
+              storeGuestCartItem,
+              removeGuestCartItem,
 
-                getWishlistItemsGuestLoading,
-                storeGuestWishlistItem,
-                removeGuestWishlistItem,
+              // WISHLIST
+              wishlistItems: wishListData,
+              wishListDataKeys,
+              wishlistItemsLength: wishListData?.length ?? 0,
+              addToWishListMutation,
+              removeFromWishListMutation,
+              
+              wishlistItemsLoading,
+              addWishlistLoading,
+              removeWishlistLoading,
 
-                // checkCouponMutation,
-                // isCheckingCoupon,
-                // coupon,
-                // setCoupon,
+              getWishlistItemsGuestLoading,
+              storeGuestWishlistItem,
+              removeGuestWishlistItem,
+
+              clearAfterCheckout
             }}
         >
             {children}

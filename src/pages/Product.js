@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import SlideProducts from "../components/SlideProducts";
 import Gallery from "../components/Product/Gallery";
-import { Heart, ShoppingCart } from "react-feather";
+import { Check, Heart, Minus, Plus, ShoppingCart } from "react-feather";
 import { CartAndWishlistProvider } from "../contexts/CartAndWishlistContext";
 import { AuthProvider } from "../contexts/AuthContext";
 
@@ -21,9 +21,18 @@ export default function Product() {
         { retry: true, refetchOnWindowFocus: false }
     );
     const { isLoggedIn } = useContext(AuthProvider)
-    const { wishListDataKeys, addToWishListMutation, storeGuestWishlistItem, removeFromWishListMutation, removeGuestWishlistItem } = useContext(CartAndWishlistProvider)
+    const { 
+        wishListDataKeys, addToWishListMutation, storeGuestWishlistItem, removeFromWishListMutation, removeGuestWishlistItem, 
+        cartDataChecker, addToCartMutation, storeGuestCartItem
+        // , removeFromCartMutation, removeGuestCartItem, 
+    } = useContext(CartAndWishlistProvider)
+    const [quantity, setQuantity] = useState(1)
+    
+    const [addItemInCart, setAddItemInCart] = useState(false)
+
+    const [addLoadingCart, setAddLoadingCart] = useState(false)
     const [addItemInWishlist, setAddItemInWishlist] = useState(false)
-    const [addLoading, setAddLoading] = useState(false)
+    const [addLoadingWishlist, setAddLoadingWishlist] = useState(false)
     const [removeLoading, setRemoveLoading] = useState(false)
 
     useEffect(() => {
@@ -34,19 +43,54 @@ export default function Product() {
         }
     },[data, wishListDataKeys])
 
-    const handleAddToWishList = async () => {
-        setAddLoading(true);
+    useEffect(() => {
+        let cartFilter = cartDataChecker.filter(function (el) { return el.id === data?.id })
+        if(data && cartFilter.length > 0){
+            cartFilter = cartFilter[0]
+            setAddItemInCart(true)
+            setQuantity(cartFilter?.quantity)
+        }else{
+            setAddItemInCart(false)
+        }
+    },[data, cartDataChecker])
+
+    const toggleQuantity  = async (move) => {
+        if(move === 'minus'){
+            if(quantity > 1) setQuantity(quantity - 1)
+        }else{
+            setQuantity(quantity + 1)
+        }
+    };
+
+    const handleAddToCart = async () => {
+        setAddLoadingCart(true);
         try {
-            if(isLoggedIn) await addToWishListMutation(data?.id);
-            else await storeGuestWishlistItem(data?.id);
-            setAddLoading(false);
+            if(isLoggedIn) await addToCartMutation({id: data?.id, quantity: quantity});
+            else await storeGuestCartItem({id: data?.id, quantity: quantity});
+            setAddLoadingCart(false);
             // setAddItemInWishlist(true);
         } catch (error) {
             // console.log('addToWishListMutation error => ', error)
             // if (error.response.data.message === 'Item founded on the Wishlist') {
             //     setAddItemInWishlist(true);
             // }
-            setAddLoading(false);
+            setAddLoadingCart(false);
+        }
+    };
+
+    const handleAddToWishList = async () => {
+        setAddLoadingWishlist(true);
+        try {
+            if(isLoggedIn) await addToWishListMutation(data?.id);
+            else await storeGuestWishlistItem(data?.id);
+            setAddLoadingWishlist(false);
+            // setAddItemInWishlist(true);
+        } catch (error) {
+            // console.log('addToWishListMutation error => ', error)
+            // if (error.response.data.message === 'Item founded on the Wishlist') {
+            //     setAddItemInWishlist(true);
+            // }
+            setAddLoadingWishlist(false);
         }
     };
     const handleRemoveFromWishList = async () => {
@@ -105,11 +149,7 @@ export default function Product() {
                                         <h6 className="offer-top">30% Off</h6>
                                         <h2 className="name">{data?.title}</h2>
                                         <div className="price-rating">
-                                            <h3 className="theme-color price">
-                                                $49.50 
-                                                <del className="text-content">$58.46</del>
-                                                <span className="offer theme-color">(8% off)</span>
-                                            </h3>
+                                            <h3 className="theme-color price">{data?.price_ttc} Dhs</h3>
                                             <div className="product-rating custom-rate">
                                                 <ul className="rating">
                                                     <li>
@@ -203,29 +243,52 @@ export default function Product() {
                                         <div className="note-box product-packege">
                                             <div className="cart_qty qty-box product-qty">
                                                 <div className="input-group">
-                                                    <button type="button" className="qty-right-plus" data-type="plus" data-field="">
-                                                        <i className="fa fa-plus" aria-hidden="true"></i>
+                                                    <button 
+                                                        type="button" 
+                                                        className="qty-left-minus"
+                                                        onClick={() => toggleQuantity('minus')}
+                                                        disabled={addItemInCart || addLoadingCart}
+                                                    >
+                                                        <Minus />
                                                     </button>
-                                                    <input className="form-control input-number qty-input" type="text" name="quantity" value="0" />
-                                                    <button type="button" className="qty-left-minus" data-type="minus" data-field="">
-                                                        <i className="fa fa-minus" aria-hidden="true"></i>
+                                                    <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                                    <button 
+                                                        type="button" 
+                                                        className="qty-right-plus"
+                                                        onClick={() => toggleQuantity('plus')}
+                                                        disabled={addItemInCart || addLoadingCart}
+                                                    >
+                                                        <Plus />
                                                     </button>
                                                 </div>
                                             </div>
 
-                                            <button className="btn btn-md bg-dark cart-button text-white w-100">
-                                                <ShoppingCart />
-                                                Add To Cart
+                                            <button 
+                                                type="button"
+                                                className={`btn btn-md notifi-cart bg-dark cart-button text-white w-100 ${addItemInCart && 'active'}`}
+                                                onClick={handleAddToCart}
+                                                disabled={addItemInCart || addLoadingCart}
+                                            >
+                                                {(addLoadingCart) ? 
+                                                    <TailSpin
+                                                        color="#2A3466"
+                                                        height={16}
+                                                        width={16}
+                                                        visible={addLoadingCart}
+                                                    />
+                                                : 
+                                                    addItemInCart ? <><Check /> Ajouté</> : <><ShoppingCart /> Ajouter au panier</>
+                                                }        
                                             </button>
                                         </div>
 
                                         <div className="buy-box">
-                                            {(addLoading || removeLoading) ? 
+                                            {(addLoadingWishlist || removeLoading) ? 
                                                 <TailSpin
                                                     color="#2A3466"
                                                     height={16}
                                                     width={16}
-                                                    visible={addLoading}
+                                                    visible={addLoadingWishlist}
                                                 />
                                             : 
                                                 <button 

@@ -94,7 +94,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                                             </td>
                                         </tr>
                                     }
-                                    {(userData.type === 'seller') && 
+                                    {/* {(userData.type === 'seller') && 
                                         <tr>
                                             <td>ICE (PDF) :</td>
                                             <td>
@@ -103,7 +103,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                                                 </a>
                                             </td>
                                         </tr>
-                                    }
+                                    } */}
                                     {(userData.type === 'seller') && 
                                         <tr>
                                             <td>CIN (PDF) :</td>

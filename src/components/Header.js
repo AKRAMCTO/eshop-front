@@ -1,18 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { Headphones, Heart, Search, ShoppingBag, User, X, Zap } from 'react-feather';
-import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
+
+import WishlistButton from './Header/WishlistButton';
+import CartButton from './Header/CartButton';
+import AccountButton from './Header/AccountButton';
+
 import ContactPhone from './ContactPhone';
 import MenuPrimary from './MenuPrimary';
 import MenuCategories from './MenuCategories';
-import { TailSpin } from 'react-loader-spinner';
+import { DataProvider } from '../contexts/DataContext';
 import { AuthProvider } from '../contexts/AuthContext';
-import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 
 export default function Heade() {
     const { settings, isMobile } = React.useContext(DataProvider);
-    const { isLoggedIn, userData, userId, authenticationFetching, authenticationLoading, logoutMutation } = useContext(AuthProvider);
-    const { wishlistItemsLength, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading } = useContext(CartAndWishlistProvider);
+    const { userId, authenticationFetching, authenticationLoading } = useContext(AuthProvider);
+
     const [ menu, setMenu ] = useState(false)
 
     const toggleMenu = (value) => setMenu(value)
@@ -131,175 +134,12 @@ export default function Heade() {
                                                 </div>
                                             </div>
                                         </li>
-                                        <li className="right-side">
-                                            <Link
-                                                to={(isLoggedIn) ? `/account/wishlist` : `wishlist`}
-                                                className="btn p-0 position-relative header-wishlist"
-                                            >
-                                                <Heart />
-                                                <span className="position-absolute top-0 start-100 translate-middle badge">
-                                                    {(wishlistItemsLoading || addWishlistLoading || removeWishlistLoading) ? 
-                                                        <TailSpin
-                                                            color="#fff"
-                                                            height={10}
-                                                            width={10}
-                                                            visible={!wishlistItemsLoading || addWishlistLoading || removeWishlistLoading}
-                                                        />
-                                                    :
-                                                        wishlistItemsLength
-                                                    }
-                                                </span>
-                                            </Link>
-                                        </li>
-                                        <li className="right-side">
-                                            <div className="onhover-dropdown header-badge">
-                                                <button
-                                                    type="button"
-                                                    className="btn p-0 position-relative header-wishlist"
-                                                >
-                                                    <ShoppingBag />
-                                                    <span className="position-absolute top-0 start-100 translate-middle badge">2</span>
-                                                </button>
-
-                                                <div className="onhover-div">
-                                                    <ul className="cart-list">
-                                                        <li className="product-box-contain">
-                                                            <div className="drop-cart">
-                                                                <a
-                                                                    href="product-left-thumbnail.html"
-                                                                    className="drop-image"
-                                                                >
-                                                                    <img
-                                                                        src={require("./../assets/images/vegetable-product-1.png")}
-                                                                        className="lazyload"
-                                                                        alt=""
-                                                                    />
-                                                                </a>
-
-                                                                <div className="drop-contain">
-                                                                    <a href="product-left-thumbnail.html">
-                                                                        <h5>
-                                                                            Fantasy Crunchy Choco Chip Cookies
-                                                                        </h5>
-                                                                    </a>
-                                                                    <h6>
-                                                                        <span>1 x</span> $80.58
-                                                                    </h6>
-                                                                    <button className="close-button close_button">
-                                                                        <i className="fa-solid fa-xmark"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li className="product-box-contain">
-                                                            <div className="drop-cart">
-                                                                <a
-                                                                    href="product-left-thumbnail.html"
-                                                                    className="drop-image"
-                                                                >
-                                                                    <img
-                                                                        src={require("./../assets/images/vegetable-product-1.png")}
-                                                                        className="lazyload"
-                                                                        alt=""
-                                                                    />
-                                                                </a>
-
-                                                                <div className="drop-contain">
-                                                                    <a href="product-left-thumbnail.html">
-                                                                        <h5>
-                                                                            Peanut Butter Bite Premium Butter
-                                                                            Cookies 600 g
-                                                                        </h5>
-                                                                    </a>
-                                                                    <h6>
-                                                                        <span>1 x</span> $25.68
-                                                                    </h6>
-                                                                    <button className="close-button close_button">
-                                                                        <i className="fa-solid fa-xmark"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-
-                                                    <div className="price-box">
-                                                        <h5>Total :</h5>
-                                                        <h4 className="theme-color fw-bold">$106.58</h4>
-                                                    </div>
-
-                                                    <div className="button-group">
-                                                        <a
-                                                            href="cart.html"
-                                                            className="btn btn-sm cart-button"
-                                                        >
-                                                            View Cart
-                                                        </a>
-                                                        <a
-                                                            href="checkout.html"
-                                                            className="btn btn-sm cart-button theme-bg-color
-                                          text-white"
-                                                        >
-                                                            Checkout
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="right-side onhover-dropdown">
-                                            <div className="delivery-login-box">
-                                                <div className="delivery-icon">
-                                                    <User />
-                                                </div>
-                                                <div className="delivery-detail">
-                                                    <h6>Hello,<br />{(isLoggedIn) ? userData.full_name : 'Guest'}</h6>
-                                                </div>
-                                            </div>
-
-                                            <div className="onhover-div onhover-div-login">
-                                                <ul className="user-box-name">
-
-                                                    {authenticationLoading || authenticationFetching ? (
-                                                        <TailSpin
-                                                            type="ThreeDots"
-                                                            color="#fff"
-                                                            secondaryColor="black"
-                                                            height={20}
-                                                            width={20}
-                                                            visible={authenticationLoading}
-                                                        />
-                                                    ) : (userId ? (
-                                                        <>
-                                                            <li className="product-box-contain">
-                                                                <i></i>
-                                                                <Link to={`/account`}>Mon compte</Link>
-                                                            </li>
-                                                            <li className="product-box-contain">
-                                                                <button 
-                                                                    type='button'
-                                                                    onClick={logoutMutation}
-                                                                >
-                                                                    Se déconnecter
-                                                                </button>
-                                                            </li>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <li className="product-box-contain">
-                                                                <i></i>
-                                                                <Link to={`/login`}>Se connecter</Link>
-                                                            </li>
-                                                            <li className="product-box-contain">
-                                                                <Link to={`/register`}>Inscrivez-vous</Link>
-                                                            </li>
-                                                            <li className="product-box-contain">
-                                                                <Link to={`/forgot-password`}>Mot de passe oublié</Link>
-                                                            </li>
-                                                        </>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </li>
+                                        
+                                        <WishlistButton />
+                                        
+                                        <CartButton />
+                                        
+                                        <AccountButton />
                                     </ul>
                                 </div>
                             </div>

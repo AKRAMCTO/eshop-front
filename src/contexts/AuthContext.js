@@ -6,7 +6,8 @@ import {
     userRegister,
     userRegisterSeller,
     getAddresses,
-    removeAddress
+    removeAddress,
+    getOrders
 } from './../queries/queries';
 export const AuthProvider = React.createContext();
 
@@ -128,7 +129,21 @@ export default function AuthContextProvider({ children }) {
         },
         throwOnError: true,
     }
-);
+    );
+
+
+    /**
+     * List Orders
+     */
+    const {
+        data: listOrders,
+        isLoading: ordersLoading,
+        isFetching: ordersFetching
+    } = useQuery('orders', getOrders, {
+        retry: 1,
+        enabled: (data?.userData?.id ? true : false),
+        refetchOnWindowFocus: false
+    });
 
     return (
         <AuthProvider.Provider
@@ -151,7 +166,11 @@ export default function AuthContextProvider({ children }) {
                 addressesFetching,
                 removeAddressMutation,
                 successAuthContext,
-                emptySuccessAuthContext
+                emptySuccessAuthContext,
+
+                listOrders, 
+                ordersLoading,
+                ordersFetching
             }}
         >
             {children}

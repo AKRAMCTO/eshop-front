@@ -101,21 +101,21 @@ export default function Password({ SelectModelTitle, modelClose }) {
                                 <div className="col-12">
                                     <div className="form-floating theme-form-floating">
                                         <input type="password" className="form-control" id="old_password" name="old_password" onChange={handleChange} onBlur={handleBlur} value={values.old_password} />
-                                        <label for="old_password">Ancien mot de passe</label>
+                                        <label htmlFor="old_password">Ancien mot de passe</label>
                                     </div>
                                     <span className='error-form'>{errors.old_password && touched.old_password && errors.old_password}</span>
                                 </div>
                                 <div className="col-12 col-xxl-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-                                        <label for="password">Mot de passe</label>
+                                        <label htmlFor="password">Mot de passe</label>
                                     </div>
                                     <span className='error-form'>{errors.password && touched.password && errors.password}</span>
                                 </div>
                                 <div className="col-12 col-xxl-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="password" className="form-control" id="password_confirmation" name="password_confirmation" onChange={handleChange} onBlur={handleBlur} value={values.password_confirmation} />
-                                        <label for="password_confirmation">Confirmation mot de passe</label>
+                                        <label htmlFor="password_confirmation">Confirmation mot de passe</label>
                                     </div>
                                     <span className='error-form'>{errors.password_confirmation && touched.password_confirmation && errors.password_confirmation}</span>
                                 </div>

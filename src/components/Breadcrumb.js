@@ -1,4 +1,5 @@
 import React from 'react';
+import { Home } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 export default function Breadcrumb({ title }) {
@@ -13,7 +14,7 @@ export default function Breadcrumb({ title }) {
                 <ol className="breadcrumb mb-0">
                   <li className="breadcrumb-item">
                     <Link to={`/`}>
-                      <i className="fa-solid fa-house"></i>
+                      <Home />
                     </Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">{title}</li>

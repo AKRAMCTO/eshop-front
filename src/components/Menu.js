@@ -9,32 +9,32 @@ export default function Menu() {
                 <li className="active">
                     <Link to="/">
                         <i className="iconly-Home icli"></i>
-                        <span>Home</span>
+                        <span>Accueil</span>
                     </Link>
                 </li>
 
                 <li className="mobile-category">
                     <Link to="/">
                         <i className="iconly-Category icli js-link"></i>
-                        <span>Category</span>
+                        <span>Catégorie</span>
                         </Link>
                 </li>
                 <li>
                     <Link to="/" className="search-box">
                         <i className="iconly-Search icli"></i>
-                        <span>Search</span>
+                        <span>Recherche</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" className="notifi-wishlist">
+                    <Link to="/account/wishlist" className="notifi-wishlist">
                         <i className="iconly-Heart icli"></i>
-                        <span>My Wish</span>
+                        <span>Wishlist</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="/cart">
                         <i className="iconly-Bag-2 icli fly-cate"></i>
-                        <span>Cart</span>
+                        <span>Panier</span>
                     </Link>
                 </li>
             </ul>

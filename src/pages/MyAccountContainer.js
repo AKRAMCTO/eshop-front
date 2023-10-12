@@ -11,7 +11,6 @@ import MyOrders  from './../components/AccountPages/MyOrders'
 import MyWishlist  from './../components/AccountPages/MyWishlist'
 import MyAddresses  from './../components/AccountPages/MyAddresses'
 import MyProfile  from './../components/AccountPages/MyProfile'
-// import MyPrivacy  from './../components/AccountPages/MyPrivacy'
 
 import ModelUpdate from "./../components/ModelUpdate";
 import Password from "../components/AccountPopups/Password";

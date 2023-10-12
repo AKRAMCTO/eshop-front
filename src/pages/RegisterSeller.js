@@ -12,11 +12,13 @@ import ErrorSnackbar from "../components/ErrorSnackbar";
 import SuccessAnimation from "../components/SuccessAnimation";
 import Breadcrumb from "../components/Breadcrumb";
 import { Eye, EyeOff } from "react-feather";
+import { DataProvider } from "../contexts/DataContext";
 
 const SUPPORTED_FORMATS = ['application/pdf'];
 const FILE_SIZE = 1024 * 2048
 
 export default function RegisterSeller() {
+    const { settings } = useContext(DataProvider);
     const { registerSellerMutation, errorAuthContext, emptyErrorAuthContext, successAuthContext, emptySuccessAuthContext } = useContext(AuthProvider);
     const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [successOpen, setSuccessOpen] = React.useState(false);
@@ -83,7 +85,13 @@ export default function RegisterSeller() {
                                     .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
                                     .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
         }),
-        ice_file: mixed().when("type", {
+        // ice_file: mixed().when("type", {
+        //     is: (val) => val === 'seller',
+        //     then: (schema) => schema.required("Ce champ est obligatoire")
+        //                             .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
+        //                             .test('FILE_FORMAT', 'Le fichier téléchargé a un format non pris en charge.', value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
+        // }),
+        opening_form_file: mixed().when("type", {
             is: (val) => val === 'seller',
             then: (schema) => schema.required("Ce champ est obligatoire")
                                     .test('FILE_SIZE', 'Le fichier téléchargé est trop volumineux.', value => !value || (value && value.size <= FILE_SIZE))
@@ -107,7 +115,8 @@ export default function RegisterSeller() {
         rc: '',
         ice: '',
         rc_file: '',
-        ice_file: '',
+        // ice_file: '',
+        opening_form_file: '',
         cin_file: ''
     });
 
@@ -123,9 +132,20 @@ export default function RegisterSeller() {
                     <div className="container-fluid-lg w-100">
                         <div className="row">
                             <div className="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
-                                <div className="image-contain">
+                                <p>Le Client Professionnel (B2B) : L'Expertise au Service de la Performance</p>
+                                <p>Les clients professionnels B2B qui choisissent l'EcowattShop sont accueillis avec des avantages qui renforcent leur quête d'efficacité et de résultats:</p>
+                                <p>1. Tarifs Spécialisés : Les clients professionnels bénéficient de tarifs adaptés à leurs besoins commerciaux, garantissant une rentabilité accrue.</p>
+                                <p>2. Assistance Dédiée : Un support personnalisé est à la disposition des clients professionnels pour répondre à leurs questions et résoudre leurs problèmes rapidement.</p>
+                                <p>3. Gestion de Compte Centralisée : Pour les entreprises avec plusieurs collaborateurs, la gestion centralisée du compte facilite les achats et le suivi des dépenses.</p>
+                                <p>4. Commandes en Gros Simplifiées : L'EcowattShop facilite les achats en gros, optimisant ainsi le processus d'approvisionnement.</p>
+                                <p>Dans le paysage varié de l'EcowattShop, chaque client trouve sa place, enveloppé dans des avantages taillés sur mesure. Que vous soyez un Passager à la recherche d'efficacité, un Client Privilégié en quête d'exclusivité ou un Client Professionnel B2B en quête de performance, notre engagement est de vous offrir une expérience d'achat empreinte de satisfaction, de qualité et de pertinence.</p>
+                                
+                                {(settings && settings?.opening_file) &&
+                                    <a href={settings?.opening_file} className="btn deal-button seller-document" rel="noopener noreferrer" target="_blank">Télécharger et signer le document de la Demande d’ouverture de compte</a>
+                                }
+                                {/* <div className="image-contain">
                                     <img src={require('./../assets/images/sign-up.png')} className="img-fluid" alt="" />
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="col-xxl-6 col-xl-5 col-lg-6 col-sm-8 mx-auto">
@@ -232,7 +252,7 @@ export default function RegisterSeller() {
                                                             </div>
                                                             <span className='error-form'>{errors.rc_file && touched.rc_file && errors.rc_file}</span>
                                                         </div>
-                                                        <div className="col-12 col-md-6">
+                                                        {/* <div className="col-12 col-md-6">
                                                             <div className="form-floating theme-form-floating">
                                                                 <input accept="application/pdf" type="file" className="form-control" id="ice_file" name="ice_file"
                                                                     onChange={(event) => {
@@ -242,7 +262,7 @@ export default function RegisterSeller() {
                                                                 <label htmlFor="ice_file">ICE file</label>
                                                             </div>
                                                             <span className='error-form'>{errors.ice_file && touched.ice_file && errors.ice_file}</span>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-floating theme-form-floating">
                                                                 <input accept="application/pdf" type="file" className="form-control" id="cin_file" name="cin_file"
@@ -253,6 +273,17 @@ export default function RegisterSeller() {
                                                                 <label htmlFor="cin_file">CIN file</label>
                                                             </div>
                                                             <span className='error-form'>{errors.cin_file && touched.cin_file && errors.cin_file}</span>
+                                                        </div>
+                                                        <div className="col-12">
+                                                            <div className="form-floating theme-form-floating">
+                                                                <input accept="application/pdf" type="file" className="form-control" id="opening_form_file" name="opening_form_file"
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("opening_form_file", event.currentTarget.files[0]);
+                                                                    }}
+                                                                    onBlur={handleBlur} />
+                                                                <label htmlFor="opening_form_file">Uploader le document d’ouverture de compte signé</label>
+                                                            </div>
+                                                            <span className='error-form'>{errors.opening_form_file && touched.opening_form_file && errors.opening_form_file}</span>
                                                         </div>
                                                         <div className="col-12">
                                                             <button disabled={isSubmitting} className="btn btn-animation w-100" type="submit">

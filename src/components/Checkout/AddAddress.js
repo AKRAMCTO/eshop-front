@@ -1,15 +1,17 @@
 import React, { useContext, useEffect } from 'react';
+import { useFormik } from 'formik';
+import { number, object, string } from 'yup';
+import { useQueryClient } from 'react-query';
+import { X } from 'react-feather';
+
 import ErrorSnackbar from '../ErrorSnackbar';
-import { Formik, useFormik } from 'formik';
 import SuccessSnackbar from '../SuccessSnackbar';
-import { number, object, ref, string } from 'yup';
 import { addAddress, getCities } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
 import { DataProvider } from '../../contexts/DataContext';
 import SuccessAnimation from '../SuccessAnimation';
-import { useQueryClient } from 'react-query';
 
-export default function AddAddress({ SelectModelTitle, modelClose }) {
+export default function AddAddress({ type, modelClose = null, isAuthenticated = null, saveAddress = null }) {
     const queryClient = useQueryClient();
     const { countries } = useContext(DataProvider)
     const [errorOpen, setErrorOpen] = React.useState(false);
@@ -22,15 +24,10 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
         setErrorOpen(false);
     };
 
-    SelectModelTitle('Ajouter une nouvelle adresse')
-
     useEffect(() => {
         if (success) {
             let timer = setTimeout(() => {
-                setListCities([])
-                setSelectedCountry(null)
                 setSuccess(false)
-                modelClose(false)
             }, 4000)
             return () => clearTimeout(timer)
         }
@@ -49,10 +46,8 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
     const genInitialValues = {
         line_1: '',
         line_2: '',
-        type: '',
         country: '',
         city: '',
-        is_default: false
     }
 
     const addressFromik = useFormik({
@@ -61,31 +56,35 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
             line_1: string().min(1, 'Trop court!').max(10000, 'Trop long!').required('Ce champ est obligatoire'),
             line_2: string().min(1, 'Trop court!').max(10000, 'Trop long!').notRequired(),
             country: number().required('Ce champ est obligatoire'),
-            city: number().required('Ce champ est obligatoire'),
-            type: string().oneOf(['delivery', 'billing']).defined().required('Ce champ est obligatoire'),
+            city: number().required('Ce champ est obligatoire')
         }),
         onSubmit:( async (values, actions) => {
-            try {
-                const res = await addAddress({
-                    line_1: values.line_1,
-                    line_2: values.line_2,
-                    type: values.type,
-                    country: values.country,
-                    city: values.city,
-                    is_default: values.is_default
-                });
-                if (res.message === 'success') {
-                    actions.resetForm({ 
-                        values: genInitialValues
-                    })
-                    queryClient.invalidateQueries('addresses');
-                    setSuccess(true)
-                } else {
-                    actions.setSubmitting(false);
+            if(isAuthenticated){
+                try {
+                    const res = await addAddress({
+                        line_1: values.line_1,
+                        line_2: values.line_2,
+                        country: values.country,
+                        city: values.city,
+                        type: type,
+                        is_default: true
+                    });
+                    if (res.message === 'success') {
+                        actions.resetForm({ 
+                            values: genInitialValues
+                        })
+                        queryClient.invalidateQueries('addresses');
+                        setSuccess(true)
+                    } else {
+                        actions.setSubmitting(false);
+                    }
+                } catch (error) {
+                    setErrorOpen(true);
+                    setErrorMessage('Une erreur s\'est produite. Veuillez réessayer');
                 }
-            } catch (error) {
-                setErrorOpen(true);
-                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer');
+            }else{
+                saveAddress(values)
+                setSuccess(true)
             }
         })
     });
@@ -112,36 +111,19 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
     }, [selectedCountry])
 
     return (
-        <>
+        <div className='checkout-add-address'>
             {errorOpen && (
                 <ErrorSnackbar message={errorMessage} closeFunction={closeError} />
             )}
             {success && (
-                <SuccessSnackbar message={`L'adresse a été créée`} />
+                <SuccessSnackbar message={`L'adresse a été enregistrée`} />
             )}
-            {(success) ?
+            {(success && isAuthenticated) ?
                 <SuccessAnimation />
             :
                 <form onSubmit={handleSubmit}>
                     <div className="modal-body">
                         <div className="row g-4">
-                            <div className="col-12">
-                                <div className="d-flex align-items-center justify-content-start">
-                                    <div className="d-flex align-items-center">
-                                        <input type="radio" id="delivery" name="type" checked={values.type === 'delivery'} onChange={handleChange} onBlur={handleBlur} value={`delivery`} />
-                                        &nbsp;
-                                        <label htmlFor="delivery">Livraison</label>
-                                    </div>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <div className="d-flex align-items-center">
-                                        <input type="radio" id="billing" name="type" checked={values.type === 'billing'} onChange={handleChange} onBlur={handleBlur} value={`billing`} />
-                                        &nbsp;
-                                        <label htmlFor="billing">Facture</label>
-                                    </div>
-                                </div>
-                                <span className='error-form'>{errors.type && touched.type && errors.type}</span>
-                            </div>
-                            
                             <div className="col-12">
                                 <div className="form-floating theme-form-floating">
                                     <input type="text" className="form-control" id="line_1" name="line_1" onChange={handleChange} onBlur={handleBlur} value={values.line_1} />
@@ -180,15 +162,6 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
                                 </div>
                                 <span className='error-form'>{errors.city && touched.city && errors.city}</span>
                             </div>
-
-                            <div className="col-12">
-                                <div className="d-flex align-items-center">
-                                    <input type="checkbox" id="is_default" name="is_default" checked={values.is_default == 1} onChange={handleChange} onBlur={handleBlur} value={1} />
-                                    &nbsp;
-                                    <label htmlFor="is_default">Définir par défaut</label>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -202,12 +175,13 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
                                     visible={isSubmitting}
                                 />
                                 :
-                                'Ajouter'
+                                'Save'
                             }
                         </button>
                     </div>
+                    {modelClose && <div className="close-model"><X onClick={modelClose} /></div>}
                 </form>
             }
-        </>
+        </div>
     )
 }

@@ -12,6 +12,7 @@ export default function MyAddresses({ selectCurrentAddress, SelectModelForm  }) 
         successAuthContext, emptySuccessAuthContext,
         errorAuthContext, emptyErrorAuthContext 
     }  = useContext(AuthProvider)
+    
     const [errorOpen, setErrorOpen] = React.useState(false);
 
     const closeError = () => {

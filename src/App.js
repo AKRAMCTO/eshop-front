@@ -7,10 +7,14 @@ import {
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import ScrollToTopOnMount from "./helpers/ScrollToTopOnMount";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 
 import DynamiquePage from './pages/DynamiquePage';
+import PageFailed from "./pages/PageFailed";
+import PageSuccess from "./pages/PageSuccess";
 const Home = React.lazy(() => import('./pages/Home'))
 const Login = React.lazy(() => import('./pages/Login'))
 const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'))
@@ -24,11 +28,15 @@ const Products = React.lazy(() => import('./pages/Products'));
 
 // GUEST
 const GuestWishlist = React.lazy(() => import('./pages/GuestWishlist'));
+const Cart = React.lazy(() => import('./pages/Cart'));
+const Checkout = React.lazy(() => import('./pages/Checkout'));
+const PageCheckOrder = React.lazy(() => import('./pages/PageCheckOrder'));
 
 function App() {
   return (
     <Suspense fallback={<Loading />}>
       <BrowserRouter basename="/">
+        <ScrollToTopOnMount />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/devenir-vendeur" component={RegisterSeller} />
@@ -42,6 +50,13 @@ function App() {
           <Route path="/page-404" component={Page404} />
           
           <Route path="/wishlist" component={GuestWishlist} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
+          
+          <Route path="/order-success" component={PageSuccess} />
+          <Route path="/order-failed" component={PageFailed} />
+          
+          <Route path="/check-order" component={PageCheckOrder} />
           
           <ProtectedRoute path="/account/:key?" Component={MyAccount} />
         </Switch>

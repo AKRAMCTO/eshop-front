@@ -136,14 +136,14 @@ export default function Products() {
                                                     <div className="form-floating theme-form-floating-2 search-box">
                                                         <input type="search" className="form-control" id="search"
                                                             placeholder="Search .." />
-                                                        <label for="search">Search</label>
+                                                        <label htmlFor="search">Search</label>
                                                     </div>
 
                                                     <ul className="category-list custom-padding custom-height">
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="fruit" />
-                                                                <label className="form-check-label" for="fruit">
+                                                                <label className="form-check-label" htmlFor="fruit">
                                                                     <span className="name">Fruits & Vegetables</span>
                                                                     <span className="number">(15)</span>
                                                                 </label>
@@ -152,7 +152,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="cake" />
-                                                                <label className="form-check-label" for="cake">
+                                                                <label className="form-check-label" htmlFor="cake">
                                                                     <span className="name">Bakery, Cake & Dairy</span>
                                                                     <span className="number">(12)</span>
                                                                 </label>
@@ -161,7 +161,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="behe" />
-                                                                <label className="form-check-label" for="behe">
+                                                                <label className="form-check-label" htmlFor="behe">
                                                                     <span className="name">Beverages</span>
                                                                     <span className="number">(20)</span>
                                                                 </label>
@@ -170,7 +170,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="snacks" />
-                                                                <label className="form-check-label" for="snacks">
+                                                                <label className="form-check-label" htmlFor="snacks">
                                                                     <span className="name">Snacks & Branded Foods</span>
                                                                     <span className="number">(05)</span>
                                                                 </label>
@@ -179,7 +179,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="beauty" />
-                                                                <label className="form-check-label" for="beauty">
+                                                                <label className="form-check-label" htmlFor="beauty">
                                                                     <span className="name">Beauty & Household</span>
                                                                     <span className="number">(30)</span>
                                                                 </label>
@@ -188,7 +188,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="pets" />
-                                                                <label className="form-check-label" for="pets">
+                                                                <label className="form-check-label" htmlFor="pets">
                                                                     <span className="name">Kitchen, Garden & Pets</span>
                                                                     <span className="number">(50)</span>
                                                                 </label>
@@ -197,7 +197,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="egg" />
-                                                                <label className="form-check-label" for="egg">
+                                                                <label className="form-check-label" htmlFor="egg">
                                                                     <span className="name">Eggs, Meat & Fish</span>
                                                                     <span className="number">(19)</span>
                                                                 </label>
@@ -206,7 +206,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="food" />
-                                                                <label className="form-check-label" for="food">
+                                                                <label className="form-check-label" htmlFor="food">
                                                                     <span className="name">Gourment & World Food</span>
                                                                     <span className="number">(30)</span>
                                                                 </label>
@@ -215,7 +215,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="care" />
-                                                                <label className="form-check-label" for="care">
+                                                                <label className="form-check-label" htmlFor="care">
                                                                     <span className="name">Baby Care</span>
                                                                     <span className="number">(20)</span>
                                                                 </label>
@@ -224,7 +224,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="fish" />
-                                                                <label className="form-check-label" for="fish">
+                                                                <label className="form-check-label" htmlFor="fish">
                                                                     <span className="name">Fish & Seafood</span>
                                                                     <span className="number">(10)</span>
                                                                 </label>
@@ -233,7 +233,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="marinades" />
-                                                                <label className="form-check-label" for="marinades">
+                                                                <label className="form-check-label" htmlFor="marinades">
                                                                     <span className="name">Marinades</span>
                                                                     <span className="number">(05)</span>
                                                                 </label>
@@ -242,7 +242,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="lamb" />
-                                                                <label className="form-check-label" for="lamb">
+                                                                <label className="form-check-label" htmlFor="lamb">
                                                                     <span className="name">Mutton & Lamb</span>
                                                                     <span className="number">(09)</span>
                                                                 </label>
@@ -251,7 +251,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="other" />
-                                                                <label className="form-check-label" for="other">
+                                                                <label className="form-check-label" htmlFor="other">
                                                                     <span className="name">Port & other Meats</span>
                                                                     <span className="number">(06)</span>
                                                                 </label>
@@ -260,7 +260,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="pour" />
-                                                                <label className="form-check-label" for="pour">
+                                                                <label className="form-check-label" htmlFor="pour">
                                                                     <span className="name">Pourltry</span>
                                                                     <span className="number">(01)</span>
                                                                 </label>
@@ -269,7 +269,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="salami" />
-                                                                <label className="form-check-label" for="salami">
+                                                                <label className="form-check-label" htmlFor="salami">
                                                                     <span className="name">Sausages, bacon & Salami</span>
                                                                     <span className="number">(03)</span>
                                                                 </label>
@@ -295,7 +295,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="veget" />
-                                                                <label className="form-check-label" for="veget">
+                                                                <label className="form-check-label" htmlFor="veget">
                                                                     <span className="name">Vegetarian</span>
                                                                     <span className="number">(08)</span>
                                                                 </label>
@@ -305,7 +305,7 @@ export default function Products() {
                                                         <li>
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox" id="non" />
-                                                                <label className="form-check-label" for="non">
+                                                                <label className="form-check-label" htmlFor="non">
                                                                     <span className="name">Non Vegetarian</span>
                                                                     <span className="number">(09)</span>
                                                                 </label>
@@ -350,7 +350,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault" />
-                                                                <label className="form-check-label" for="flexCheckDefault">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                                                     <span className="name">upto 5%</span>
                                                                     <span className="number">(06)</span>
                                                                 </label>
@@ -361,7 +361,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault1" />
-                                                                <label className="form-check-label" for="flexCheckDefault1">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault1">
                                                                     <span className="name">5% - 10%</span>
                                                                     <span className="number">(08)</span>
                                                                 </label>
@@ -372,7 +372,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault2" />
-                                                                <label className="form-check-label" for="flexCheckDefault2">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault2">
                                                                     <span className="name">10% - 15%</span>
                                                                     <span className="number">(10)</span>
                                                                 </label>
@@ -383,7 +383,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault3" />
-                                                                <label className="form-check-label" for="flexCheckDefault3">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault3">
                                                                     <span className="name">15% - 25%</span>
                                                                     <span className="number">(14)</span>
                                                                 </label>
@@ -394,7 +394,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault4" />
-                                                                <label className="form-check-label" for="flexCheckDefault4">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault4">
                                                                     <span className="name">More than 25%</span>
                                                                     <span className="number">(13)</span>
                                                                 </label>
@@ -421,7 +421,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault5" />
-                                                                <label className="form-check-label" for="flexCheckDefault5">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault5">
                                                                     <span className="name">400 to 500 g</span>
                                                                     <span className="number">(05)</span>
                                                                 </label>
@@ -432,7 +432,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault6" />
-                                                                <label className="form-check-label" for="flexCheckDefault6">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault6">
                                                                     <span className="name">500 to 700 g</span>
                                                                     <span className="number">(02)</span>
                                                                 </label>
@@ -443,7 +443,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault7" />
-                                                                <label className="form-check-label" for="flexCheckDefault7">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault7">
                                                                     <span className="name">700 to 1 kg</span>
                                                                     <span className="number">(04)</span>
                                                                 </label>
@@ -454,7 +454,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault8" />
-                                                                <label className="form-check-label" for="flexCheckDefault8">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault8">
                                                                     <span className="name">120 - 150 g each Vacuum 2 pcs</span>
                                                                     <span className="number">(06)</span>
                                                                 </label>
@@ -465,7 +465,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault9" />
-                                                                <label className="form-check-label" for="flexCheckDefault9">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault9">
                                                                     <span className="name">1 pc</span>
                                                                     <span className="number">(09)</span>
                                                                 </label>
@@ -476,7 +476,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault10" />
-                                                                <label className="form-check-label" for="flexCheckDefault10">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault10">
                                                                     <span className="name">1 to 1.2 kg</span>
                                                                     <span className="number">(06)</span>
                                                                 </label>
@@ -487,7 +487,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault11" />
-                                                                <label className="form-check-label" for="flexCheckDefault11">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault11">
                                                                     <span className="name">2 x 24 pcs Multipack</span>
                                                                     <span className="number">(03)</span>
                                                                 </label>
@@ -498,7 +498,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault12" />
-                                                                <label className="form-check-label" for="flexCheckDefault12">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault12">
                                                                     <span className="name">2x6 pcs Multipack</span>
                                                                     <span className="number">(04)</span>
                                                                 </label>
@@ -509,7 +509,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault13" />
-                                                                <label className="form-check-label" for="flexCheckDefault13">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault13">
                                                                     <span className="name">4x6 pcs Multipack</span>
                                                                     <span className="number">(05)</span>
                                                                 </label>
@@ -520,7 +520,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault14" />
-                                                                <label className="form-check-label" for="flexCheckDefault14">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault14">
                                                                     <span className="name">5x6 pcs Multipack</span>
                                                                     <span className="number">(09)</span>
                                                                 </label>
@@ -531,7 +531,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault15" />
-                                                                <label className="form-check-label" for="flexCheckDefault15">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault15">
                                                                     <span className="name">Combo 2 Items</span>
                                                                     <span className="number">(10)</span>
                                                                 </label>
@@ -542,7 +542,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault16" />
-                                                                <label className="form-check-label" for="flexCheckDefault16">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault16">
                                                                     <span className="name">Combo 3 Items</span>
                                                                     <span className="number">(14)</span>
                                                                 </label>
@@ -553,7 +553,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault17" />
-                                                                <label className="form-check-label" for="flexCheckDefault17">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault17">
                                                                     <span className="name">2 pcs</span>
                                                                     <span className="number">(19)</span>
                                                                 </label>
@@ -564,7 +564,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault18" />
-                                                                <label className="form-check-label" for="flexCheckDefault18">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault18">
                                                                     <span className="name">3 pcs</span>
                                                                     <span className="number">(14)</span>
                                                                 </label>
@@ -575,7 +575,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault19" />
-                                                                <label className="form-check-label" for="flexCheckDefault19">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault19">
                                                                     <span className="name">2 pcs Vacuum (140 g to 180 g each
                                                                         )</span>
                                                                     <span className="number">(13)</span>
@@ -587,7 +587,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault20" />
-                                                                <label className="form-check-label" for="flexCheckDefault20">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault20">
                                                                     <span className="name">4 pcs</span>
                                                                     <span className="number">(18)</span>
                                                                 </label>
@@ -598,7 +598,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault21" />
-                                                                <label className="form-check-label" for="flexCheckDefault21">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault21">
                                                                     <span className="name">4 pcs Vacuum (140 g to 180 g each
                                                                         )</span>
                                                                     <span className="number">(07)</span>
@@ -610,7 +610,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault22" />
-                                                                <label className="form-check-label" for="flexCheckDefault22">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault22">
                                                                     <span className="name">6 pcs</span>
                                                                     <span className="number">(09)</span>
                                                                 </label>
@@ -621,7 +621,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault23" />
-                                                                <label className="form-check-label" for="flexCheckDefault23">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault23">
                                                                     <span className="name">6 pcs carton</span>
                                                                     <span className="number">(11)</span>
                                                                 </label>
@@ -632,7 +632,7 @@ export default function Products() {
                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                 <input className="checkbox_animated" type="checkbox"
                                                                     id="flexCheckDefault24" />
-                                                                <label className="form-check-label" for="flexCheckDefault24">
+                                                                <label className="form-check-label" htmlFor="flexCheckDefault24">
                                                                     <span className="name">6 pcs Pouch</span>
                                                                     <span className="number">(16)</span>
                                                                 </label>
