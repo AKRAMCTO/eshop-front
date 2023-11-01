@@ -172,7 +172,7 @@ export default function Product() {
                                         </div> */}
 
                                         {(data?.description) && 
-                                            <div className="procuct-contain" dangerouslySetInnerHTML={data?.description} />
+                                            <div className="procuct-contain" dangerouslySetInnerHTML={{ __html: data?.description }} />
                                         }
                                         
                                         {/* <div className="product-packege">
@@ -388,7 +388,7 @@ export default function Product() {
                                 <div className="tab-content custom-tab" id="myTabContent">
                                     {(data?.description) && 
                                         <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                            <div className="product-description" dangerouslySetInnerHTML={data?.description} />
+                                            <div className="product-description" dangerouslySetInnerHTML={{ __html: data?.description }} />
                                         </div>
                                     }
 
