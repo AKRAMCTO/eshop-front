@@ -74,7 +74,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                                     }
                                     {(userData.type === 'professional' || userData.type === 'seller') && 
                                         <tr>
-                                            <td>RC :</td>
+                                            <td>{(userData.type === 'seller') ? 'Raison sociale' : 'RC'} :</td>
                                             <td>{userData?.rc}</td>
                                         </tr>
                                     }

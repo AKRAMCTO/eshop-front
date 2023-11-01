@@ -39,6 +39,21 @@ export default function MenuCategories() {
                                                 {item?.childrens.map((sub, keysub) => 
                                                     <li key={`menu-sub-category-${keysub}`}>
                                                         <Link to={`/products?category=${sub?.slug}`}>{sub?.name}</Link>
+                                                        {(sub?.childrens && sub?.childrens.length) ?
+                                                            <div className="onhover-category-box">
+                                                                <div className="list-1">
+                                                                    <ul>
+                                                                        {sub?.childrens.map((sub1, keysub1) => 
+                                                                            <li key={`menu-sub-category-${keysub1}`}>
+                                                                                <Link to={`/products?category=${sub1?.slug}`}>{sub1?.name}</Link>
+                                                                            </li>
+                                                                        )}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            :
+                                                            null
+                                                        }
                                                     </li>
                                                 )}
                                             </ul>

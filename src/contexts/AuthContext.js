@@ -7,7 +7,7 @@ import {
     userRegisterSeller,
     getAddresses,
     removeAddress,
-    getOrders
+    getOrders,
 } from './../queries/queries';
 export const AuthProvider = React.createContext();
 

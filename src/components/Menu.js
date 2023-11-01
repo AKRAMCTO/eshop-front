@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthProvider } from '../contexts/AuthContext';
 
 export default function Menu() {
+    const {isLoggedIn} = useContext(AuthProvider)
 
     return (
         <div className="mobile-menu d-md-none d-block mobile-cart">
@@ -14,19 +16,19 @@ export default function Menu() {
                 </li>
 
                 <li className="mobile-category">
-                    <Link to="/">
+                    <Link to="/products">
                         <i className="iconly-Category icli js-link"></i>
                         <span>Catégorie</span>
-                        </Link>
+                    </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link to="/" className="search-box">
                         <i className="iconly-Search icli"></i>
                         <span>Recherche</span>
                     </Link>
-                </li>
+                </li> */}
                 <li>
-                    <Link to="/account/wishlist" className="notifi-wishlist">
+                    <Link to={(isLoggedIn) ? `/account/wishlist` : `/wishlist`} className="notifi-wishlist">
                         <i className="iconly-Heart icli"></i>
                         <span>Wishlist</span>
                     </Link>

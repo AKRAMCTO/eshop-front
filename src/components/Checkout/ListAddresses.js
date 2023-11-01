@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddAddress from './AddAddress';
 
-export default function ListAddresses({ current, type, addresses, save, isAuthenticated }) {
+export default function ListAddresses({ current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
     const [show, setShow] = useState(false)
 
     const modelOpen = () => {
@@ -19,6 +19,10 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
         }
     }
 
+    const checkTheSameAddress = (event) => {
+        saveAddress((event) ? currentDeliveryAddress : null)
+    }
+
     if(isAuthenticated){
         return (
             <div className="checkout-box box-popup">
@@ -32,6 +36,14 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
                         + Ajouter un nouveau
                     </button>
                 </div>
+                {(useAs && currentDeliveryAddress) && 
+                    <div className="checkout-detail mb-3">
+                        <label htmlFor="useAs" className="d-flex align-items-center justify-content-start">
+                            <input type="checkbox" id="useAs" onChange={(event) => checkTheSameAddress(event.target.checked)} />&nbsp;
+                            Utiliser l'adresse de livraison comme adresse de facturation
+                        </label>
+                    </div>
+                }
                 {addresses && addresses.length ?
                     <div className="checkout-detail">
                         <div className="row g-4">

@@ -50,7 +50,7 @@ export default function SlideBestSellers() {
         }
     }, [isLoading])
 
-    if(isLoading || data?.lenght < 1) return <div />
+    if(isLoading || data?.length < 1) return <div />
 
     return (
         <div>

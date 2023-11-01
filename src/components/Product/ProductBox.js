@@ -5,7 +5,7 @@ import { CartAndWishlistProvider } from '../../contexts/CartAndWishlistContext';
 import { TailSpin } from 'react-loader-spinner';
 import { AuthProvider } from '../../contexts/AuthContext';
 
-export default function ProductBox({ product, isWishlist = false }) {
+export default function ProductBox({ product, isWishlist = false, isHorizontal = false }) {
     const { 
         wishListDataKeys, 
         addToWishListMutation, removeFromWishListMutation, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading,
@@ -102,13 +102,20 @@ export default function ProductBox({ product, isWishlist = false }) {
             if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});
             else await storeGuestCartItem({id: product?.id, quantity: quantity});
             setAddLoadingCart(false);
+
+            if(quantityElement){
+                let timer = setTimeout(() => {
+                    setQuantityElement(false)
+                }, 2000);
+                return () => clearTimeout(timer);
+            }
         } catch (error) {
             setAddLoadingCart(false);
         }
     };
 
     return (
-        <div className={`${(isWishlist) ? 'product-box-3 theme-bg-white' : ''} ${(!isWishlist) ? 'product-box product-white-bg' : ''} wow fadeIn`}>
+        <div className={`${(isWishlist) ? 'product-box-3 theme-bg-white' : ''} ${(isHorizontal) ? 'horizontal' : 'vertical'} ${(!isWishlist) ? 'product-box product-white-bg' : ''} wow fadeIn`}>
             <div className="product-header">
                 <div className="product-image">
                     <Link to={`/product/${product?.slug}`}>
@@ -166,7 +173,7 @@ export default function ProductBox({ product, isWishlist = false }) {
             <div className="product-footer">
                 <div className="product-detail position-relative">
                     <Link to={`/product/${product?.slug}`}><h6 className="name">{product?.title}</h6></Link>
-                    <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>
+                    {(product?.units_measurement && product?.values) && <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>}
                     <h6 className="price theme-color">{product?.price_ttc} Dhs</h6>
                     <div className="add-to-cart-box bg-white">
                         <button 

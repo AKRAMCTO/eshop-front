@@ -11,6 +11,7 @@ import MenuPrimary from './MenuPrimary';
 import MenuCategories from './MenuCategories';
 import { DataProvider } from '../contexts/DataContext';
 import { AuthProvider } from '../contexts/AuthContext';
+import SearchProducts from './Home/SearchProducts';
 
 export default function Heade() {
     const { settings, isMobile } = React.useContext(DataProvider);
@@ -73,22 +74,7 @@ export default function Heade() {
                                     </Link>
                                 }
 
-                                <div className="middle-box">
-                                    <div className="search-box">
-                                        <div className="input-group">
-                                            <input
-                                                type="search"
-                                                className="form-control"
-                                                placeholder="Rechercher sur Ecowatt"
-                                                aria-label="Recipient's username"
-                                                aria-describedby="button-addon2"
-                                            />
-                                            <button className="btn" type="button" id="button-addon2">
-                                                <Search />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <SearchProducts />
 
                                 <div className="rightside-box">
                                     <div className="search-full">

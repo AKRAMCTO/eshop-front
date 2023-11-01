@@ -52,7 +52,7 @@ export default function CartButton() {
                     </span>
                 </Link>
 
-                <div className="onhover-div">
+                <div className="onhover-div cart-side">
                     {(cartItems && cartItems.length) ?
                         <>
                             <ul className="cart-list">

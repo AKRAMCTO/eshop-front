@@ -293,7 +293,7 @@ export default function CartAndWishlistContext({ children }) {
               cartCalculation,
               cartDataKeys,
               cartDataChecker,
-              cartItemsLength: cartData?.length ?? 0,
+              cartItemsLength: cartData.length ?? 0,
               addToCartMutation,
               updateToCartMutation,
               removeFromCartMutation,

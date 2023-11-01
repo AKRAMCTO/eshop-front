@@ -229,7 +229,7 @@ export default function RegisterSeller() {
                                                         <div className="col-12 col-md-6">
                                                             <div className="form-floating theme-form-floating">
                                                                 <input type="text" className="form-control" id="rc" name="rc" onChange={handleChange} onBlur={handleBlur} value={values.rc} />
-                                                                <label htmlFor="rc">RC</label>
+                                                                <label htmlFor="rc">Raison Sociale</label>
                                                             </div>
                                                             <span className='error-form'>{errors.rc && touched.rc && errors.rc}</span>
                                                         </div>

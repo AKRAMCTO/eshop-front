@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const REACT_APP_MAIN_URL = `http://127.0.0.1:8000/api`
-const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
+const REACT_APP_MAIN_URL = `http://127.0.0.1:8000/api`
+// const REACT_APP_MAIN_URL = `https://dev.ecowatt.ma/api`
 
 export const getSiteSettings = async () => {
     try {
@@ -79,7 +79,6 @@ export const saveReminder = async (data) => {
         throw new Error(error);
     }
 };
-
 
 
 // Auth
@@ -289,6 +288,50 @@ export const getSingleProduct = async (keyPage) => {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/product/${keyPage}`);
         if (res.data.status === true) {
             return res.data.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+};
+export const getProducts = async (params) => {
+    try {
+        const res = await axios.post(`${REACT_APP_MAIN_URL}/products`, params);
+        if (res.data.status === true) {
+            return res.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+};
+export const getSearchProducts = async (params) => {
+    try {
+        const res = await axios.post(`${REACT_APP_MAIN_URL}/products-search`, params);
+        if (res.data.status === true) {
+            return res.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+};
+export const getFilterCategories = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-categories`);
+        if (res.data.status === true) {
+            return res.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+};
+export const getFilterBrands = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-brands`);
+        if (res.data.status === true) {
+            return res.data;
         }
     } catch (error) {
         // throw new Error(error);

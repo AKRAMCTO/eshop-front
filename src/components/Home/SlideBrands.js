@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
+
 import { getFeaturedBrands } from '../../queries/queries';
 import { DataProvider } from '../../contexts/DataContext';
 
@@ -51,7 +53,7 @@ export default function SlideBrands() {
         }
     }, [isLoading])
 
-    if(isLoading || data?.lenght < 1) return <div />
+    if(isLoading || data?.length < 1) return <div />
 
     return (
         <section className="product-list-section section-b-space">
@@ -70,9 +72,9 @@ export default function SlideBrands() {
                                             <div className="product-box-3 wow fadeInUp">
                                                 <div className="product-header">
                                                     <div className="product-image">
-                                                        <a href={item?.website} target='_blank'>
+                                                        <Link to={`/products?brand=${item?.slug}`}>
                                                             <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,9 +87,9 @@ export default function SlideBrands() {
                                         <div className="product-box-3 wow fadeInUp">
                                             <div className="product-header">
                                                 <div className="product-image">
-                                                    <a href={item?.website} target='_blank'>
+                                                    <Link to={`/products?brand=${item?.slug}`}>
                                                         <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
