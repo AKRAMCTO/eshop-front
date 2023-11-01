@@ -6,10 +6,6 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import { getProducts, getFilterCategories, getFilterBrands } from "../queries/queries";
 import Container from "../components/Products/Container";
-import Sidebar from "../components/Products/Sidebar";
-import Filter from "../components/Products/Filter";
-import { InfinitySpin } from "react-loader-spinner";
-import ProductBox from "../components/Product/ProductBox";
 
 export default function Products() {
     const location = useLocation()
@@ -32,9 +28,13 @@ export default function Products() {
 
     useEffect(() => {
         console.log('useffect 1')
-        setCategories(queryParameters.get("category") ? [queryParameters.get("category")] : [])
-        setBrands(queryParameters.get("brand") ? [queryParameters.get("brand")] : [])
-    }, [])
+        // if(categories !== queryParameters.get("category")){ 
+            setCategories(queryParameters.get("category") ? [queryParameters.get("category")] : [])
+        // }
+        // if(brands !== queryParameters.get("brand")){ 
+            setBrands(queryParameters.get("brand") ? [queryParameters.get("brand")] : [])
+        // }
+    }, [location])
 
     useEffect(() => {
         fetchCategories()
