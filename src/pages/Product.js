@@ -14,6 +14,7 @@ import { CartAndWishlistProvider } from "../contexts/CartAndWishlistContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import Tabs from "../components/Product/Tabs";
 import moment from "moment";
+import 'moment/locale/fr';
 
 export default function Product() {
     const { product } = useParams();
