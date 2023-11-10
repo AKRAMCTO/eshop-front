@@ -72,7 +72,12 @@ export default function SlideBrands() {
                                             <div className="product-box-3 wow fadeInUp">
                                                 <div className="product-header">
                                                     <div className="product-image">
-                                                        <Link to={`/products?brand=${item?.slug}`}>
+                                                        <Link 
+                                                            to={{
+                                                                pathname: "/products",
+                                                                state: {brand: item?.slug}
+                                                            }} 
+                                                        >
                                                             <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
                                                         </Link>
                                                     </div>
@@ -87,7 +92,12 @@ export default function SlideBrands() {
                                         <div className="product-box-3 wow fadeInUp">
                                             <div className="product-header">
                                                 <div className="product-image">
-                                                    <Link to={`/products?brand=${item?.slug}`}>
+                                                    <Link 
+                                                        to={{
+                                                            pathname: "/products",
+                                                            state: {brand: item?.slug}
+                                                        }} 
+                                                    >
                                                         <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
                                                     </Link>
                                                 </div>

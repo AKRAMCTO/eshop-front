@@ -13,6 +13,7 @@ import { Check, Heart, Minus, Plus, ShoppingCart } from "react-feather";
 import { CartAndWishlistProvider } from "../contexts/CartAndWishlistContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import Tabs from "../components/Product/Tabs";
+import moment from "moment";
 
 export default function Product() {
     const { product } = useParams();
@@ -35,6 +36,9 @@ export default function Product() {
     const [addItemInWishlist, setAddItemInWishlist] = useState(false)
     const [addLoadingWishlist, setAddLoadingWishlist] = useState(false)
     const [removeLoading, setRemoveLoading] = useState(false)
+
+    var fr = moment().locale('fr');
+    var dateDelivery = fr.add(3, 'days').format('dddd D MMMM YYYY')
 
     useEffect(() => {
         if(data && wishListDataKeys.includes(data?.id)){
@@ -148,34 +152,15 @@ export default function Product() {
                                 <div className="col-xl-6 wow fadeInUp">
                                     <div className="right-box-contain">
                                         {/* <h6 className="offer-top">30% Off</h6> */}
+                                        <h6 className="mb-2 font-bold">#{data?.ref}</h6>
                                         <h2 className="name">{data?.title}</h2>
                                         <div className="price-rating">
                                             <h3 className="theme-color price">{data?.price_ttc} Dhs</h3>
-                                            {/* 
-                                            <div className="product-rating custom-rate">
-                                                <ul className="rating">
-                                                    <li>
-                                                        <i data-feather="star" className="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" className="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" className="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star" className="fill"></i>
-                                                    </li>
-                                                    <li>
-                                                        <i data-feather="star"></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                             */}
                                         </div>
 
-                                        {(data?.description) && 
-                                            <div className="procuct-contain" dangerouslySetInnerHTML={{ __html: data?.description }} />
+                                        {(data?.description) ?
+                                            <div className="procuct-contain" dangerouslySetInnerHTML={{ __html: data?.description.split(' ').slice(0, 20).join(' ') }} />
+                                            : null
                                         }
                                         
                                         {/* <div className="product-packege">
@@ -303,23 +288,29 @@ export default function Product() {
                                             }
                                         </div>
 
-                                        {/* <div className="pickup-box">
-                                            <div className="product-title">
-                                                <h4>Store Information</h4>
-                                            </div>
+                                        {(data?.product_properties && data?.product_properties.length) ? 
+                                            <div className="pickup-box">
+                                                {/* 
+                                                    <div className="product-title">
+                                                        <h4>Store Information</h4>
+                                                    </div>
 
-                                            <div className="pickup-detail">
-                                                <h4 className="text-content">Lollipop cake chocolate chocolate cake dessert jujubes. Shortbread sugar plum dessert powder cookie sweet brownie.</h4>
+                                                    <div className="pickup-detail">
+                                                        <h4 className="text-content">Lollipop cake chocolate chocolate cake dessert jujubes. Shortbread sugar plum dessert powder cookie sweet brownie.</h4>
+                                                    </div>
+                                                */}
+                                                <div className="product-info">
+                                                    {data?.product_properties.map((item, key) =>
+                                                        <ul className="product-info-list product-info-list-2" key={`product_${data?.id}_properties_${item?.id}`}>
+                                                            <li>Unité de mesure: {item?.measure?.label}</li>
+                                                            <li>Caractéristique: {item?.property?.label}</li>
+                                                            <li>Valeur: {item?.value}</li>
+                                                        </ul>
+                                                    )}
+                                                </div>
                                             </div>
-
-                                            <div className="product-info">
-                                                <ul className="product-info-list product-info-list-2">
-                                                    {data?.features && (<li>Caractéristique : {data?.features}</li>)}
-                                                    {data?.values && (<li>Valeur : {data?.values}</li>)}
-                                                    {data?.units_measurement && (<li>Unité de mesure : {data?.units_measurement}</li>)}
-                                                </ul>
-                                            </div>
-                                        </div> */}
+                                            : null
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +325,7 @@ export default function Product() {
                                 <div className="pt-25">
                                     <div className="hot-line-number">
                                         <p className="vendor-detail">- Si vous avez des questions, vous pouvez appeler ce numéro de téléphone 000000000</p>
-                                        <p className="vendor-detail m-0">- Si vous commandez maintenant, vous recevrez votre commande dans les 3 jours</p>
+                                        <p className="vendor-detail m-0">- Si vous commandez maintenant, vous recevrez votre commande le {dateDelivery}</p>
                                     </div>
                                 </div>
                             </div>

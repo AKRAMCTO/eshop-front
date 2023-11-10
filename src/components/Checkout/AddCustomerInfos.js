@@ -61,28 +61,28 @@ export default function AddCustomerInfos({ save }) {
                     <form onSubmit={handleSubmit}>
                         <div className="modal-body">
                             <div className="row g-4">
-                                <div className="col-12">
+                                <div className="col-12 col-md-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="text" className="form-control" id="fname" name="fname" onChange={handleChange} onBlur={handleBlur} value={values.fname} />
                                         <label htmlFor="fname">Nom</label>
                                     </div>
                                     <span className='error-form'>{errors.fname && touched.fname && errors.fname}</span>
                                 </div>
-                                <div className="col-12">
+                                <div className="col-12 col-md-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="text" className="form-control" id="lname" name="lname" onChange={handleChange} onBlur={handleBlur} value={values.lname} />
                                         <label htmlFor="lname">Prenom</label>
                                     </div>
                                     <span className='error-form'>{errors.lname && touched.lname && errors.lname}</span>
                                 </div>
-                                <div className="col-12">
+                                <div className="col-12 col-md-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="email" className="form-control" id="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                                         <label htmlFor="email">Email Address</label>
                                     </div>
                                     <span className='error-form'>{errors.email && touched.email && errors.email}</span>
                                 </div>
-                                <div className="col-12">
+                                <div className="col-12 col-md-6">
                                     <div className="form-floating theme-form-floating">
                                         <input type="text" className="form-control" id="mobile" name="mobile" onChange={handleChange} onBlur={handleBlur} value={values.mobile} />
                                         <label htmlFor="mobile">Téléphone</label>

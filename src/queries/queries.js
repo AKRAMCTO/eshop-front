@@ -250,7 +250,6 @@ export const getAllBrands = async () => {
     }
 };
 export const getFeaturedBrands = async () => {
-    console.log('getFeaturedBrands')
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/featured-brands`);
         console.log(res.data.data)

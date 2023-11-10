@@ -44,13 +44,13 @@ export default function ResetPassword() {
     }, [errorOpen])
 
     const ValidationSchemaForm = object({
-        email: string().email('Email invalide').required('Ce champ est obligatoire'),
+        // email: string().email('Email invalide').required('Ce champ est obligatoire'),
         password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         password_confirmation: string().required('Ce champ est obligatoire').oneOf([ref('password'), null], 'Passwords must match')
     });
 
     const genInitialValues = () => ({ 
-        email: '',
+        // email: '',
         password: '',
         password_confirmation: '',
     });
@@ -96,7 +96,7 @@ export default function ResetPassword() {
                                                     try {
                                                         const res = await resetUserPassword({
                                                             token: token,
-                                                            email: values.email,
+                                                            // email: values.email,
                                                             password: values.password,
                                                             password_confirmation: values.password_confirmation
                                                         });
@@ -126,13 +126,13 @@ export default function ResetPassword() {
                                                     isSubmitting,
                                                 }) => (
                                                     <form onSubmit={handleSubmit} className="row g-4">
-                                                        <div className="col-12">
+                                                        {/* <div className="col-12">
                                                             <div className="form-floating theme-form-floating log-in-form">
                                                                 <input type="email" className="form-control" id="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                                                                 <label htmlFor="email">Adresse e-mail</label>
                                                             </div>
                                                             <span className='error-form'>{errors.email && touched.email && errors.email}</span>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="col-12">
                                                             <div className="form-floating theme-form-floating log-in-form">
                                                                 <input type="password" className="form-control" id="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />

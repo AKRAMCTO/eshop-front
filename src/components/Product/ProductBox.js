@@ -11,10 +11,11 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
         addToWishListMutation, removeFromWishListMutation, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading,
         getWishlistItemsGuestLoading,  storeGuestWishlistItem, removeGuestWishlistItem,
         cartDataChecker,
-        addToCartMutation, storeGuestCartItem
+        addToCartMutation, storeGuestCartItem, 
+        showPopup, openPopup
     } = useContext(CartAndWishlistProvider)
 
-    const { isLoggedIn, userData } = useContext(AuthProvider)
+    const { isLoggedIn } = useContext(AuthProvider)
     const [ addItemInWishlist, setAddItemInWishlist ] = useState(false)
     const [addLoadingWishlist, setAddLoadingWishlist] = useState(false)
     const [removeLoadingWishlist, setRemoveLoadingWishlist] = useState(false)
@@ -23,7 +24,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
     const [addLoadingCart, setAddLoadingCart] = useState(false)
     // const [removeLoadingCart, setRemoveLoadingCart] = useState(false)
 
-    const [quantityElement, setQuantityElement] = useState(false)
+    const [currentQuantity, setCurrentQuantity] = useState(0)
     const [quantity, setQuantity] = useState(0)
 
     useEffect(() => {
@@ -42,6 +43,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             cartFilter = cartFilter[0]
             setAddItemInCart(true)
             setQuantity(cartFilter?.quantity)
+            setCurrentQuantity(cartFilter?.quantity)
         }else{
             setAddItemInCart(false)
         }
@@ -59,14 +61,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
         return () => clearTimeout(timer);
     }, [addLoadingWishlist, removeLoadingWishlist, getWishlistItemsGuestLoading, wishlistItemsLoading, addWishlistLoading, removeWishlistLoading])
 
-    useEffect(() => {
-        if(quantity > 0){
-            handleAddToCard()
-        }
-    }, [quantity])
-
     const handleAddToWishList = async () => {
-        console.log('checked add')
         setAddLoadingWishlist(true);
         try {
             if(isLoggedIn) await addToWishListMutation(product.id);
@@ -86,8 +81,6 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             setRemoveLoadingWishlist(false);
         }
     };
-
-    const showQuantity = () => setQuantityElement(!quantityElement)
     const toggleQuantity  = async (move) => {
         if(move === 'minus'){
             if(quantity > 1) setQuantity(quantity-1)
@@ -95,22 +88,27 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             setQuantity(quantity+1)
         }
     };
-
     const handleAddToCard = async () => {
-        setAddLoadingCart(true);
-        try {
-            if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});
-            else await storeGuestCartItem({id: product?.id, quantity: quantity});
-            setAddLoadingCart(false);
+        console.log('handleAddToCard')
+        console.log(quantity + ' -- ' + currentQuantity)
+        if(quantity > 0 && quantity !== currentQuantity){
+            console.log(quantity + ' -- ' + currentQuantity)
+            setAddLoadingCart(true);
+            try {
+                if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});
+                else await storeGuestCartItem({id: product?.id, quantity: quantity});
+                setCurrentQuantity(quantity)
 
-            if(quantityElement){
-                let timer = setTimeout(() => {
-                    setQuantityElement(false)
-                }, 2000);
-                return () => clearTimeout(timer);
+                if(!showPopup){
+                    let timer = setTimeout(() => {
+                        setAddLoadingCart(false);
+                        openPopup()
+                    }, 1000);
+                    return () => clearTimeout(timer);
+                }
+            } catch (error) {
+                setAddLoadingCart(false);
             }
-        } catch (error) {
-            setAddLoadingCart(false);
         }
     };
 
@@ -176,31 +174,44 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     {(product?.units_measurement && product?.values) && <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>}
                     <h6 className="price theme-color">{product?.price_ttc} Dhs</h6>
                     <div className="add-to-cart-box bg-white">
-                        <button 
-                            type='type' 
-                            className={`btn btn-add-cart addcart-button ${addItemInCart && "text-success font-bold"}`}
-                            onClick={showQuantity}>
-                            {(addItemInCart) ? "Ajouté" : "Ajouter"} 
-                            <span className="add-icon"><Plus /></span>
-                        </button>
-                        <div className={`cart_qty qty-box ${quantityElement && "open"}`}>
+                        <div className={`cart_qty qty-box`}>
                             <div className="input-group">
                                 <button 
-                                    type="button" 
+                                    type="button"
+                                    disabled={addLoadingCart}
                                     className="qty-left-minus" 
                                     onClick={() => toggleQuantity('minus')}
-                                    disabled={addLoadingCart}
                                 >
                                     <Minus />
                                 </button>
                                 <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
                                 <button 
-                                    type="button" 
+                                    type="button"
+                                    disabled={addLoadingCart}
                                     className="qty-right-plus" 
                                     onClick={() => toggleQuantity('plus')}
-                                    disabled={addLoadingCart}
                                 >
                                     <Plus />
+                                </button>
+                            </div>
+                            {/* ${quantityElement && "open"}`} */}
+                            <div className='text-center'>
+                                <button
+                                    type="button"
+                                    disabled={addLoadingCart}
+                                    className={`btn btn-add-cart addcart-button`}
+                                    onClick={() => handleAddToCard()}
+                                >
+                                    {(addLoadingCart) ?  
+                                        <TailSpin
+                                            color="#2A3466"
+                                            height={20}
+                                            width={20}
+                                            visible={addLoadingCart}
+                                        />
+                                    :
+                                        "Ajouter"
+                                    }
                                 </button>
                             </div>
                         </div>

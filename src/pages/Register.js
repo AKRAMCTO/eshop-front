@@ -133,28 +133,28 @@ export default function Register() {
                                                         </div>
                                                         <span className='error-form'>{errors.type && touched.type && errors.type}</span>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="text" className="form-control" id="fname" name="fname" onChange={handleChange} onBlur={handleBlur} value={values.fname} />
                                                             <label htmlFor="fname">Nom</label>
                                                         </div>
                                                         <span className='error-form'>{errors.fname && touched.fname && errors.fname}</span>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="text" className="form-control" id="lname" name="lname" onChange={handleChange} onBlur={handleBlur} value={values.lname} />
                                                             <label htmlFor="lname">Prenom</label>
                                                         </div>
                                                         <span className='error-form'>{errors.lname && touched.lname && errors.lname}</span>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="email" className="form-control" id="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                                                             <label htmlFor="email">Email Address</label>
                                                         </div>
                                                         <span className='error-form'>{errors.email && touched.email && errors.email}</span>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 col-md-6">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="text" className="form-control" id="mobile" name="mobile" onChange={handleChange} onBlur={handleBlur} value={values.mobile} />
                                                             <label htmlFor="mobile">Téléphone</label>
@@ -176,14 +176,14 @@ export default function Register() {
                                                     
                                                     {(values.type === 'professional') && 
                                                         <>
-                                                            <div className="col-12">
+                                                            <div className="col-12 col-md-6">
                                                                 <div className="form-floating theme-form-floating">
                                                                     <input type="text" className="form-control" id="rc" name="rc" onChange={handleChange} onBlur={handleBlur} value={values.rc} />
                                                                     <label htmlFor="rc">RC</label>
                                                                 </div>
                                                                 <span className='error-form'>{errors.rc && touched.rc && errors.rc}</span>
                                                             </div>
-                                                            <div className="col-12">
+                                                            <div className="col-12 col-md-6">
                                                                 <div className="form-floating theme-form-floating">
                                                                     <input type="text" className="form-control" id="ice" name="ice" onChange={handleChange} onBlur={handleBlur} value={values.ice} />
                                                                     <label htmlFor="ice">ICE</label>

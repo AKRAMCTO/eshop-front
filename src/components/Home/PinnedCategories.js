@@ -21,7 +21,13 @@ export default function PinnedCategories() {
                                 alt="{item?.name}"
                             />
                             <h5>
-                                <Link to={`/products?category=${item?.slug}`} className="text-content">{item?.name}</Link>
+                                <Link 
+                                    to={{
+                                        pathname: "/products",
+                                        state: {category: item?.slug}
+                                    }} 
+                                    className="text-content"
+                                >{item?.name}</Link>
                             </h5>
                         </div>
                     </li>

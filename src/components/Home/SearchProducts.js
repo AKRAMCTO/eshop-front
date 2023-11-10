@@ -30,7 +30,7 @@ export default function SearchProducts() {
     
     const changeTitle = (word) => {
         setTitle(word)
-        if(word.length > 3){
+        if(word.length >= 2){
             setIsComponentVisible(true)
             fetchProducts(word)
         }
@@ -56,7 +56,7 @@ export default function SearchProducts() {
                     </button>
                 </div>
             </div>
-            {(isComponentVisible && (title.length > 3 || isLoading)) &&
+            {(isComponentVisible && (title.length >= 2 || isLoading)) &&
                 <div className='search-result'>
                     {(isLoading) ? 
                         <div className="p-3 d-flex align-items-center justify-content-center">

@@ -15,8 +15,9 @@ export default function Filter({handleSort, handleGrid, grid, handleShowMenu}) {
                     <h5 className="text-content">Trier par :</h5>
                     <div className="dropdown">
                         <select className="dropdown-toggle" onChange={(event) => handleSort(event.target.value)}>
-                            <option value="latest">Dernier</option>
-                            <option value="pop">Popularité</option>
+                            <option></option>
+                            {/* <option value="latest">Dernier</option>
+                            <option value="pop">Popularité</option> */}
                             <option value="priceLow">Prix bas – élevé</option>
                             <option value="priceHigh">Prix élevé - bas</option>
                             <option value="aToz">A - Z</option>

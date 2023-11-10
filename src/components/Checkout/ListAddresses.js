@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddAddress from './AddAddress';
 
 export default function ListAddresses({ current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
     const [show, setShow] = useState(false)
+    const [defaultChecked, setDefaultChecked] = useState(true)
 
     const modelOpen = () => {
         setShow(true)
@@ -20,83 +21,98 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
     }
 
     const checkTheSameAddress = (event) => {
+        setDefaultChecked(event)
         saveAddress((event) ? currentDeliveryAddress : null)
     }
+
+    useEffect(() => {
+        if(useAs && defaultChecked){
+            saveAddress(currentDeliveryAddress)
+        }
+    }, [currentDeliveryAddress])
 
     if(isAuthenticated){
         return (
             <div className="checkout-box box-popup">
                 <div className="d-flex align-items-center justify-content-between checkout-title">
                     <h4>Address de {type === 'delivery' ? 'Livraison' : 'facturation'}</h4>
-                    <button
-                        className="btn new-address-button"
-                        type="button"
-                        onClick={modelOpen}
-                    >
-                        + Ajouter un nouveau
-                    </button>
+                    {((useAs && !defaultChecked) || !useAs) && (
+                        <>
+                            <button
+                                className="btn new-address-button"
+                                type="button"
+                                onClick={modelOpen}
+                                >
+                                + Ajouter un nouveau
+                            </button>
+                            {(show) && <AddAddress type={type} modelClose={modelClose} isAuthenticated={isAuthenticated} />}
+                        </>
+                    )}
                 </div>
-                {(useAs && currentDeliveryAddress) && 
+                {(useAs) ? 
                     <div className="checkout-detail mb-3">
                         <label htmlFor="useAs" className="d-flex align-items-center justify-content-start">
-                            <input type="checkbox" id="useAs" onChange={(event) => checkTheSameAddress(event.target.checked)} />&nbsp;
+                            <input type="checkbox" id="useAs" checked={defaultChecked} onChange={(event) => checkTheSameAddress(event.target.checked)} />&nbsp;
                             Utiliser l'adresse de livraison comme adresse de facturation
                         </label>
                     </div>
+                    :
+                    <div />
                 }
-                {addresses && addresses.length ?
-                    <div className="checkout-detail">
-                        <div className="row g-4">
-                            {addresses.map((item, key) =>
-                                <div className="col-xxl-6 col-lg-12 col-md-6" key={`address-delivery-${key}`}>
-                                    <div className="delivery-address-box" onClick={() => saveAddress(item?.id)}>
-                                        <div>
-                                            <div className="form-check">
-                                                {(current === item?.id) ? <input readOnly className="form-check-input" checked type="radio" id="flexRadioDefault1" /> : <div/>}
+                {((useAs && !defaultChecked) || !useAs) && (
+                    addresses && addresses.length ?
+                        <div className="checkout-detail">
+                            <div className="row g-4">
+                                {addresses.map((item, key) =>
+                                    <div className="col-xxl-6 col-lg-12 col-md-6" key={`address-delivery-${key}`}>
+                                        <div className="delivery-address-box" onClick={() => saveAddress(item?.id)}>
+                                            <div>
+                                                <div className="form-check">
+                                                    {(current === item?.id) ? <input readOnly className="form-check-input" checked type="radio" id="flexRadioDefault1" /> : <div/>}
+                                                </div>
+                                                <div className="label">
+                                                    <label>{item?.type === 'delivery' ? 'Livraison' : 'Facture'}</label>
+                                                </div>
+                                                <ul className="delivery-address-detail">
+                                                    {(item?.country) &&
+                                                        <li>
+                                                            <p className="text-content">
+                                                                <span className="text-title">Pays: {item?.country?.name}</span>
+                                                            </p>
+                                                        </li>
+                                                    }
+                                                    {(item?.city) &&
+                                                        <li>
+                                                            <p className="text-content">
+                                                                <span className="text-title">Ville: {item?.city?.name}</span>
+                                                            </p>
+                                                        </li>
+                                                    }
+                                                    {(item?.line_1) &&
+                                                        <li>
+                                                            <p className="text-content">
+                                                                <span className="text-title">Line 1: {item?.line_1}</span>
+                                                            </p>
+                                                        </li>
+                                                    }
+                                                    {(item?.line_2) &&
+                                                        <li>
+                                                            <p className="text-content">
+                                                                <span className="text-title">Line 2: {item?.line_2}</span>
+                                                            </p>
+                                                        </li>
+                                                    }
+                                                </ul>
                                             </div>
-                                            <div className="label">
-                                                <label>{item?.type === 'delivery' ? 'Livraison' : 'Facture'}</label>
-                                            </div>
-                                            <ul className="delivery-address-detail">
-                                                {(item?.country) &&
-                                                    <li>
-                                                        <p className="text-content">
-                                                            <span className="text-title">Pays: {item?.country?.name}</span>
-                                                        </p>
-                                                    </li>
-                                                }
-                                                {(item?.city) &&
-                                                    <li>
-                                                        <p className="text-content">
-                                                            <span className="text-title">Ville: {item?.city?.name}</span>
-                                                        </p>
-                                                    </li>
-                                                }
-                                                {(item?.line_1) &&
-                                                    <li>
-                                                        <p className="text-content">
-                                                            <span className="text-title">Line 1: {item?.line_1}</span>
-                                                        </p>
-                                                    </li>
-                                                }
-                                                {(item?.line_2) &&
-                                                    <li>
-                                                        <p className="text-content">
-                                                            <span className="text-title">Line 2: {item?.line_2}</span>
-                                                        </p>
-                                                    </li>
-                                                }
-                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <h3>Aucune adresse trouvée</h3>
+                        :
+                        <h3>Aucune adresse trouvée</h3>
+                    )
                 }
-                {(show) && <AddAddress type={type} modelClose={modelClose} isAuthenticated={isAuthenticated} />}
             </div>
         )
     }
@@ -106,7 +122,17 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
             <div className="d-flex align-items-center justify-content-between checkout-title">
                 <h4>Address de {type === 'delivery' ? 'Livraison' : 'facturation'}</h4>
             </div>
-            <AddAddress type={type} isAuthenticated={isAuthenticated} saveAddress={saveAddress} />
+            {(useAs) ?
+                <div className="checkout-detail mb-3">
+                    <label htmlFor="useAs" className="d-flex align-items-center justify-content-start">
+                        <input type="checkbox" id="useAs" checked={defaultChecked} onChange={(event) => checkTheSameAddress(event.target.checked)} />&nbsp;
+                        Utiliser l'adresse de livraison comme adresse de facturation
+                    </label>
+                </div>
+                :
+                <div />
+            }
+            {((useAs && !defaultChecked) || !useAs) && <AddAddress type={type} isAuthenticated={isAuthenticated} saveAddress={saveAddress} />}
         </div>
     )
 }

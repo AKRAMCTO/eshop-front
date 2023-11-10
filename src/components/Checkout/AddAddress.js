@@ -124,14 +124,14 @@ export default function AddAddress({ type, modelClose = null, isAuthenticated = 
                 <form onSubmit={handleSubmit}>
                     <div className="modal-body">
                         <div className="row g-4">
-                            <div className="col-12">
+                            <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">
                                     <input type="text" className="form-control" id="line_1" name="line_1" onChange={handleChange} onBlur={handleBlur} value={values.line_1} />
                                     <label htmlFor="line_1">Ligne 1</label>
                                 </div>
                                 <span className='error-form'>{errors.line_1 && touched.line_1 && errors.line_1}</span>
                             </div>
-                            <div className="col-12">
+                            <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">
                                     <input type="text" className="form-control" id="line_2" name="line_2" onChange={handleChange} onBlur={handleBlur} value={values.line_2} />
                                     <label htmlFor="line_2">Ligne 2</label>
@@ -139,7 +139,7 @@ export default function AddAddress({ type, modelClose = null, isAuthenticated = 
                                 <span className='error-form'>{errors.line_2 && touched.line_2 && errors.line_2}</span>
                             </div>
 
-                            <div className="col-12 col-xl-6">
+                            <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">
                                     <select value={values.country} className="form-control" id="country" name="country" onChange={handleChange} onBlur={handleBlur}>
                                         <option value="0" label="Choisissez un pays">Choisissez un pays</option>
@@ -151,7 +151,7 @@ export default function AddAddress({ type, modelClose = null, isAuthenticated = 
                                 <span className='error-form'>{errors.country && touched.country && errors.country}</span>
                             </div>
 
-                            <div className="col-12 col-xl-6">
+                            <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">
                                     <select value={values.city} className="form-control" id="city" name="city" onChange={handleChange} onBlur={handleBlur}>
                                         <option value="0" label="Sélectionnez une ville">Sélectionnez une ville</option>

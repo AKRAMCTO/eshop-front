@@ -30,6 +30,8 @@ export default function CartAndWishlistContext({ children }) {
     const [wishListData, setWishListData] = React.useState([]);
     const [wishListDataKeys, setWishListDataKeys] = React.useState([]);
     
+    const [showPopup, setShowPopup] = React.useState(false)
+
     useEffect(() => {
       if(cartData.length){
         let result = cartData.map(a => a.id);
@@ -51,6 +53,13 @@ export default function CartAndWishlistContext({ children }) {
         setWishListDataKeys([])
       }
     },[wishListData])
+
+    const openPopup  = () => {
+      setShowPopup(true)
+    };
+    const closePopup  = () => {
+      setShowPopup(false)
+    };
 
     /**
      * Cart Authenticated
@@ -328,7 +337,11 @@ export default function CartAndWishlistContext({ children }) {
               storeGuestWishlistItem,
               removeGuestWishlistItem,
 
-              clearAfterCheckout
+              clearAfterCheckout,
+
+              showPopup,
+              openPopup,
+              closePopup
             }}
         >
             {children}

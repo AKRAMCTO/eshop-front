@@ -8,9 +8,9 @@ import { getProducts, getFilterCategories, getFilterBrands } from "../queries/qu
 import Container from "../components/Products/Container";
 
 export default function Products() {
+    
     const location = useLocation()
-    const queryParameters = new URLSearchParams(location.search)
-
+    const queryParameters = new URLSearchParams(location.state)
     const [showMenu, setShowMenu] = useState(false)
 
     const [products, setProducts] = useState([])
@@ -28,6 +28,8 @@ export default function Products() {
 
     useEffect(() => {
         console.log('useffect 1')
+        console.log("category => ", queryParameters.get('category'))
+        console.log("brand => ", queryParameters.get('brand'))
         // if(categories !== queryParameters.get("category")){ 
             setCategories(queryParameters.get("category") ? [queryParameters.get("category")] : [])
         // }

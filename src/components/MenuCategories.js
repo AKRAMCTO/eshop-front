@@ -28,7 +28,13 @@ export default function MenuCategories() {
                     <ul className="category-list">
                         {menuCategories.map((item, key) => 
                             <li className="onhover-category-list" key={`menu-category-${key}`}>
-                                <Link to={`/products?category=${item?.slug}`} className="category-name">
+                                <Link 
+                                    to={{
+                                        pathname: "/products",
+                                        state: {category: item?.slug}
+                                    }} 
+                                    className="category-name"
+                                >
                                     <h6>{item?.name}</h6>
                                     {(item?.childrens && item?.childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
                                 </Link>
@@ -38,14 +44,26 @@ export default function MenuCategories() {
                                             <ul>
                                                 {item?.childrens.map((sub, keysub) => 
                                                     <li key={`menu-sub-category-${keysub}`}>
-                                                        <Link to={`/products?category=${sub?.slug}`}>{sub?.name}</Link>
+                                                        <Link 
+                                                            to={{
+                                                                pathname: "/products",
+                                                                state: {category: sub?.slug}
+                                                            }} 
+                                                        >
+                                                            {sub?.name}
+                                                        </Link>
                                                         {(sub?.childrens && sub?.childrens.length) ?
                                                             <div className="onhover-category-box">
                                                                 <div className="list-1">
                                                                     <ul>
                                                                         {sub?.childrens.map((sub1, keysub1) => 
                                                                             <li key={`menu-sub-category-${keysub1}`}>
-                                                                                <Link to={`/products?category=${sub1?.slug}`}>{sub1?.name}</Link>
+                                                                                <Link 
+                                                                                    to={{
+                                                                                        pathname: "/products",
+                                                                                        state: {category: sub1?.slug}
+                                                                                    }} 
+                                                                                >{sub1?.name}</Link>
                                                                             </li>
                                                                         )}
                                                                     </ul>

@@ -63,7 +63,7 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
                                 :
                                 <>
                                     <ListAddresses current={deliveryAddress} type="delivery" addresses={deliveryAddresses} save={saveDeliveryAddress} isAuthenticated={isLoggedIn} />
-                                    <ListAddresses currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={(deliveryAddresses && deliveryAddresses.length)} />
+                                    <ListAddresses currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={true} />
                                 </>
                             }
                         </li>
