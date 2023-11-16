@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 import {
-  getCities,
   getCountries,
   getMenus,
   getSiteSettings,
@@ -17,6 +16,8 @@ export default function DataContextProvider({ children }) {
   const isDesktop = useMediaQuery({ minWidth: 992 })
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
   const isMobile = useMediaQuery({ maxWidth: 767 })
+
+  // const phoneRegExp = '/^(\+212)(\-)(6|7)[0-9]{8}?$/'
 
   // const prefferedLanguage = localStorage.getItem('prefferedEcowattLanguage');
   // const [language, setLanguage] = React.useState(() => {
@@ -65,7 +66,8 @@ export default function DataContextProvider({ children }) {
         countries, 
         isDesktop,
         isTablet,
-        isMobile
+        isMobile,
+        // phoneRegExp
       }}
     >
       {children}

@@ -69,7 +69,7 @@ export default function RegisterSeller() {
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
-        mobile: number().required('Ce champ est obligatoire'),
+        mobile: string().required('Ce champ est obligatoire').matches(/^(\+212)(\-)(6|7)[0-9]{8}?$/, 'Le numéro de téléphone doit être au format: +212-601020304'),
         password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         rc: string().when('type', {
             is: (val) => ["professional", "seller"].includes(val), // (value === 'professional' || value === 'seller'),

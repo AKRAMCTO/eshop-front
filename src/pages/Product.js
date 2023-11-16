@@ -335,7 +335,7 @@ export default function Product() {
                 </div>
             </section>
 
-            {(data?.accessories && data?.accessories.length) ? 
+            {/* {(data?.accessories && data?.accessories.length) ? 
                 <section className="product-list-section section-b-space">
                     <div className="container-fluid-lg">
                         <div className="title">
@@ -351,7 +351,7 @@ export default function Product() {
                 </section>
                 :
                 null
-            }
+            } */}
 
             <section className="section-b-space">
                 <div className="container-fluid-lg">

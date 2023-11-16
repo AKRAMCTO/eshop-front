@@ -11,6 +11,7 @@ import AuthLayout from "../components/AuthLayout";
 import ErrorSnackbar from "../components/ErrorSnackbar";
 import Breadcrumb from "../components/Breadcrumb";
 import { Eye, EyeOff } from "react-feather";
+import { DataProvider } from "../contexts/DataContext";
 
 export default function Register() {
     const { registerMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);
@@ -47,7 +48,7 @@ export default function Register() {
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
         type: string().oneOf(['individual', 'professional', 'seller']).defined().required('Ce champ est obligatoire'),
-        mobile: number().required('Ce champ est obligatoire'),
+        mobile: string().required('Ce champ est obligatoire').matches(/^(\+212)(\-)(6|7)[0-9]{8}?$/, 'Le numéro de téléphone doit être au format: +212-601020304'),
         password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         rc: string().when('type', {
             is: (val) => ["professional"].includes(val),

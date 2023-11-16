@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import { Formik } from 'formik';
 import { number, object, string } from 'yup';
 
 import SuccessSnackbar from '../SuccessSnackbar';
+import { DataProvider } from '../../contexts/DataContext';
 
 export default function AddCustomerInfos({ save }) {
     const [success, setSuccess] = React.useState(false);
@@ -28,7 +29,7 @@ export default function AddCustomerInfos({ save }) {
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
-        mobile: number().required('Ce champ est obligatoire')
+        mobile: string().required('Ce champ est obligatoire').matches(/^(\+212)(\-)(6|7)[0-9]{8}?$/, 'Le numéro de téléphone doit être au format: +212-601020304')
     });
 
     return (

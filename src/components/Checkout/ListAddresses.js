@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import AddAddress from './AddAddress';
 
-export default function ListAddresses({ current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
+export default function ListAddresses({ defaultChecked, checkTheSameAddress, current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
     const [show, setShow] = useState(false)
-    const [defaultChecked, setDefaultChecked] = useState(true)
 
     const modelOpen = () => {
         setShow(true)
@@ -13,23 +12,31 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
     }
 
     const saveAddress = (item) => {
+        console.log('save this => ', item)
         if(isAuthenticated){
-            if(current !== item) save(item)
+            if(current !== item) {
+                save(item)
+            }
         }else{
             save(item)
         }
     }
 
-    const checkTheSameAddress = (event) => {
-        setDefaultChecked(event)
-        saveAddress((event) ? currentDeliveryAddress : null)
-    }
+    // const checkTheSameAddress = (event) => {
+    //     console.log('event => ', event)
+    //     setDefaultChecked(event)
+    //     saveAddress((event) ? currentDeliveryAddress : null)
+    // }
+
+    // useEffect(() => {
+    //     if(useAs && defaultChecked && current !== currentDeliveryAddress){
+    //         saveAddress(currentDeliveryAddress)
+    //     }
+    // }, [currentDeliveryAddress])
 
     useEffect(() => {
-        if(useAs && defaultChecked){
-            saveAddress(currentDeliveryAddress)
-        }
-    }, [currentDeliveryAddress])
+        console.log('useEffect defaultChecked => ', defaultChecked)
+    }, [defaultChecked])
 
     if(isAuthenticated){
         return (
@@ -49,6 +56,7 @@ export default function ListAddresses({ current, type, addresses, save, isAuthen
                         </>
                     )}
                 </div>
+
                 {(useAs) ? 
                     <div className="checkout-detail mb-3">
                         <label htmlFor="useAs" className="d-flex align-items-center justify-content-start">

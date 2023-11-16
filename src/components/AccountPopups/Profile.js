@@ -7,6 +7,7 @@ import { editUserProfileInfo } from '../../queries/queries';
 import { TailSpin } from 'react-loader-spinner';
 import { AuthProvider } from '../../contexts/AuthContext';
 import SuccessAnimation from '../SuccessAnimation';
+import { DataProvider } from '../../contexts/DataContext';
 
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
 const FILE_SIZE = 1024 * 2048
@@ -50,7 +51,7 @@ export default function Profile({ SelectModelTitle, modelClose }) {
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
-        mobile: number().required('Ce champ est obligatoire'),
+        mobile: string().required('Ce champ est obligatoire').matches(/^(\+212)(\-)(6|7)[0-9]{8}?$/, 'Le numéro de téléphone doit être au format: +212-601020304')
     });
 
     const genInitialValues = () => ({ 

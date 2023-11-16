@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { File } from 'react-feather';
+import SlideProducts from '../SlideProducts';
 
 export default function Tabs({ data }) {
     const [tab, setTab] = useState('')
@@ -11,6 +12,8 @@ export default function Tabs({ data }) {
             setTab("techniqual")
         }else if(data?.product_properties){
             setTab("product_properties")
+        }else if(data?.accessories){
+            setTab("accessories")
         }
         // else if(data?.description){
         //     setTab("description")
@@ -44,6 +47,12 @@ export default function Tabs({ data }) {
                     </li>
                     : null
                 }
+                {(data?.accessories && data?.accessories.length) ?
+                    <li className="nav-item">
+                        <button onClick={() => handleTabs('accessories')} className={`nav-link ${(tab === 'accessories') ? "active" : ""}`} type="button">Accessoires</button>
+                    </li>
+                    : null
+                }
             </ul>
 
             <div className="tab-content custom-tab">
@@ -63,13 +72,26 @@ export default function Tabs({ data }) {
                 }
                 {(data?.product_properties && data?.product_properties.length) ? 
                     <div className={`tab-pane fade ${(tab === 'product_properties') ? "show active" : ""}`}>
-                        {data?.product_properties.map((item, key) =>
-                            <div key={`product_properties_${item?.id}`}>
-                                <strong>Unité de mesure</strong> : {item?.measure?.label}<br />
-                                <strong>Caractéristique</strong> : {item?.property?.label}<br />
-                                <strong>Valeur</strong> : {item?.value}
-                            </div>    
-                        )}
+                        <div className='row'>
+                            {data?.product_properties.map((item, key) =>
+                                <div key={`product_properties_${item?.id}`} className='col-md-4 col-12'>
+                                    <strong>Unité de mesure</strong> : {item?.measure?.label}<br />
+                                    <strong>Caractéristique</strong> : {item?.property?.label}<br />
+                                    <strong>Valeur</strong> : {item?.value}
+                                </div>    
+                            )}
+                        </div>    
+                    </div>
+                    : 
+                    null
+                }
+                {(data?.accessories && data?.accessories.length) ? 
+                    <div className={`tab-pane fade ${(tab === 'accessories') ? "show active" : ""}`}>
+                        <div className='row'>
+                            <div className="col-12">
+                                <SlideProducts products={data?.accessories} />
+                            </div>
+                        </div>    
                     </div>
                     : 
                     null

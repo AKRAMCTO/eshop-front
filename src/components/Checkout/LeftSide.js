@@ -9,6 +9,7 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
     const { isLoggedIn, listAddresses, addressesLoading, addressesFetching }  = useContext(AuthProvider)
     const [billingAddresses, setBillingAddresses] = useState([])
     const [deliveryAddresses, setDeliveryAddresses] = useState([])
+    const [defaultChecked, setDefaultChecked] = useState(true)
 
     useEffect(() => {
         if(!addressesFetching && !addressesLoading && listAddresses && listAddresses.length){
@@ -26,9 +27,20 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
     }
     const saveDeliveryAddress = (data) => {
         saveData('delivery', data)
+        if(defaultChecked){
+            saveBillingAddress(data)
+        }
     }
     const saveBillingAddress = (data) => {
         saveData('billing', data)
+    }
+    const checkTheSameAddress = (event) => {
+        setDefaultChecked(event)
+        if(event) {
+            saveBillingAddress(deliveryAddress)
+        }else{
+            saveBillingAddress(null)
+        }
     }
     
     return (
@@ -63,7 +75,7 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
                                 :
                                 <>
                                     <ListAddresses current={deliveryAddress} type="delivery" addresses={deliveryAddresses} save={saveDeliveryAddress} isAuthenticated={isLoggedIn} />
-                                    <ListAddresses currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={true} />
+                                    <ListAddresses defaultChecked={defaultChecked} checkTheSameAddress={checkTheSameAddress} currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={true} />
                                 </>
                             }
                         </li>

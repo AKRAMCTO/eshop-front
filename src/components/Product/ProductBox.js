@@ -173,9 +173,9 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     <Link to={`/product/${product?.slug}`}><h6 className="name">{product?.title}</h6></Link>
                     {(product?.units_measurement && product?.values) && <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>}
                     <h6 className="price theme-color">{product?.price_ttc} Dhs</h6>
-                    <div className="add-to-cart-box bg-white">
+                    <div className="add-to-cart-box">
                         <div className={`cart_qty qty-box`}>
-                            <div className="input-group">
+                            <div className="input-group bg-white">
                                 <button 
                                     type="button"
                                     disabled={addLoadingCart}

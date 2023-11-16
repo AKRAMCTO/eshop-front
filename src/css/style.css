@@ -12059,7 +12059,7 @@ header .offcanvas-backdrop {
 ==========================**/
 .add-to-cart-box {
   margin: 10px auto 0;
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   border-radius: 50px;
   position: relative;
   max-width: 210px;
@@ -22833,6 +22833,15 @@ input.input-error{
 .product-box.horizontal .product-footer {
   width: calc(100% - 180px);
   padding-left: 20px;
+}
+.product-box.horizontal .product-footer .add-to-cart-box{
+  margin: 10px 0 0;
+}
+.product-box.horizontal .product-detail a h6.name{
+  height: auto;
+}
+.product-box.horizontal .product-detail .price{
+  margin-top: 10px;
 }
 
 .product-section-box .file-button{
