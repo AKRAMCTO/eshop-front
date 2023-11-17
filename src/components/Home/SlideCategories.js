@@ -45,7 +45,7 @@ export default function SlideCategories() {
 
     useEffect(() => {
         if(!isLoading){
-            var minimum = isDesktop ? 6 : ((isTablet) ? 4 : 2)
+            var minimum = isDesktop ? 5 : ((isTablet) ? 4 : 2)
             if((data.length / minimum) > 1){
                 setAddSlide(true)
             }
@@ -82,16 +82,18 @@ export default function SlideCategories() {
                         )}
                     </Slider>
                     :
-                    (data.map((item, key) => 
-                        <div key={`category-${key}`}>
-                            <Link to={`/`} className="category-box category-dark">
-                                <div>
-                                    <img src={item?.full_image ?? Icon} className="lazyload" alt={item?.name} />
-                                    <h5>{item?.name}</h5>
-                                </div>
-                            </Link>
-                        </div>
-                    ))
+                    <div class="row">
+                        {data.map((item, key) => 
+                            <div className='col-md-3 col-6 mb-3' key={`category-${key}`}>
+                                <Link to={`/`} className="category-box category-dark">
+                                    <div>
+                                        <img src={item?.full_image ?? Icon} className="lazyload" alt={item?.name} />
+                                        <h5>{item?.name}</h5>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 }
             </div>
         </div>

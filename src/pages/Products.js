@@ -4,8 +4,9 @@ import { useLocation } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
-import { getProducts, getFilterCategories, getFilterBrands } from "../queries/queries";
 import Container from "../components/Products/Container";
+import ScrollToTopOnMount from "../helpers/ScrollToTopOnMount";
+import { getProducts, getFilterCategories, getFilterBrands } from "../queries/queries";
 
 export default function Products() {
     

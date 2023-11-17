@@ -15,6 +15,7 @@ import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 import DynamiquePage from './pages/DynamiquePage';
 import PageFailed from "./pages/PageFailed";
 import PageSuccess from "./pages/PageSuccess";
+import HandleBack from "./helpers/HandleBack";
 const Home = React.lazy(() => import('./pages/Home'))
 const Login = React.lazy(() => import('./pages/Login'))
 const ForgotPassword = React.lazy(() => import('./pages/ForgotPassword'))
@@ -37,6 +38,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       <BrowserRouter basename="/">
         <ScrollToTopOnMount />
+        <HandleBack />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/devenir-vendeur" component={RegisterSeller} />
