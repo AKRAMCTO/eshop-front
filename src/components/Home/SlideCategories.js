@@ -82,7 +82,7 @@ export default function SlideCategories() {
                         )}
                     </Slider>
                     :
-                    <div class="row">
+                    <div className="row">
                         {data.map((item, key) => 
                             <div className='col-md-3 col-6 mb-3' key={`category-${key}`}>
                                 <Link to={`/`} className="category-box category-dark">

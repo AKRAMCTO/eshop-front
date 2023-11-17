@@ -67,12 +67,12 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             if(isLoggedIn) await addToWishListMutation(product.id);
             else await storeGuestWishlistItem(product.id);
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             setAddLoadingWishlist(false);
         }
     };
     const handleRemoveFromWishList = async () => {
-        console.log('checked remove')
+        // console.log('checked remove')
         setRemoveLoadingWishlist(true);
         try {
             if(isLoggedIn) await removeFromWishListMutation(product.id);
@@ -89,10 +89,10 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
         }
     };
     const handleAddToCard = async () => {
-        console.log('handleAddToCard')
-        console.log(quantity + ' -- ' + currentQuantity)
+        // console.log('handleAddToCard')
+        // console.log(quantity + ' -- ' + currentQuantity)
         if(quantity > 0 && quantity !== currentQuantity){
-            console.log(quantity + ' -- ' + currentQuantity)
+            // console.log(quantity + ' -- ' + currentQuantity)
             setAddLoadingCart(true);
             try {
                 if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});

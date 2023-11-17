@@ -50,7 +50,7 @@ export default function Checkout() {
         setBillingAddress(data)
       break;
       default:
-        console.log('Someting went wrong on save data')
+        // console.log('Someting went wrong on save data')
     }
 
     if(orderSuccess) setOrderSuccess(null)

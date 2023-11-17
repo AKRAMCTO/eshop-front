@@ -177,7 +177,7 @@ export const editUserProfileInfo = async data => {
             return { userData: res.data.data, message: 'success' };
         }
     } catch (error) {
-        console.log('editUserProfileInfo Error => ', error?.response?.data?.message)
+        // console.log('editUserProfileInfo Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };
@@ -200,7 +200,7 @@ export const changeUserPassword = async data => {
             return { message: 'success' };
         }
     } catch (error) {
-        console.log('changeUserPassword Error => ', error?.response?.data?.message)
+        // console.log('changeUserPassword Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };
@@ -252,7 +252,7 @@ export const getAllBrands = async () => {
 export const getFeaturedBrands = async () => {
     try {
         const res = await axios.get(`${REACT_APP_MAIN_URL}/featured-brands`);
-        console.log(res.data.data)
+        // console.log(res.data.data)
         if (res.data.status === true) {
             return res.data.data;
         }
@@ -337,6 +337,28 @@ export const getFilterBrands = async () => {
         return error?.response?.data;
     }
 };
+export const getFilterMeasures = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-measures`);
+        if (res.data.status === true) {
+            return res.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+}
+export const getFilterProperties = async () => {
+    try {
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-properties`);
+        if (res.data.status === true) {
+            return res.data;
+        }
+    } catch (error) {
+        // throw new Error(error);
+        return error?.response?.data;
+    }
+}
 
 
 // Location
@@ -397,7 +419,7 @@ export const addAddress = async data => {
             return { data: res.data.data, message: 'success' };
         }
     } catch (error) {
-        console.log('addAddress Error => ', error?.response?.data?.message)
+        // console.log('addAddress Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };
@@ -422,7 +444,7 @@ export const editAddress = async (data, keyAddress) => {
             return { data: res.data.data, message: 'success' };
         }
     } catch (error) {
-        console.log('editAddress Error => ', error?.response?.data?.message)
+        // console.log('editAddress Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };
@@ -436,7 +458,7 @@ export const removeAddress = async (keyAddress) => {
             return { data: res.data.data, message: 'success' };
         }
     } catch (error) {
-        console.log('removeAddress Error => ', error?.response?.data?.message)
+        // console.log('removeAddress Error => ', error?.response?.data?.message)
         return error?.response?.data?.message
     }
 };
@@ -605,6 +627,7 @@ export const removeCart = async (data) => {
         return res.data.data;
     }
 };
+
 /*
 export const clearCart = async () => {
     const token = localStorage.getItem('ecowattAuthToken');
@@ -634,6 +657,7 @@ export const cleanCart = async () => {
     return [];
 };
 */
+
 export const getCartItemsGuest = async () => {
     const cart = localStorage.getItem('ecowattCart');
 

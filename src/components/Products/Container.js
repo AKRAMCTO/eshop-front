@@ -5,18 +5,35 @@ import Filter from './Filter';
 import { InfinitySpin } from 'react-loader-spinner';
 import { getProducts } from '../../queries/queries';
 import ProductBox from '../Product/ProductBox';
+import Pagination from './Pagination';
+
+const PageSize = 1
 
 export default function Container({
-                                    isLoading,
+                                    // isLoading,
+                                    
+                                    isLoadingProducts,
+                                    isLoadingCategories,
+                                    isLoadingBrands,
+                                    isLoadingMeasures,
+                                    isLoadingProperties,
+                                    
+                                    removeItem, 
                                     // handleData, 
                                     categories, 
                                     brands, 
+                                    measures, 
+                                    properties,
                                     // sort, 
                                     page, 
                                     listCategories,
                                     listBrands,
+                                    listMeasures,
+                                    listProperties,
                                     handleCategoriesFilter,
                                     handleBrandsFilter,
+                                    handleMeasuresFilter,
+                                    handlePropertiesFilter,
                                     handleShowMenu,
                                     showMenu,
                                     handleSort,
@@ -32,19 +49,32 @@ export default function Container({
             <div className="row">
                 
                 <Sidebar
-                    isLoading={isLoading} 
+                    // isLoading={isLoading} 
+                    
+                    isLoadingProducts={isLoadingProducts}
+                    isLoadingCategories={isLoadingCategories}
+                    isLoadingBrands={isLoadingBrands}
+                    isLoadingMeasures={isLoadingMeasures}
+                    isLoadingProperties={isLoadingProperties}
+
+                    removeItem={removeItem} 
                     listCategories={listCategories} 
-                    categories={categories} 
                     listBrands={listBrands} 
+                    listMeasures={listMeasures} 
+                    listProperties={listProperties} 
+                    categories={categories} 
                     brands={brands} 
+                    measures={measures} 
+                    properties={properties} 
                     handleCategoriesFilter={handleCategoriesFilter}
                     handleBrandsFilter={handleBrandsFilter}
+                    handleMeasuresFilter={handleMeasuresFilter}
+                    handlePropertiesFilter={handlePropertiesFilter}
                     handleShowMenu={handleShowMenu}
                     showMenu={showMenu}
                 />
 
-                <div className="col-custome-9">
-
+                <div className="col-12 col-md-9">
                     <Filter
                         handleSort={handleSort} 
                         handleGrid={handleGrid} 
@@ -52,14 +82,16 @@ export default function Container({
                         handleShowMenu={handleShowMenu}
                     />
                     
-                    {(isLoading && isLoading?.status && isLoading?.type === 'products') ?
+                    {/* {(isLoading && isLoading?.status && isLoading?.type === 'products') ? */}
+                    {(isLoadingProducts) ?
                         <div className="p-4 d-flex align-items-center justify-content-center">
                             <InfinitySpin
                                 type="ThreeDots"
                                 color="#2A3466"
                                 height={220}
                                 width={220}
-                                visible={isLoading && isLoading?.status && isLoading?.type === 'products'}
+                                // visible={isLoading && isLoading?.status && isLoading?.type === 'products'}
+                                visible={isLoadingProducts}
                             />
                         </div>
                         :
@@ -83,26 +115,34 @@ export default function Container({
                         )
                     }
 
-                    {(maxPages > 1) && 
-                        <nav className="custome-pagination">
-                            <ul className="pagination justify-content-center">
-                                {(page > 1) &&
-                                    <li className="page-item" onClick={() => handlePage(1)}>
-                                        <span className="page-link"><i className="fa-solid fa-angles-left"></i></span>
-                                    </li>
-                                }
-                                {
-                                    [...Array(maxPages)].map((_, i) => 
-                                        <li key={`page-${i}`} className={`${((i+1 === page) && 'active')} page-item`} onClick={() => handlePage(i+1)}>
-                                            <span className={`page-link`}>{i+1}</span>
-                                        </li>
-                                    )
-                                }
-                                <li className="page-item" onClick={() => handlePage(maxPages)}>
-                                    <span className="page-link"><span className="fa-solid fa-angles-right"></span></span>
-                                </li>
-                            </ul>
-                        </nav>
+                    {/* {(!isLoading && maxPages > 1) &&  */}
+                    {(!isLoadingProducts && maxPages > 1) && 
+                        <Pagination
+                            className="pagination-bar"
+                            currentPage={page}
+                            totalCount={maxPages}
+                            pageSize={PageSize}
+                            onPageChange={page => handlePage(page)}
+                        />
+                        // <nav className="custome-pagination">
+                        //     <ul className="pagination justify-content-center">
+                        //         {(page > 1) &&
+                        //             <li className="page-item" onClick={() => handlePage(1)}>
+                        //                 <span className="page-link"><i className="fa-solid fa-angles-left"></i></span>
+                        //             </li>
+                        //         }
+                        //         {
+                        //             [...Array(maxPages)].map((_, i) => 
+                        //                 <li key={`page-${i}`} className={`${((i+1 === page) && 'active')} page-item`} onClick={() => handlePage(i+1)}>
+                        //                     <span className={`page-link`}>{i+1}</span>
+                        //                 </li>
+                        //             )
+                        //         }
+                        //         <li className="page-item" onClick={() => handlePage(maxPages)}>
+                        //             <span className="page-link"><span className="fa-solid fa-angles-right"></span></span>
+                        //         </li>
+                        //     </ul>
+                        // </nav>
                     }
                 </div>
             </div>

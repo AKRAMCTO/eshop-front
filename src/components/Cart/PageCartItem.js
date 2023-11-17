@@ -42,7 +42,7 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
     const updateItem = async () => {
         // let data = (isLoggedIn) ? item?.cart_id : item?.id
         let data = {cart_id: item?.cart_id, id: item?.id, quantity: quantity}
-        console.log(data)
+        // console.log(data)
         handleUpdateToCard(data)
     };
     const RemoveItem  = async () => {

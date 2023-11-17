@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 
 export default function Gallery({ thumbnail, images, name }) {
-    console.log('images => ', images)
+    // console.log('images => ', images)
     const settings = {
         customPaging: function(i) {
             return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import ScrollToTopOnMount from './ScrollToTopOnMount'
 
 export default function HandleBack() {
   const [ locationKeys, setLocationKeys ] = useState([])
@@ -14,9 +15,6 @@ export default function HandleBack() {
       if (history.action === 'PUSH') {
         setLocationKeys([ location.key ])
       }
-
-      console.log('history.action => ', history.action)
-      console.log('location.key => ', location.key)
 
       if (history.action === 'POP') {
         if (locationKeys[1] === location.key) {

@@ -41,7 +41,7 @@ export default function Cart() {
         setLoading(null);
         // setAddItemInWishlist(true);
     } catch (error) {
-        // console.log('addToWishListMutation error => ', error)
+        // // console.log('addToWishListMutation error => ', error)
         // if (error.response.data.message === 'Item founded on the Wishlist') {
         //     setAddItemInWishlist(true);
         // }

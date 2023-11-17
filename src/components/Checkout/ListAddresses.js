@@ -12,7 +12,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
     }
 
     const saveAddress = (item) => {
-        console.log('save this => ', item)
+        // console.log('save this => ', item)
         if(isAuthenticated){
             if(current !== item) {
                 save(item)
@@ -23,7 +23,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
     }
 
     // const checkTheSameAddress = (event) => {
-    //     console.log('event => ', event)
+    //     // console.log('event => ', event)
     //     setDefaultChecked(event)
     //     saveAddress((event) ? currentDeliveryAddress : null)
     // }
@@ -35,7 +35,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
     // }, [currentDeliveryAddress])
 
     useEffect(() => {
-        console.log('useEffect defaultChecked => ', defaultChecked)
+        // console.log('useEffect defaultChecked => ', defaultChecked)
     }, [defaultChecked])
 
     if(isAuthenticated){

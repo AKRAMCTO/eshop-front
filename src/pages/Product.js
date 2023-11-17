@@ -76,7 +76,7 @@ export default function Product() {
             setAddLoadingCart(false);
             // setAddItemInWishlist(true);
         } catch (error) {
-            // console.log('addToWishListMutation error => ', error)
+            // // console.log('addToWishListMutation error => ', error)
             // if (error.response.data.message === 'Item founded on the Wishlist') {
             //     setAddItemInWishlist(true);
             // }
@@ -92,7 +92,7 @@ export default function Product() {
             setAddLoadingWishlist(false);
             // setAddItemInWishlist(true);
         } catch (error) {
-            // console.log('addToWishListMutation error => ', error)
+            // // console.log('addToWishListMutation error => ', error)
             // if (error.response.data.message === 'Item founded on the Wishlist') {
             //     setAddItemInWishlist(true);
             // }
@@ -303,9 +303,9 @@ export default function Product() {
                                                 <div className="product-info">
                                                     {data?.product_properties.map((item, key) =>
                                                         <ul className="product-info-list product-info-list-2" key={`product_${data?.id}_properties_${item?.id}`}>
-                                                            <li>Unité de mesure: {item?.measure?.label}</li>
-                                                            <li>Caractéristique: {item?.property?.label}</li>
-                                                            <li>Valeur: {item?.value}</li>
+                                                            <li><strong>Unité de mesure:</strong> {item?.measure?.label}</li>
+                                                            <li><strong>Caractéristique:</strong> {item?.property?.label}</li>
+                                                            <li><strong>Valeur:</strong> {item?.value}</li>
                                                         </ul>
                                                     )}
                                                 </div>

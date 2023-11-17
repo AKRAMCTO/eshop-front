@@ -44,7 +44,7 @@ export default function AddCustomerInfos({ save }) {
                 initialValues={genInitialValues()}
                 validationSchema={ValidationSchemaForm}
                 onSubmit={async (values) => {
-                    console.log('Submit customer data => ', values)
+                    // console.log('Submit customer data => ', values)
                     save(values)
                     setSuccess(true)
                 }}

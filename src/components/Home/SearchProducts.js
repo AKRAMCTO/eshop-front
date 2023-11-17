@@ -18,7 +18,7 @@ export default function SearchProducts() {
     const fetchProducts = async (word) => {
         setIsLoading(true)
         const res = await getSearchProducts({ 'title': word });
-        console.log('res => ', res)
+        // console.log('res => ', res)
         if (res.status === true) {
             setProducts(res?.data)
             setIsLoading(false)

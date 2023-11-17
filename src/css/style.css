@@ -2329,14 +2329,15 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   gap: calc(6px + 7 * (100vw - 320px) / 1600);
 }
 .custome-pagination .pagination .page-item {
-  border-radius: 5px;
+  /* border-radius: 5px; */
   overflow: hidden;
   cursor: pointer;
 }
 .custome-pagination .pagination .page-item:not(:first-child) .page-link {
   margin: 0;
 }
-.custome-pagination .pagination .page-item.active .page-link {
+.custome-pagination .pagination .page-item.active .page-link,
+.custome-pagination .pagination .page-item.selected .page-link {
   background-color: var(--theme-color);
   border-color: var(--theme-color);
   color: #ffffff;
@@ -2344,11 +2345,12 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .custome-pagination .pagination .page-item .page-link {
   color: #4a5568;
   border: 1px solid transparent;
+  border-radius: 5px;
 }
 .custome-pagination .pagination .page-item .page-link:hover {
   border-radius: 5px;
-  color: var(--theme-color);
-  border: 1px solid var(--theme-color);
+  color: #e72b31;
+  /* border: 1px solid var(--theme-color); */
   background-color: unset;
 }
 .custome-pagination .pagination .page-item .page-link:focus {
@@ -22058,6 +22060,9 @@ header .offcanvas-backdrop {
 .product-section .right-box-contain .pickup-box .product-info .product-info-list-2 {
   display: flex;
 }
+.product-section .right-box-contain .pickup-box .product-info .product-info-list-2 strong{
+  color: var(--theme-color);
+}
 @media (max-width: 1500px) {
   .product-section .right-box-contain .pickup-box .product-info .product-info-list-2 {
     width: 100%;
@@ -22930,6 +22935,27 @@ input.input-error{
   color: #fff;
   background-color: #e52b34;
 }
+
+
+.selected-rows{
+  overflow: hidden;
+}
+.selected-rows h5{
+  font-size: 14px;
+  margin: 0 0 7.5px;
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.selected-rows .rows-tags{
+  margin: 0 4px 4px 0;
+  background-color: #e9e9e9;
+  border: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
 
 /**=====================
     RTL css

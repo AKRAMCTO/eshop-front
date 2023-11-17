@@ -195,7 +195,7 @@ export default function CartAndWishlistContext({ children }) {
 
       storedValues.forEach(val =>{
         if(val.id !== item){
-          console.log(val)
+          // console.log(val)
           itemToSave[i] = val;
           i++;
         }
@@ -224,7 +224,7 @@ export default function CartAndWishlistContext({ children }) {
     });
     const { mutate: addToWishListMutation, isLoading: addWishlistLoading} = useMutation(addToWishlist, {
         onSuccess: (data) => {
-            // console.log('data => ', data)
+            // // console.log('data => ', data)
             setWishListData(data);
             // queryClient.invalidateQueries('wishlistItems')
         },
@@ -232,7 +232,7 @@ export default function CartAndWishlistContext({ children }) {
     });
     const { mutate: removeFromWishListMutation, isLoading: removeWishlistLoading} = useMutation(removeFromWishlist, {
         onSuccess: (data) => {
-            // console.log('data => ', data)
+            // // console.log('data => ', data)
             setWishListData(data);
             // queryClient.invalidateQueries('wishlistItems')
         },
@@ -262,11 +262,11 @@ export default function CartAndWishlistContext({ children }) {
         }
       });
 
-      console.log(isExists);
+      // console.log(isExists);
       if(isExists) localStorage.setItem('ecowattWishlist',JSON.stringify([...items, item]));
       
-      console.log('items => ', items)
-      console.log('item => ', item)
+      // console.log('items => ', items)
+      // console.log('item => ', item)
 
       queryClient.invalidateQueries('wishlistItemsGuest')
     }
@@ -283,9 +283,9 @@ export default function CartAndWishlistContext({ children }) {
       });
       localStorage.setItem('ecowattWishlist', JSON.stringify(itemToSave));
       
-      console.log('item => ', item)
-      console.log('storedValues => ', storedValues)
-      console.log('itemToSave => ', itemToSave)
+      // console.log('item => ', item)
+      // console.log('storedValues => ', storedValues)
+      // console.log('itemToSave => ', itemToSave)
 
       queryClient.invalidateQueries('wishlistItemsGuest')
     }
