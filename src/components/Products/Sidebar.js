@@ -72,15 +72,45 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                     <ul className="category-list custom-padding custom-height">
                                         {listCategories && listCategories.length ?
                                             listCategories.map((item) => 
-                                                <li key={item?.slug}>
-                                                    <div className="form-check ps-0 m-0 category-list-box">
-                                                        <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(item?.slug)} id={item?.slug} />
-                                                        <label className="form-check-label" htmlFor={item?.slug} onClick={() => handleCategoriesFilter(item?.slug)}>
-                                                            <span className="name">{item?.name}</span>
-                                                            <span className="number">{item?.active_products_count}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <>
+                                                    <li key={item?.slug}>
+                                                        <div className="form-check ps-0 m-0 category-list-box">
+                                                            <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(item?.slug)} id={item?.slug} />
+                                                            <label className="form-check-label" htmlFor={item?.slug} onClick={() => handleCategoriesFilter(item?.slug)}>
+                                                                <span className="name">{item?.name}</span>
+                                                                <span className="number">{item?.active_products_count}</span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    {(item?.childrens) && (
+                                                        item?.childrens.map((sub, a) => 
+                                                            <>
+                                                                <li key={sub?.slug}>
+                                                                    <div className="form-check ps-0 m-0 category-list-box">
+                                                                        <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(sub?.slug)} id={sub?.slug} />
+                                                                        <label className="form-check-label" htmlFor={sub?.slug} onClick={() => handleCategoriesFilter(sub?.slug)}>
+                                                                            <span className="name">&nbsp;&nbsp;&nbsp;{sub?.name}</span>
+                                                                            <span className="number">{sub?.active_products_count}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                </li>
+                                                                {(sub?.childrens) && (
+                                                                    sub?.childrens.map((subsub, b) =>                             
+                                                                        <li key={subsub?.slug}>
+                                                                            <div className="form-check ps-0 m-0 category-list-box">
+                                                                                <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(subsub?.slug)} id={subsub?.slug} />
+                                                                                <label className="form-check-label" htmlFor={subsub?.slug} onClick={() => handleCategoriesFilter(subsub?.slug)}>
+                                                                                    <span className="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{subsub?.name}</span>
+                                                                                    <span className="number">{subsub?.active_products_count}</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </li>
+                                                                    )
+                                                                )}
+                                                            </>
+                                                        )
+                                                    )}
+                                                </>
                                             )
                                             :
                                             <div />

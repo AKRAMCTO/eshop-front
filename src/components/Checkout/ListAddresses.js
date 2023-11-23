@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AddAddress from './AddAddress';
 
-export default function ListAddresses({ defaultChecked, checkTheSameAddress, current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
+export default function ListAddresses({ loading, defaultChecked, checkTheSameAddress, current, type, addresses, save, isAuthenticated, useAs = false, currentDeliveryAddress }) {
     const [show, setShow] = useState(false)
 
     const modelOpen = () => {
@@ -48,11 +48,12 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
                             <button
                                 className="btn new-address-button"
                                 type="button"
-                                onClick={modelOpen}
+                                onClick={(!loading) ? () => modelOpen() : null}
+                                disabled={loading}
                                 >
                                 + Ajouter un nouveau
                             </button>
-                            {(show) && <AddAddress type={type} modelClose={modelClose} isAuthenticated={isAuthenticated} />}
+                            {(!loading && show) && <AddAddress type={type} modelClose={modelClose} isAuthenticated={isAuthenticated} />}
                         </>
                     )}
                 </div>
@@ -60,7 +61,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
                 {(useAs) ? 
                     <div className="checkout-detail mb-3">
                         <label htmlFor="useAs" className="d-flex align-items-center justify-content-start">
-                            <input type="checkbox" id="useAs" checked={defaultChecked} onChange={(event) => checkTheSameAddress(event.target.checked)} />&nbsp;
+                            <input type="checkbox" id="useAs" checked={defaultChecked} onChange={(!loading) ? (event) => checkTheSameAddress(event.target.checked) : null} />&nbsp;
                             Utiliser l'adresse de livraison comme adresse de facturation
                         </label>
                     </div>
@@ -73,7 +74,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
                             <div className="row g-4">
                                 {addresses.map((item, key) =>
                                     <div className="col-xxl-6 col-lg-12 col-md-6" key={`address-delivery-${key}`}>
-                                        <div className="delivery-address-box" onClick={() => saveAddress(item?.id)}>
+                                        <div className="delivery-address-box" onClick={(!loading) ? () => saveAddress(item?.id) : null}>
                                             <div>
                                                 <div className="form-check">
                                                     {(current === item?.id) ? <input readOnly className="form-check-input" checked type="radio" id="flexRadioDefault1" /> : <div/>}
@@ -92,7 +93,7 @@ export default function ListAddresses({ defaultChecked, checkTheSameAddress, cur
                                                     {(item?.city) &&
                                                         <li>
                                                             <p className="text-content">
-                                                                <span className="text-title">Ville: {item?.city?.name}</span>
+                                                                <span className="text-title">Province: {item?.city?.name}</span>
                                                             </p>
                                                         </li>
                                                     }

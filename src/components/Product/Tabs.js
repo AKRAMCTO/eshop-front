@@ -12,11 +12,9 @@ export default function Tabs({ data }) {
             setTab("techniqual")
         }else if(data?.product_properties){
             setTab("product_properties")
-        }else if(data?.accessories){
-            setTab("accessories")
         }
-        // else if(data?.description){
-        //     setTab("description")
+        // else if(data?.accessories){
+        //     setTab("accessories")
         // }
     }, [])
 
@@ -47,12 +45,12 @@ export default function Tabs({ data }) {
                     </li>
                     : null
                 }
-                {(data?.accessories && data?.accessories.length) ?
+                {/* {(data?.accessories && data?.accessories.length) ?
                     <li className="nav-item">
                         <button onClick={() => handleTabs('accessories')} className={`nav-link ${(tab === 'accessories') ? "active" : ""}`} type="button">Accessoires</button>
                     </li>
                     : null
-                }
+                } */}
             </ul>
 
             <div className="tab-content custom-tab">
@@ -75,9 +73,7 @@ export default function Tabs({ data }) {
                         <div className='row'>
                             {data?.product_properties.map((item, key) =>
                                 <div key={`product_properties_${item?.id}`} className='col-md-4 col-12'>
-                                    <strong>Unité de mesure</strong> : {item?.measure?.label}<br />
-                                    <strong>Caractéristique</strong> : {item?.property?.label}<br />
-                                    <strong>Valeur</strong> : {item?.value}
+                                    <strong>{item?.property?.label}</strong> : {item?.value} {item?.measure?.label}
                                 </div>    
                             )}
                         </div>    
@@ -85,7 +81,7 @@ export default function Tabs({ data }) {
                     : 
                     null
                 }
-                {(data?.accessories && data?.accessories.length) ? 
+                {/* {(data?.accessories && data?.accessories.length) ? 
                     <div className={`tab-pane fade ${(tab === 'accessories') ? "show active" : ""}`}>
                         <div className='row'>
                             <div className="col-12">
@@ -95,7 +91,7 @@ export default function Tabs({ data }) {
                     </div>
                     : 
                     null
-                }
+                } */}
             </div>
         </div>
     )

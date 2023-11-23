@@ -82,38 +82,45 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
         }
     };
     const toggleQuantity  = async (move) => {
-        if(move === 'minus'){
-            if(quantity > 1) setQuantity(quantity-1)
-        }else{
-            setQuantity(quantity+1)
+        if(product?.is_active === 1 || product?.is_active === 2){
+            if(move === 'minus'){
+                if(quantity > 1) setQuantity(quantity-1)
+            }else{
+                setQuantity(quantity+1)
+            }
         }
     };
     const handleAddToCard = async () => {
         // console.log('handleAddToCard')
         // console.log(quantity + ' -- ' + currentQuantity)
-        if(quantity > 0 && quantity !== currentQuantity){
-            // console.log(quantity + ' -- ' + currentQuantity)
-            setAddLoadingCart(true);
-            try {
-                if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});
-                else await storeGuestCartItem({id: product?.id, quantity: quantity});
-                setCurrentQuantity(quantity)
+        if(product?.is_active === 1 || product?.is_active === 2){
+            if(quantity > 0 && quantity !== currentQuantity){
+                // console.log(quantity + ' -- ' + currentQuantity)
+                setAddLoadingCart(true);
+                try {
+                    if(isLoggedIn) await addToCartMutation({id: product?.id, quantity: quantity});
+                    else await storeGuestCartItem({id: product?.id, quantity: quantity});
+                    setCurrentQuantity(quantity)
 
-                if(!showPopup){
-                    let timer = setTimeout(() => {
-                        setAddLoadingCart(false);
-                        openPopup()
-                    }, 1000);
-                    return () => clearTimeout(timer);
+                    if(!showPopup){
+                        let timer = setTimeout(() => {
+                            setAddLoadingCart(false);
+                            openPopup()
+                        }, 1000);
+                        return () => clearTimeout(timer);
+                    }
+                } catch (error) {
+                    setAddLoadingCart(false);
                 }
-            } catch (error) {
-                setAddLoadingCart(false);
             }
         }
     };
 
     return (
-        <div className={`${(isWishlist) ? 'product-box-3 theme-bg-white' : ''} ${(isHorizontal) ? 'horizontal' : 'vertical'} ${(!isWishlist) ? 'product-box product-white-bg' : ''} wow fadeIn`}>
+        <div className={`${(isWishlist) ? 'product-box-3 theme-bg-white' : ''} ${(isHorizontal) ? 'horizontal' : 'vertical'} ${(!isWishlist) ? 'product-box product-white-bg' : ''} ${(product?.is_active === 1) ? 'in_stock' : ((product?.is_active === 2) ? 'come_soon' : 'out_stock')} wow fadeIn`}>
+            {(product?.is_active === 1) && <div className='product-status'><strong>En stock</strong></div>}
+            {(product?.is_active === 2) && <div className='product-status'><strong>En arrivage</strong></div>}
+            {(product?.is_active === 3) && <div className='product-status'><strong>En rupture de stock</strong></div>}
             <div className="product-header">
                 <div className="product-image">
                     <Link to={`/product/${product?.slug}`}>
@@ -172,7 +179,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                 <div className="product-detail position-relative">
                     <Link to={`/product/${product?.slug}`}><h6 className="name">{product?.title}</h6></Link>
                     {(product?.units_measurement && product?.values) && <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>}
-                    <h6 className="price theme-color">{product?.price_ttc} Dhs</h6>
+                    <h6 className="price theme-color">{product?.price_ttc} DH TTC</h6>
                     <div className="add-to-cart-box">
                         <div className={`cart_qty qty-box`}>
                             <div className="input-group bg-white">
@@ -180,7 +187,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                     type="button"
                                     disabled={addLoadingCart}
                                     className="qty-left-minus" 
-                                    onClick={() => toggleQuantity('minus')}
+                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('minus') : null}
                                 >
                                     <Minus />
                                 </button>
@@ -189,7 +196,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                     type="button"
                                     disabled={addLoadingCart}
                                     className="qty-right-plus" 
-                                    onClick={() => toggleQuantity('plus')}
+                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('plus') : null}
                                 >
                                     <Plus />
                                 </button>
@@ -200,7 +207,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                     type="button"
                                     disabled={addLoadingCart}
                                     className={`btn btn-add-cart addcart-button`}
-                                    onClick={() => handleAddToCard()}
+                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => handleAddToCard() : null}
                                 >
                                     {(addLoadingCart) ?  
                                         <TailSpin
@@ -217,6 +224,14 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                         </div>
                     </div>
                 </div>
+                {(isHorizontal && product?.product_properties) && <div className="list-properties">
+                    <ul className="product-info-list product-info-list-2">
+                        {product?.product_properties.map((item, key) =>
+                            <li key={`product_${product?.id}_properties_${item?.id}`}><strong>{item?.property?.label}:</strong> {item?.value} {item?.measure?.label}</li>
+                        )}
+                    </ul>
+                </div>
+                }
             </div>
         </div>
     )

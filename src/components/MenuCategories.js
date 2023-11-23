@@ -28,14 +28,15 @@ export default function MenuCategories() {
                     <ul className="category-list">
                         {menuCategories.map((item, key) => 
                             <li className="onhover-category-list" key={`menu-category-${key}`}>
+                                
                                 <Link 
                                     to={{
-                                        pathname: "/products",
+                                        pathname: `/products`,
                                         state: {category: item?.slug}
                                     }} 
                                     className="category-name"
                                 >
-                                    <h6>{item?.name}</h6>
+                                    <h6>{item?.name}{JSON.stringify(item?.slug_parents)}</h6>
                                     {(item?.childrens && item?.childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
                                 </Link>
                                 {(item?.childrens && item?.childrens.length) ?
@@ -46,7 +47,7 @@ export default function MenuCategories() {
                                                     <li key={`menu-sub-category-${keysub}`}>
                                                         <Link 
                                                             to={{
-                                                                pathname: "/products",
+                                                                pathname: `/products`,
                                                                 state: {category: sub?.slug}
                                                             }} 
                                                         >
@@ -60,7 +61,7 @@ export default function MenuCategories() {
                                                                             <li key={`menu-sub-category-${keysub1}`}>
                                                                                 <Link 
                                                                                     to={{
-                                                                                        pathname: "/products",
+                                                                                        pathname: `/products`,
                                                                                         state: {category: sub1?.slug}
                                                                                     }} 
                                                                                 >{sub1?.name}</Link>

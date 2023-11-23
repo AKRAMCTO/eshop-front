@@ -80,8 +80,8 @@ export default function AuthContextProvider({ children }) {
         onSuccess: data => {
             if (data.status === true) {
                 setSuccessAuthContext({registerSeller: data?.message})
-                // localStorage.setItem('ecowattAuthToken', data.token);
-                // queryClient.invalidateQueries('authentication');
+                localStorage.setItem('ecowattAuthToken', data.token);
+                queryClient.invalidateQueries('authentication');
             }
         },
         onError: (error) => {
@@ -142,7 +142,7 @@ export default function AuthContextProvider({ children }) {
     } = useQuery('orders', getOrders, {
         retry: 1,
         enabled: (data?.userData?.id ? true : false),
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: true
     });
 
     return (

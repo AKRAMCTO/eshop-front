@@ -13,6 +13,10 @@ export default function MyOrders() {
         if(id === selectedOrder) setSelectedOrder(null)
         else setSelectedOrder(id)
     }
+    const OrderDate = (date_creation) => {
+        let date = new Date(date_creation)
+        return date.toLocaleDateString("en-US")
+    }
 
     return (
         <div className="dashboard-order">
@@ -60,25 +64,28 @@ export default function MyOrders() {
                                         <h4>Statut <span>{ OrderStatus(item?.status) }</span></h4>
                                     </div>
                                     <div className="order-detail">
-                                        <h4>La date <span>{ item?.created_at }</span></h4>
+                                        {/* <h4>La date <span>{ item?.created_at }</span></h4> */}
+                                        <h4>La date <span>{ OrderDate(item?.date_creation) }</span></h4>
                                     </div>
                                 </div>
                                 <div className={`order-items ${selectedOrder === item?.id && 'show'}`}>
-                                    {(item?.items && item?.items.length) && 
-                                        (item?.items.map((productItem, productKey) => 
+                                    {(item?.lines && item?.lines.length) && 
+                                        (item?.lines.map((productItem, productKey) => 
                                             <div className="product-order-detail" key={`commande-${key}-${productKey}`}>
-                                                <Link to={`/product/${productItem?.product?.slug}`} className="order-image">
+                                                {/* <Link to={`/product/${productItem?.product?.slug}`} className="order-image">
                                                     <img src={productItem?.image} className="blur-up lazyload" alt={productItem?.product?.title} />
-                                                </Link>
+                                                </Link> */}
                                                 <div className="order-wrap">
-                                                    <Link to={`/product/${productItem?.product?.slug}`}>
-                                                        <h3>{productItem?.product?.title}</h3>
-                                                    </Link>
-                                                    <ul className="product-size">
+                                                    {/* <Link to={`/product/${productItem?.product?.slug}`}> */}
+                                                        {/* <h3>{productItem?.product?.title}</h3> */}
+                                                        <h3>{productItem?.product_label}</h3>
+                                                    {/* </Link> */}
+                                                    <ul className="product-size mt-2">
                                                         <li>
                                                             <div className="size-box">
                                                                 <h6 className="text-content">Prix : </h6>
-                                                                <h5>{productItem?.price} Dhs</h5>
+                                                                {/* <h5>{productItem?.price} DH TTC</h5> */}
+                                                                <h5>{productItem?.total_ttc} DH TTC</h5>
                                                             </div>
                                                         </li>
                                                         <li>

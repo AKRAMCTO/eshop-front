@@ -73,7 +73,7 @@ export default function CartButton() {
                                 <>
                                     <div className="price-box">
                                         <h5>Total :</h5>
-                                        <h4 className="theme-color fw-bold">{cartCalculation?.total} Dhs</h4>
+                                        <h4 className="theme-color fw-bold">{cartCalculation?.total} DH TTC</h4>
                                     </div>
 
                                     <div className="button-group">

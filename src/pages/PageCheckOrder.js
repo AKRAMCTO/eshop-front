@@ -133,7 +133,7 @@ export default function PageCheckOrder() {
                                                             <li>
                                                                 <div className="size-box">
                                                                     <h6 className="text-content">Prix : </h6>
-                                                                    <h5>{productItem?.price} Dhs</h5>
+                                                                    <h5>{productItem?.price} DH TTC</h5>
                                                                 </div>
                                                             </li>
                                                             <li>

@@ -25,7 +25,9 @@ export default function Container({
                                     measures, 
                                     properties,
                                     // sort, 
+                                    sort, 
                                     page, 
+                                    number, 
                                     listCategories,
                                     listBrands,
                                     listMeasures,
@@ -37,6 +39,7 @@ export default function Container({
                                     handleShowMenu,
                                     showMenu,
                                     handleSort,
+                                    handleNumber,
                                     handleGrid,
                                     grid,
                                     products,
@@ -77,6 +80,9 @@ export default function Container({
                 <div className="col-12 col-md-9">
                     <Filter
                         handleSort={handleSort} 
+                        sort={sort} 
+                        handleNumber={handleNumber} 
+                        number={number} 
                         handleGrid={handleGrid} 
                         grid={grid} 
                         handleShowMenu={handleShowMenu}
@@ -100,8 +106,8 @@ export default function Container({
                                 <div
                                     className={`
                                         row g-sm-4 g-3 
-                                        row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section
-                                        row-cols-xxl-${12/grid}
+                                        ${(grid != 12) ? `row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section row-cols-xxl-${12/grid}` : `row-cols-1`}
+                                        
                                     `}
                                 >
                                     {products.map((item, key) => 

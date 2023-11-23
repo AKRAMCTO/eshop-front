@@ -28,7 +28,7 @@ export default function AddressBox({ changeCurrentAddress, remove, address }) {
                   <td>{(address?.country) ? <p>{address?.country?.name}</p> : '-'}</td>
                 </tr>
                 <tr>
-                  <td>Ville :</td>
+                  <td>Provinces :</td>
                   <td>{(address?.city) ? <p>{address?.city?.name}</p> : '-'}</td>
                 </tr>
                 <tr>

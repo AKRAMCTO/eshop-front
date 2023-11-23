@@ -102,7 +102,7 @@ export default function Cart() {
                           <ul>
                             <li>
                               <h4>Total</h4>
-                              <h4 className="price">{cartCalculation?.subtotal} Dhs</h4>
+                              <h4 className="price">{cartCalculation?.subtotal} DH TTC</h4>
                             </li>
 
                             {/* <li>
@@ -112,14 +112,14 @@ export default function Cart() {
 
                             <li className="align-items-start">
                               <h4>Expédition</h4>
-                              <h4 className="price text-end">{cartCalculation?.shipping_cost} Dhs</h4>
+                              <h4 className="price text-end">{cartCalculation?.shipping_cost} DH TTC</h4>
                             </li>
                           </ul>
                         </div>
                         <ul className="summery-total">
                           <li className="list-total border-top-0">
-                            <h4>Total (Dhs)</h4>
-                            <h4 className="price theme-color">{cartCalculation?.total} Dhs</h4>
+                            <h4>Total (DH TTC)</h4>
+                            <h4 className="price theme-color">{cartCalculation?.total} DH TTC</h4>
                           </li>
                         </ul>
                         <div className="button-group cart-button">

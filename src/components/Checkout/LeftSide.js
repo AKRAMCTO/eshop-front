@@ -5,8 +5,8 @@ import { InfinitySpin } from 'react-loader-spinner';
 import ListAddresses from './ListAddresses';
 import AddCustomerInfos from './AddCustomerInfos';
 
-export default function LeftSide({ deliveryAddress, billingAddress, saveData }) {
-    const { isLoggedIn, listAddresses, addressesLoading, addressesFetching }  = useContext(AuthProvider)
+export default function LeftSide({ loading, deliveryAddress, billingAddress, saveData, paymentMethod }) {
+    const { isLoggedIn, userData, listAddresses, addressesLoading, addressesFetching }  = useContext(AuthProvider)
     const [billingAddresses, setBillingAddresses] = useState([])
     const [deliveryAddresses, setDeliveryAddresses] = useState([])
     const [defaultChecked, setDefaultChecked] = useState(true)
@@ -21,7 +21,11 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
         }
     }, [addressesLoading, addressesFetching])
 
-
+    const savePayment = (data) => {
+        if(data !== paymentMethod){
+            saveData('payment', data)
+        }
+    }
     const saveCustomer = (data) => {
         saveData('customer', data)
     }
@@ -74,8 +78,8 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
                                 </div>
                                 :
                                 <>
-                                    <ListAddresses current={deliveryAddress} type="delivery" addresses={deliveryAddresses} save={saveDeliveryAddress} isAuthenticated={isLoggedIn} />
-                                    <ListAddresses defaultChecked={defaultChecked} checkTheSameAddress={checkTheSameAddress} currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={true} />
+                                    <ListAddresses loading={loading} current={deliveryAddress} type="delivery" addresses={deliveryAddresses} save={saveDeliveryAddress} isAuthenticated={isLoggedIn} />
+                                    {(isLoggedIn) ? <ListAddresses loading={loading} defaultChecked={defaultChecked} checkTheSameAddress={checkTheSameAddress} currentDeliveryAddress={deliveryAddress} current={billingAddress} type="billing" addresses={billingAddresses} save={saveBillingAddress} isAuthenticated={isLoggedIn} useAs={true} /> : <div />}
                                 </>
                             }
                         </li>
@@ -89,15 +93,51 @@ export default function LeftSide({ deliveryAddress, billingAddress, saveData }) 
                                     <h4>Modalité de paiement</h4>
                                 </div>
 
-                                <div className="checkout-detail payment-details">
+                                {(isLoggedIn && userData && userData?.type === 'seller') && (
+                                    <>
+                                        <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('cheque') : null}>
+                                            <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
+                                                <div className='d-flex align-items-center'>
+                                                    <input
+                                                        className="form-check-input my-0" 
+                                                        type="radio"
+                                                        name="paymentMethod" 
+                                                        id="cheque" 
+                                                        checked={paymentMethod === 'cheque'}
+                                                        readOnly
+                                                    />
+                                                    <span className='d-block ml-5'>Cheque</span>
+                                                </div>
+                                                <img alt='cmi payment' src={require('./../../assets/images/cmi.png')} />
+                                            </div>
+                                        </div>
+                                        <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('effet') : null}>
+                                            <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
+                                                <div className='d-flex align-items-center'>
+                                                    <input
+                                                        className="form-check-input my-0" 
+                                                        type="radio"
+                                                        name="paymentMethod" 
+                                                        id="effet" 
+                                                        checked={paymentMethod === 'effet'}
+                                                        readOnly
+                                                    />
+                                                    <span className='d-block ml-5'>Effet</span>
+                                                </div>
+                                                <img alt='cmi payment' src={require('./../../assets/images/cmi.png')} />
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                                <div className="checkout-detail payment-details" onClick={(!loading) ? () => savePayment('cmi') : null}>
                                     <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
                                         <div className='d-flex align-items-center'>
                                             <input
                                                 className="form-check-input my-0" 
                                                 type="radio"
-                                                name="flexRadioDefault" 
+                                                name="paymentMethod" 
                                                 id="credit" 
-                                                checked
+                                                checked={paymentMethod === 'cmi'}
                                                 readOnly
                                             />
                                             <span className='d-block ml-5'>CMI</span>

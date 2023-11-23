@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Filter({handleSort, handleGrid, grid, handleShowMenu}) {
+export default function Filter({handleSort, sort, handleNumber, number, handleGrid, grid, handleShowMenu}) {
     
     return (
         <div className="show-button">
@@ -12,17 +12,29 @@ export default function Filter({handleSort, handleGrid, grid, handleShowMenu}) {
 
             <div className="top-filter-menu">
                 <div className="category-dropdown">
-                    <h5 className="text-content">Trier par :</h5>
-                    <div className="dropdown">
-                        <select className="dropdown-toggle" onChange={(event) => handleSort(event.target.value)}>
-                            <option></option>
-                            {/* <option value="latest">Dernier</option>
-                            <option value="pop">Popularité</option> */}
-                            <option value="priceLow">Prix bas – élevé</option>
-                            <option value="priceHigh">Prix élevé - bas</option>
-                            <option value="aToz">A - Z</option>
-                            <option value="zToa">Z-A</option>
-                        </select>
+                    <div className='space-right d-flex align-items-center'>
+                        <h5 className="text-content">Trier par :</h5>
+                        <div className="dropdown">
+                            <select className="dropdown-toggle" onChange={(event) => handleSort(event.target.value)}>
+                                <option></option>
+                                {/* <option value="latest">Dernier</option>
+                                <option value="pop">Popularité</option> */}
+                                <option selecte={sort === 'priceLow'} value="priceLow">Prix bas – élevé</option>
+                                <option selecte={sort === 'priceHigh'} value="priceHigh">Prix élevé - bas</option>
+                                <option selecte={sort === 'aToz'} value="aToz">A - Z</option>
+                                <option selecte={sort === 'zToa'} value="zToa">Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className='d-flex align-items-center'>
+                        <h5 className="text-content">Number :</h5>
+                        <div className="dropdown">
+                            <select className="dropdown-toggle" onChange={(event) => handleNumber(event.target.value)}>
+                                <option selecte={number === 15} value={15}>15</option>
+                                <option selecte={number === 30} value={30}>30</option>
+                                <option selecte={number === 60} value={60}>60</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import Breadcrumb from '../components/Breadcrumb';
 import Layout from '../components/Layout';
@@ -11,12 +11,14 @@ import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 import { AuthCheckout, GuestCheckout } from '../queries/queries';
 
 export default function Checkout() {
+  const history = useHistory();
   const { authenticationLoading, authenticationFetching, isLoggedIn } = useContext(AuthProvider);
   const { cartItems, clearGuestCartItem, getCartItemsGuestLoading, clearAfterCheckout } = useContext(CartAndWishlistProvider)
   const [ loading, setLoading ] = useState(false)
   const [ orderSuccess, setOrderSuccess ] = useState(null)
   const [ orderError, setOrderError ] = useState(null)
   const [ orderID, setOrderID ] = useState(null)
+  const [ redirect, setRedirect ] = useState(null)
   
   const [ paymentMethod, setPaymentMethod ] = useState('cmi')
   const [ customer, setCustomer ] = useState(null)
@@ -26,17 +28,19 @@ export default function Checkout() {
   useEffect(() => {
     if(orderID){
       const timer = setTimeout(() => {
-        if(orderID) {
+        if(orderID && redirect){
           if(!isLoggedIn) {
             clearGuestCartItem()
           }
           // window.location.href = 'http://127.0.0.1:8000/complete-payment/' + orderID
           window.location.href = 'https://dev.ecowatt.ma/complete-payment/' + orderID
+        }else{
+          history.push(`/order-success?invoice=${orderID}`)
         }
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [orderID])
+  }, [redirect])
 
   const saveData = async (type, data) => {
     switch(type){
@@ -48,6 +52,9 @@ export default function Checkout() {
       break;
       case 'billing':
         setBillingAddress(data)
+      break;
+      case 'payment':
+        setPaymentMethod(data)
       break;
       default:
         // console.log('Someting went wrong on save data')
@@ -64,7 +71,7 @@ export default function Checkout() {
 
     setLoading(true)
     if(isLoggedIn){
-      if(paymentMethod !== "cmi" || !deliveryAddress || !billingAddress){
+      if(!paymentMethod || !deliveryAddress || !billingAddress){
         setOrderError('Veuillez suivre toutes les étapes avant de soumettre')
         setLoading(false)
         return false
@@ -78,6 +85,7 @@ export default function Checkout() {
         });
         if (res.status && res?.order_id) {
           // setLoading(false)
+          setRedirect(res?.continue_payment)
           setOrderSuccess('Commande enregistrée avec succès')
           setOrderID(res?.order_id)
           clearAfterCheckout()
@@ -90,7 +98,8 @@ export default function Checkout() {
         setOrderError(error?.response?.data?.message);
       }
     }else{
-      if(paymentMethod !== "cmi" || !deliveryAddress || !billingAddress || !customer){
+      // || !billingAddress
+      if(!paymentMethod || !deliveryAddress || !customer){
         setOrderError('Veuillez suivre toutes les étapes avant de soumettre')
         setLoading(false)
         return false
@@ -99,11 +108,12 @@ export default function Checkout() {
         const res = await GuestCheckout({
           payment_method: paymentMethod,
           delivery_address: deliveryAddress,
-          billing_address: billingAddress,
+          // billing_address: billingAddress,
           customer: customer
         });
         if (res.status && res?.order_id) {
           // setLoading(false)
+          setRedirect(res?.continue_payment)
           setOrderSuccess('Commande enregistrée avec succès')
           setOrderID(res?.order_id)
           clearAfterCheckout()
@@ -141,6 +151,8 @@ export default function Checkout() {
               deliveryAddress={deliveryAddress} 
               billingAddress={billingAddress} 
               saveData={saveData} 
+              paymentMethod={paymentMethod}
+              loading={loading}
             />
             <RightSide 
               orderSuccess={orderSuccess} 

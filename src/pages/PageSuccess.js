@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Redirect, Link } from 'react-router-dom';
 import { ThumbsUp } from 'react-feather';
 
 import Breadcrumb from '../components/Breadcrumb';
@@ -15,6 +15,10 @@ export default function PageSuccess() {
 
   if(ordersLoading || ordersFetching){
     return <div />
+  }
+
+  if(!invoice){
+    return <Redirect to='/' />
   }
 
   return (
@@ -42,6 +46,7 @@ export default function PageSuccess() {
                   <div className="order-contain mt-3">
                     <h3 className="theme-color">Succès de la commande</h3>
                     <h5 className="text-content">Le paiement est réussi et votre commande est en route</h5>
+                    <h5 className="text-content mb-2">Si vous souhaitez une facture, vous pouvez la demander à l'équipe support via l'email suivant : support@ ecowatt.com</h5>
                     {isLoggedIn ?
                       <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
                       : 

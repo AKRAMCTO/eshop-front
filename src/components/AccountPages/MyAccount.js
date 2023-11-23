@@ -29,42 +29,43 @@ export default function MyAccount({ userData, SelectModelForm }) {
                 <h6 className="text-content">Bonjour, <b className="text-title">{userData?.full_name}</b></h6>
             </div>
 
-            <div className="total-box">
-                <div className="row g-sm-4 g-3">
-                    <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
-                        <div className="totle-contain">
-                            <img src={require("./../../assets/images/order.png")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("./../../assets/images/order.png")} className="blur-up lazyload" alt="" />
-                            <div className="totle-detail">
-                                <h5>Total des commandes</h5>
-                                <h3>{ listOrdersCounter }</h3>
+            {/* 
+                <div className="total-box">
+                    <div className="row g-sm-4 g-3">
+                        <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                            <div className="totle-contain">
+                                <img src={require("./../../assets/images/order.png")} className="img-1 blur-up lazyload" alt="" />
+                                <img src={require("./../../assets/images/order.png")} className="blur-up lazyload" alt="" />
+                                <div className="totle-detail">
+                                    <h5>Total des commandes</h5>
+                                    <h3>{ listOrdersCounter }</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                            <div className="totle-contain">
+                                <img src={require("../../assets/images/pending.png")} className="img-1 blur-up lazyload" alt="" />
+                                <img src={require("../../assets/images/pending.png")} className="blur-up lazyload" alt="" />
+                                <div className="totle-detail">
+                                    <h5>Total des commandes en attente</h5>
+                                    <h3>254</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                            <div className="totle-contain">
+                                <img src={require("../../assets/images/wishlist.png")} className="img-1 blur-up lazyload" alt="" />
+                                <img src={require("../../assets/images/wishlist.png")} className="blur-up lazyload" alt="" />
+                                <div className="totle-detail">
+                                    <h5>Listes de souhaits totales</h5>
+                                    <h3>32158</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
-                        <div className="totle-contain">
-                            <img src={require("../../assets/images/pending.png")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("../../assets/images/pending.png")} className="blur-up lazyload" alt="" />
-                            <div className="totle-detail">
-                                <h5>Total des commandes en attente</h5>
-                                <h3>254</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
-                        <div className="totle-contain">
-                            <img src={require("../../assets/images/wishlist.png")} className="img-1 blur-up lazyload" alt="" />
-                            <img src={require("../../assets/images/wishlist.png")} className="blur-up lazyload" alt="" />
-                            <div className="totle-detail">
-                                <h5>Listes de souhaits totales</h5>
-                                <h3>32158</h3>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
-            </div>
+            */}
 
             <div className="dashboard-title">
                 <h3>Information sur le compte</h3>
@@ -109,7 +110,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                                                     <td>{(addressInvoice?.country) ? addressInvoice?.country?.name : '-'}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Ville :</td>
+                                                    <td>Provinces :</td>
                                                     <td>{(addressInvoice?.city) ? addressInvoice?.city?.name : '-'}</td>
                                                 </tr>
                                                 <tr>
@@ -141,7 +142,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                                                     <td>{(addressDelivery?.country) ? addressDelivery?.country?.name  : '-'}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Ville :</td>
+                                                    <td>Provinces :</td>
                                                     <td>{(addressDelivery?.city) ? addressDelivery?.city?.name  : '-'}</td>
                                                 </tr>
                                                 <tr>

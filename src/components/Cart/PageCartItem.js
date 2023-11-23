@@ -70,7 +70,7 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
             </td>
 
             <td className="price">
-                <h5 className='text-center'>{item?.price} Dhs {/*<del className="text-content">$45.68</del>*/}</h5>
+                <h5 className='text-center'>{item?.price} DH TTC {/*<del className="text-content">$45.68</del>*/}</h5>
             </td>
 
             <td className="quantity">
@@ -90,7 +90,7 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
             </td>
 
             <td className="subtotal">
-                <h5 className='text-center'>{item?.total} Dhs</h5>
+                <h5 className='text-center'>{item?.total} DH TTC</h5>
             </td>
 
             <td className="save-remove">

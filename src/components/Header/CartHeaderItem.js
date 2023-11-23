@@ -23,7 +23,7 @@ export default function CartHeaderItem({ item, loading, RemoveCartItem }) {
                     <Link to={`/product/${item?.slug}`}>
                         <h5>{item?.name}</h5>
                     </Link>
-                    <h6><span>{item?.quantity}x</span> {item?.price} Dhs</h6>
+                    <h6><span>{item?.quantity}x</span> {item?.price} DH TTC</h6>
                     <button 
                         onClick={RemoveItem}
                         className="close-button close_button"

@@ -172,7 +172,7 @@ export default function AddAddress({ SelectModelTitle, modelClose }) {
                             <div className="col-12 col-md-6">
                                 <div className="form-floating theme-form-floating">
                                     <select value={values.city} className="form-control" id="city" name="city" onChange={handleChange} onBlur={handleBlur}>
-                                        <option value="0" label="Sélectionnez une ville">Sélectionnez une ville</option>
+                                        <option value="0" label="Sélectionnez une province">Sélectionnez une province</option>
                                         {(listCities && listCities.length) &&
                                             listCities.map((item, key) => <option key={key} value={item?.id} label={item?.name}>{item?.name}</option>)
                                         }

@@ -36,9 +36,14 @@ export default function Products() {
     //     type: 'products'
     // })
     const [page, setpage] = useState(1)
+    const [number, setNumber] = useState(15)
     const [maxPages, setMaxPages] = useState(1)
 
     useEffect(() => {
+        // console.log("parent => ", queryParameters.get('parent'))
+        // console.log("sub => ", queryParameters.get('sub'))
+        // console.log("sub_sub => ", queryParameters.get('sub_sub'))
+
         // console.log('useffect 1')
         // console.log("category => ", queryParameters.get('category'))
         // console.log("brand => ", queryParameters.get('brand'))
@@ -65,7 +70,7 @@ export default function Products() {
         if(products.length > 0) {
             fetchProducts()
         }
-    }, [ page, sort ])
+    }, [ page, sort, number ])
 
     const fetchProducts = async () => {
         setIsLoadingProducts(true)
@@ -81,7 +86,8 @@ export default function Products() {
             'measures': measures,
             'properties': properties,
             'sort': sort,
-            'page': page
+            'page': page,
+            'number': number
         });
 
         if (res.status === true) {
@@ -209,6 +215,11 @@ export default function Products() {
             setSort(selected)
         }
     }
+    const handleNumber = (selected) => {
+        if(selected !== number) {
+            setNumber(selected)
+        }
+    }
     const handlePage = (selected) => {
         if(selected !== page) {
             setpage(selected)
@@ -312,8 +323,9 @@ export default function Products() {
                     brands={brands}
                     measures={measures}
                     properties={properties}
-                    // sort={sort}
+                    sort={sort}
                     page={page}
+                    number={number}
                     listCategories={listCategories}
                     listBrands={listBrands}
                     listMeasures={listMeasures}
@@ -325,6 +337,7 @@ export default function Products() {
                     handleShowMenu={handleShowMenu}
                     showMenu={showMenu}
                     handleSort={handleSort}
+                    handleNumber={handleNumber}
                     handleGrid={handleGrid}
                     grid={grid}
                     products={products}

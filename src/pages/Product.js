@@ -156,7 +156,7 @@ export default function Product() {
                                         <h6 className="mb-2 font-bold">#{data?.ref}</h6>
                                         <h2 className="name">{data?.title}</h2>
                                         <div className="price-rating">
-                                            <h3 className="theme-color price">{data?.price_ttc} Dhs</h3>
+                                            <h3 className="theme-color price">{data?.price_ttc} DH TTC</h3>
                                         </div>
 
                                         {(data?.description) ?
@@ -228,47 +228,54 @@ export default function Product() {
                                             </ul>
                                         </div> */}
 
-                                        <div className="note-box product-packege">
-                                            <div className="cart_qty qty-box product-qty">
-                                                <div className="input-group">
+                                        {(data?.is_active != 0 && data?.is_active != 3) ?
+                                            <>
+                                                {(data?.is_active == 1) && <div className='h6 text-success mt-4'><strong>En stock</strong></div>}
+                                                {(data?.is_active == 2) && <div className='h6 text-orange mt-4'><strong>En arrivage</strong></div>}
+                                                <div className="note-box product-packege">
+                                                    <div className="cart_qty qty-box product-qty">
+                                                        <div className="input-group">
+                                                            <button 
+                                                                type="button" 
+                                                                className="qty-left-minus"
+                                                                onClick={() => toggleQuantity('minus')}
+                                                                disabled={addItemInCart || addLoadingCart}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                            <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                                            <button 
+                                                                type="button" 
+                                                                className="qty-right-plus"
+                                                                onClick={() => toggleQuantity('plus')}
+                                                                disabled={addItemInCart || addLoadingCart}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                     <button 
-                                                        type="button" 
-                                                        className="qty-left-minus"
-                                                        onClick={() => toggleQuantity('minus')}
+                                                        type="button"
+                                                        className={`btn btn-md notifi-cart bg-dark cart-button text-white w-100 ${addItemInCart && 'active'}`}
+                                                        onClick={handleAddToCart}
                                                         disabled={addItemInCart || addLoadingCart}
                                                     >
-                                                        <Minus />
-                                                    </button>
-                                                    <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
-                                                    <button 
-                                                        type="button" 
-                                                        className="qty-right-plus"
-                                                        onClick={() => toggleQuantity('plus')}
-                                                        disabled={addItemInCart || addLoadingCart}
-                                                    >
-                                                        <Plus />
+                                                        {(addLoadingCart) ? 
+                                                            <TailSpin
+                                                                color="#2A3466"
+                                                                height={16}
+                                                                width={16}
+                                                                visible={addLoadingCart}
+                                                            />
+                                                        : 
+                                                            addItemInCart ? <><Check /> Ajouté</> : <><ShoppingCart /> Ajouter au panier</>
+                                                        }        
                                                     </button>
                                                 </div>
-                                            </div>
-
-                                            <button 
-                                                type="button"
-                                                className={`btn btn-md notifi-cart bg-dark cart-button text-white w-100 ${addItemInCart && 'active'}`}
-                                                onClick={handleAddToCart}
-                                                disabled={addItemInCart || addLoadingCart}
-                                            >
-                                                {(addLoadingCart) ? 
-                                                    <TailSpin
-                                                        color="#2A3466"
-                                                        height={16}
-                                                        width={16}
-                                                        visible={addLoadingCart}
-                                                    />
-                                                : 
-                                                    addItemInCart ? <><Check /> Ajouté</> : <><ShoppingCart /> Ajouter au panier</>
-                                                }        
-                                            </button>
-                                        </div>
+                                            </>
+                                        :
+                                            <div className='h6 text-danger mt-4'><strong>En rupture de stock</strong></div>
+                                        }
 
                                         <div className="buy-box">
                                             {(addLoadingWishlist || removeLoading) ? 
@@ -301,13 +308,11 @@ export default function Product() {
                                                     </div>
                                                 */}
                                                 <div className="product-info">
-                                                    {data?.product_properties.map((item, key) =>
-                                                        <ul className="product-info-list product-info-list-2" key={`product_${data?.id}_properties_${item?.id}`}>
-                                                            <li><strong>Unité de mesure:</strong> {item?.measure?.label}</li>
-                                                            <li><strong>Caractéristique:</strong> {item?.property?.label}</li>
-                                                            <li><strong>Valeur:</strong> {item?.value}</li>
-                                                        </ul>
-                                                    )}
+                                                    <ul className="product-info-list product-info-list-2">
+                                                        {data?.product_properties.map((item, key) =>
+                                                            <li key={`product_${data?.id}_properties_${item?.id}`}><strong>{item?.property?.label}:</strong> {item?.value} {item?.measure?.label}</li>
+                                                        )}
+                                                    </ul>
                                                 </div>
                                             </div>
                                             : null
@@ -334,24 +339,6 @@ export default function Product() {
                     </div>
                 </div>
             </section>
-
-            {/* {(data?.accessories && data?.accessories.length) ? 
-                <section className="product-list-section section-b-space">
-                    <div className="container-fluid-lg">
-                        <div className="title">
-                            <h2>Produits accessoires</h2>
-                            <span className="title-leaf"></span>
-                        </div>
-                        <div className="row">
-                            <div className="col-12">
-                                <SlideProducts products={data?.accessories} />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                :
-                null
-            } */}
 
             <section className="section-b-space">
                 <div className="container-fluid-lg">
@@ -380,6 +367,24 @@ export default function Product() {
                 :
                 null
             }
+
+            {(data?.accessories && data?.accessories.length) ? 
+                <section className="product-list-section section-b-space">
+                    <div className="container-fluid-lg">
+                        <div className="title">
+                            <h2>Produits accessoires</h2>
+                            <span className="title-leaf"></span>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <SlideProducts products={data?.accessories} />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                :
+                null
+            } 
         </Layout>
     );
 }

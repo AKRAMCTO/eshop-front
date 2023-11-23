@@ -20,7 +20,7 @@ export default function RightSide({ orderSuccess, orderError, loading, handleSub
                             <li key={`checkout-cart-item-${key}`}>
                                 <img src={item?.image_link} className="img-fluid blur-up lazyloaded checkout-image" alt={item?.name} />
                                 <h4>{item?.name} <span>X {item?.quantity}</span></h4>
-                                <h4 className="price">{item?.total} Dhs</h4>
+                                <h4 className="price">{item?.total} DH TTC</h4>
                             </li>
                         )}
                     </ul>
@@ -29,17 +29,17 @@ export default function RightSide({ orderSuccess, orderError, loading, handleSub
                         <ul className="summery-total">
                             <li>
                                 <h4>Total</h4>
-                                <h4 className="price">{cartCalculation?.subtotal} Dhs</h4>
+                                <h4 className="price">{cartCalculation?.subtotal} DH TTC</h4>
                             </li>
 
                             <li>
                                 <h4>Expédition</h4>
-                                <h4 className="price">{cartCalculation?.shipping_cost} Dhs</h4>
+                                <h4 className="price">{cartCalculation?.shipping_cost} DH TTC</h4>
                             </li>
 
                             <li className="list-total">
-                                <h4>Total (Dhs)</h4>
-                                <h4 className="price">{cartCalculation?.total} Dhs</h4>
+                                <h4>Total (DH TTC)</h4>
+                                <h4 className="price">{cartCalculation?.total} DH TTC</h4>
                             </li>
                         </ul>
                     }
