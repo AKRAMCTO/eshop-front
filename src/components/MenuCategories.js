@@ -36,7 +36,7 @@ export default function MenuCategories() {
                                     }} 
                                     className="category-name"
                                 >
-                                    <h6>{item?.name}{JSON.stringify(item?.slug_parents)}</h6>
+                                    <h6>{item?.name}</h6>
                                     {(item?.childrens && item?.childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
                                 </Link>
                                 {(item?.childrens && item?.childrens.length) ?
