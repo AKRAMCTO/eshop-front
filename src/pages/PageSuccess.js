@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation, Redirect, Link } from 'react-router-dom';
 import { ThumbsUp } from 'react-feather';
@@ -6,12 +6,18 @@ import { ThumbsUp } from 'react-feather';
 import Breadcrumb from '../components/Breadcrumb';
 import Layout from '../components/Layout';
 import { AuthProvider } from '../contexts/AuthContext';
+import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 
 export default function PageSuccess() {
   const { isLoggedIn, ordersLoading, ordersFetching } = useContext(AuthProvider);
+  const { clearAfterCheckout } = useContext(CartAndWishlistProvider)
   const location = useLocation()
   const queryParameters = new URLSearchParams(location.search)
-  const invoice = queryParameters.get("invoice") ?? null
+  const invoice = queryParameters.get("invoice") ?? null;
+
+  useEffect(() => {
+    clearAfterCheckout()
+  }, [])
 
   if(ordersLoading || ordersFetching){
     return <div />
@@ -47,12 +53,12 @@ export default function PageSuccess() {
                     <h3 className="theme-color">Succès de la commande</h3>
                     <h5 className="text-content">Le paiement est réussi et votre commande est en route</h5>
                     <h5 className="text-content mb-2">Si vous souhaitez une facture, vous pouvez la demander à l'équipe support via l'email suivant : support@ ecowatt.com</h5>
+                    <h5 className="text-content mb-2">Vous recevrez le bon de commande par votre mail</h5>
                     {isLoggedIn ?
                       <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
                       : 
                       (invoice) ? 
                       <>
-                        <h5 className="text-content mb-2">Vous recevrez le bon de commande par votre mail</h5>
                         <h6>Identifiant de transaction: {invoice}</h6>
                         <Link to={`/check-order`} className="quick-access d-inline-block mt-3">Vérifier L'état de votre commande</Link>
                       </>

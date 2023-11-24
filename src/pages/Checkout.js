@@ -13,7 +13,7 @@ import { AuthCheckout, GuestCheckout } from '../queries/queries';
 export default function Checkout() {
   const history = useHistory();
   const { authenticationLoading, authenticationFetching, isLoggedIn } = useContext(AuthProvider);
-  const { cartItems, clearGuestCartItem, getCartItemsGuestLoading, clearAfterCheckout } = useContext(CartAndWishlistProvider)
+  const { cartItems, clearGuestCartItem, getCartItemsGuestLoading } = useContext(CartAndWishlistProvider)
   const [ loading, setLoading ] = useState(false)
   const [ orderSuccess, setOrderSuccess ] = useState(null)
   const [ orderError, setOrderError ] = useState(null)
@@ -88,7 +88,6 @@ export default function Checkout() {
           setRedirect(res?.continue_payment)
           setOrderSuccess('Commande enregistrée avec succès')
           setOrderID(res?.order_id)
-          clearAfterCheckout()
         } else {
           setLoading(false)
           setOrderError('La commande a échoué')
@@ -116,7 +115,6 @@ export default function Checkout() {
           setRedirect(res?.continue_payment)
           setOrderSuccess('Commande enregistrée avec succès')
           setOrderID(res?.order_id)
-          clearAfterCheckout()
         } else {
           setLoading(false)
           setOrderError('La commande a échoué')

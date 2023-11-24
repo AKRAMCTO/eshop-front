@@ -142,7 +142,7 @@ export default function AuthContextProvider({ children }) {
     } = useQuery('orders', getOrders, {
         retry: 1,
         enabled: (data?.userData?.id ? true : false),
-        refetchOnWindowFocus: true
+        refetchOnWindowFocus: false
     });
 
     return (

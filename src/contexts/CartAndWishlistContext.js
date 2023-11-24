@@ -291,7 +291,12 @@ export default function CartAndWishlistContext({ children }) {
     }
 
     const clearAfterCheckout = () => {
-
+      if(isLoggedIn){
+        queryClient.invalidateQueries('cartItems');
+        queryClient.invalidateQueries('orders');
+      }else{
+        setCartData([])
+      }
     }
 
     return (
