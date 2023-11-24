@@ -1,7 +1,13 @@
 import React from 'react';
 import Slider from 'react-slick';
 
+
 export default function Gallery({ thumbnail, images, name }) {
+
+    if(thumbnail && images.length){
+        images.unshift(thumbnail)
+    }
+    
     // console.log('images => ', images)
     const settings = {
         customPaging: function(i) {
@@ -22,12 +28,6 @@ export default function Gallery({ thumbnail, images, name }) {
                 <div className="col-12">
                     <div className="product-main no-arrow">
                         <Slider {...settings}>
-                            {thumbnail && <div>
-                                <div className="slider-image">
-                                    <img src={thumbnail} alt={name} />
-                                </div>
-                            </div>}
-                            
                             {(images && images.length) ?
                                 images.map((item, key) =>
                                     <div key={`gallery-${key}`}>
