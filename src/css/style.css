@@ -22088,6 +22088,9 @@ header .offcanvas-backdrop {
 .product-info-list.product-info{
   flex-direction: column;
 }
+.product-box.horizontal .list-properties{
+  width: 200px;
+}
 @media (max-width: 480px) {
   .product-section .right-box-contain .pickup-box .product-info .product-info-list {
     column-count: 1;
@@ -23038,7 +23041,8 @@ input.input-error{
     padding-left: 0;
     flex-direction: column;
   }
-  .product-box.horizontal .product-detail {
+  .product-box.horizontal .product-detail,
+  .product-box.horizontal .list-properties {
     width: 100%;
   }
   .product-box.horizontal .product-footer .add-to-cart-box{
