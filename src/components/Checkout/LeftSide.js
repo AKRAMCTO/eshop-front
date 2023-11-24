@@ -95,7 +95,7 @@ export default function LeftSide({ loading, deliveryAddress, billingAddress, sav
 
                                 {(isLoggedIn && userData && userData?.type === 'seller') && (
                                     <>
-                                        {(userData?.confirmation) ?
+                                        {(userData?.status === 2) ?
                                             <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('solde') : null}>
                                                 <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
                                                     <div className='d-flex align-items-center'>

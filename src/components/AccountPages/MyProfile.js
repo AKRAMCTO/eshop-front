@@ -46,7 +46,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                             <li>
                                 <div className="location-box">
                                     <i data-feather="map-pin"></i>
-                                    <h6>{userData?.confirmation ? 'Confirmer' : 'Non confirmer'}</h6>
+                                    <h6>{(userData?.status === 1) ? 'Nouveau' : ((userData?.status === 2) ? 'Approuvé' : '')}</h6>
                                 </div>
                             </li>
                         }
