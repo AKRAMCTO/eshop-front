@@ -331,6 +331,7 @@ img{
   font-weight: 700;
   font-size: calc(16px + 6 * (100vw - 320px) / 1600);
   margin-bottom: 0;
+  text-align: left;
 }
 @media (max-width: 480px) {
   .breadscrumb-section .breadscrumb-contain h2 {

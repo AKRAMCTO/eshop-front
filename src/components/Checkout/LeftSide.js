@@ -95,6 +95,26 @@ export default function LeftSide({ loading, deliveryAddress, billingAddress, sav
 
                                 {(isLoggedIn && userData && userData?.type === 'seller') && (
                                     <>
+                                        {(userData?.confirmation) ?
+                                            <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('solde') : null}>
+                                                <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
+                                                    <div className='d-flex align-items-center'>
+                                                        <input
+                                                            className="form-check-input my-0" 
+                                                            type="radio"
+                                                            name="paymentMethod" 
+                                                            id="solde" 
+                                                            checked={paymentMethod === 'solde'}
+                                                            readOnly
+                                                        />
+                                                        <span className='d-block ml-5'>solde</span>
+                                                    </div>
+                                                    <img alt='cmi payment' src={require('./../../assets/images/cmi.png')} />
+                                                </div>
+                                            </div>
+                                            :
+                                            <div />
+                                        }
                                         <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('cheque') : null}>
                                             <div className="bg-white w-100 d-flex align-items-center justify-content-between p-4">
                                                 <div className='d-flex align-items-center'>
@@ -108,7 +128,7 @@ export default function LeftSide({ loading, deliveryAddress, billingAddress, sav
                                                     />
                                                     <span className='d-block ml-5'>Cheque</span>
                                                 </div>
-                                                <img alt='cmi payment' src={require('./../../assets/images/cmi.png')} />
+                                                <img alt='cmi payment' src={require('./../../assets/images/cheque.png')} />
                                             </div>
                                         </div>
                                         <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => savePayment('effet') : null}>
@@ -124,7 +144,7 @@ export default function LeftSide({ loading, deliveryAddress, billingAddress, sav
                                                     />
                                                     <span className='d-block ml-5'>Effet</span>
                                                 </div>
-                                                <img alt='cmi payment' src={require('./../../assets/images/cmi.png')} />
+                                                <img alt='cmi payment' src={require('./../../assets/images/cheque.png')} />
                                             </div>
                                         </div>
                                     </>

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 
 
 export default function Gallery({ thumbnail, images, name }) {
-
-    if(thumbnail && images.length){
-        images.unshift({full_image: thumbnail})
-    }
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        if(thumbnail && images.length){
+            images.unshift({full_image: thumbnail})
+        }
+        setLoading(false)
+    }, [images])
     
     // console.log('images => ', images)
     const settings = {
@@ -22,38 +25,32 @@ export default function Gallery({ thumbnail, images, name }) {
         slidesToScroll: 1
     };
 
-    if(images && images.length) {
-        return (
-            <div className="row g-sm-4 g-2">
-                <div className="col-12">
-                    <div className="product-main no-arrow">
-                        <Slider {...settings}>
-                            {(images && images.length) ?
-                                images.map((item, key) =>
-                                    <div key={`gallery-${key}`}>
-                                        <div className="slider-image">
-                                            <img src={item?.full_image} alt={name} />
-                                        </div>
-                                    </div>
-                                )
-                                :
-                                <div />
-                            }
-                        </Slider>
-                    </div>
-                </div>
-            </div>
-        )
-    }else if(thumbnail) {
-        return (
-            <div className="row g-sm-4 g-2">
-                <div className="col-12">
-                    <div className="product-main no-arrow">
-                        <img src={thumbnail} alt={name} />
-                    </div>
-                </div>
-            </div>
-        )
+    if(loading){
+        return  null;
     }
-    return null
+    return (
+        <div className="row g-sm-4 g-2">
+            <div className="col-12">
+                <div className="product-main no-arrow">
+                    {(images && images.length) ?
+                        <Slider {...settings}>
+                            {images.map((item, key) =>
+                                <div key={`gallery-${key}`}>
+                                    <div className="slider-image">
+                                        <img src={item?.full_image} alt={name} />
+                                    </div>
+                                </div>
+                            )}
+                        </Slider>
+                    :
+                        ((thumbnail) ?
+                            <img src={thumbnail} alt={name} />
+                        :
+                            <div />
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    )
 }
