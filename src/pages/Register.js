@@ -14,10 +14,12 @@ import { Eye, EyeOff } from "react-feather";
 import { DataProvider } from "../contexts/DataContext";
 
 export default function Register() {
-    const { registerMutation, errorAuthContext, emptyErrorAuthContext } = useContext(AuthProvider);
+    const { registerMutation, errorAuthContext, emptyErrorAuthContext, successAuthContext, emptySuccessAuthContext } = useContext(AuthProvider);
     const [errorOpen, setErrorOpen] = React.useState(false);
+    const [successOpen, setSuccessOpen] = React.useState(false);
     const [passwordStatus, setPasswordStatus] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const closeError = () => {
         setErrorOpen(false);
@@ -29,6 +31,7 @@ export default function Register() {
     useEffect(() => {
         if(errorOpen){
             let timer = setTimeout(() => {
+                setLoading(false)
                 setErrorOpen(false)
                 setErrorMessage('')
                 emptyErrorAuthContext()
@@ -38,10 +41,31 @@ export default function Register() {
     }, [errorOpen])
 
     useEffect(() => {
+        if(successOpen){
+            let timer = setTimeout(() => {
+                setLoading(false)
+                setSuccessOpen(false)
+                emptySuccessAuthContext()
+            }, 4000)
+            return () => clearTimeout(timer)  
+        }
+    }, [successOpen])
+
+    useEffect(() => {
+        console.log('here loading => ', loading)
+    }, [loading])
+
+    useEffect(() => {
         if(errorAuthContext && errorAuthContext['register']){
             setErrorOpen(true)
         }
     }, [errorAuthContext])
+
+    useEffect(() => {
+        if(successAuthContext && successAuthContext['register']){
+            setSuccessOpen(true)
+        }
+    }, [successAuthContext])
 
     const ValidationSchemaForm = object({
         fname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
@@ -104,6 +128,7 @@ export default function Register() {
                                             initialValues={genInitialValues()}
                                             validationSchema={ValidationSchemaForm}
                                             onSubmit={async (values) => {
+                                                setLoading(true)
                                                 setErrorOpen(false)
                                                 await registerMutation(values)
                                             }}
@@ -195,14 +220,14 @@ export default function Register() {
                                                     }
 
                                                     <div className="col-12">
-                                                        <button disabled={isSubmitting} className="btn btn-animation w-100" type="submit">
-                                                            {isSubmitting ?
+                                                        <button disabled={isSubmitting || loading} className="btn btn-animation w-100" type="submit">
+                                                            {(isSubmitting || loading) ?
                                                                 <TailSpin
                                                                     type="ThreeDots"
                                                                     color="#fff"
                                                                     height={20}
                                                                     width={20}
-                                                                    visible={isSubmitting}
+                                                                    visible={isSubmitting || loading}
                                                                 />
                                                                 :
                                                                 'S\'inscrire'

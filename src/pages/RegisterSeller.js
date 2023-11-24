@@ -24,6 +24,7 @@ export default function RegisterSeller() {
     const [successOpen, setSuccessOpen] = React.useState(false);
     const [errorOpen, setErrorOpen] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const closeError = () => {
         setErrorOpen(false);
@@ -35,6 +36,7 @@ export default function RegisterSeller() {
     useEffect(() => {
         if(errorOpen){
             let timer = setTimeout(() => {
+                setLoading(false)
                 setErrorOpen(false)
                 setErrorMessage('')
                 emptyErrorAuthContext()
@@ -46,6 +48,7 @@ export default function RegisterSeller() {
     useEffect(() => {
         if(successOpen){
             let timer = setTimeout(() => {
+                setLoading(false)
                 setSuccessOpen(false)
                 emptySuccessAuthContext()
             }, 4000)
@@ -58,6 +61,10 @@ export default function RegisterSeller() {
             setErrorOpen(true)
         }
     }, [errorAuthContext])
+
+    useEffect(() => {
+        console.log('here loading => ', loading)
+    }, [loading])
 
     useEffect(() => {
         if(successAuthContext && successAuthContext['registerSeller']){
@@ -170,6 +177,7 @@ export default function RegisterSeller() {
                                                 initialValues={genInitialValues()}
                                                 validationSchema={ValidationSchemaForm}
                                                 onSubmit={async (values) => {
+                                                    setLoading(true)
                                                     setErrorOpen(false);
                                                     await registerSellerMutation(values);
                                                 }}
@@ -286,14 +294,14 @@ export default function RegisterSeller() {
                                                             <span className='error-form'>{errors.opening_form_file && touched.opening_form_file && errors.opening_form_file}</span>
                                                         </div>
                                                         <div className="col-12">
-                                                            <button disabled={isSubmitting} className="btn btn-animation w-100" type="submit">
-                                                                {isSubmitting ?
+                                                            <button disabled={isSubmitting || loading} className="btn btn-animation w-100" type="submit">
+                                                                {(isSubmitting || loading) ?
                                                                     <TailSpin
                                                                         type="ThreeDots"
                                                                         color="#fff"
                                                                         height={20}
                                                                         width={20}
-                                                                        visible={isSubmitting}
+                                                                        visible={isSubmitting || loading}
                                                                     />
                                                                     :
                                                                     'S\'inscrire'
