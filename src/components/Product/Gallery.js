@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 export default function Gallery({ thumbnail, images, name }) {
 
     if(thumbnail && images.length){
-        images.unshift(thumbnail)
+        images.unshift({full_image: thumbnail})
     }
     
     // console.log('images => ', images)
