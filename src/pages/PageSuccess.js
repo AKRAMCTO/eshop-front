@@ -52,6 +52,7 @@ export default function PageSuccess() {
                       : 
                       (invoice) ? 
                       <>
+                        <h5 className="text-content mb-2">Vous recevrez le bon de commande par votre mail</h5>
                         <h6>Identifiant de transaction: {invoice}</h6>
                         <Link to={`/check-order`} className="quick-access d-inline-block mt-3">Vérifier L'état de votre commande</Link>
                       </>
