@@ -22085,6 +22085,9 @@ header .offcanvas-backdrop {
   border-radius: 12px;
   width: 80%;
 }
+.product-info-list.product-info{
+  flex-direction: column;
+}
 @media (max-width: 480px) {
   .product-section .right-box-contain .pickup-box .product-info .product-info-list {
     column-count: 1;

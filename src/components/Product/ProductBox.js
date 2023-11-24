@@ -225,7 +225,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     </div>
                 </div>
                 {(isHorizontal && product?.product_properties) && <div className="list-properties">
-                    <ul className="product-info-list product-info-list-2">
+                    <ul className="product-info-list product-info">
                         {product?.product_properties.map((item, key) =>
                             <li key={`product_${product?.id}_properties_${item?.id}`}><strong>{item?.property?.label}:</strong> {item?.value} {item?.measure?.label}</li>
                         )}
