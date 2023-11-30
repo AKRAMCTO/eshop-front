@@ -84,21 +84,23 @@ export default function SlideBrands() {
                                     )}
                                 </Slider>
                             :
-                                (data.map((item, key) => 
-                                    <div key={`brand-${key}`}>
-                                        <div className="product-box-3 wow fadeInUp">
-                                            <div className="product-header">
-                                                <div className="product-image">
-                                                    <Link 
-                                                        to={`/products?brands=${item?.slug}`} 
-                                                    >
-                                                        <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
-                                                    </Link>
+                                <div className='row'>
+                                    {(data.map((item, key) => 
+                                        <div className='col-6 col-md-2' key={`brand-${key}`}>
+                                            <div className="product-box-3 wow fadeInUp">
+                                                <div className="product-header">
+                                                    <div className="product-image">
+                                                        <Link 
+                                                            to={`/products?brands=${item?.slug}`} 
+                                                        >
+                                                            <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
+                                    ))}
+                                </div>
                             }
                         </div>
                     </div>
