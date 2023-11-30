@@ -681,6 +681,8 @@ export const getCombineCartItems = async () => {
     if(cart) cart = JSON.parse(cart)
     else cart = []
 
+    localStorage.setItem('ecowattCart', JSON.stringify([]));
+
     if(cart && cart.length){
         const res = await axios.post(
             `${REACT_APP_MAIN_URL}/cart/combine`,
@@ -734,3 +736,30 @@ export const GuestCheckout = async (data) => {
         }
     }
 };
+
+export const getCalculatedDeliveryAuth = async (city, deliveryMethod) => {
+    const token = localStorage.getItem('ecowattAuthToken');
+
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+    const res = await axios.post(`${REACT_APP_MAIN_URL}/delivery-fees`, {city: city, delivery_method: deliveryMethod}, config);
+    console.log('getCalculatedDeliveryAuth  => ', res.data)
+    if (res.data.status === true) {
+        return res.data.data;
+    }
+}
+export const getCalculatedDeliveryGuest = async (city, deliveryMethod) => {
+    const cart = localStorage.getItem('ecowattCart');
+
+    if(cart && cart.length){
+        const res = await axios.post(
+            `${REACT_APP_MAIN_URL}/guest-delivery-fees`,
+            { products: cart, city, delivery_method: deliveryMethod }
+        );
+        console.log('getCalculatedDeliveryGuest => ', res.data)
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    }
+}

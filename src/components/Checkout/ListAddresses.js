@@ -93,7 +93,7 @@ export default function ListAddresses({ loading, defaultChecked, checkTheSameAdd
                                                     {(item?.city) &&
                                                         <li>
                                                             <p className="text-content">
-                                                                <span className="text-title">Province: {item?.city?.name}</span>
+                                                                <span className="text-title">Ville: {item?.city?.name}</span>
                                                             </p>
                                                         </li>
                                                     }

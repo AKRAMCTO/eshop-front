@@ -67,10 +67,7 @@ export default function SlideCategories() {
                         {data.map((item, key) => 
                             <div key={`category-${key}`}>
                                 <Link 
-                                    to={{
-                                        pathname: "/products",
-                                        state: {category: item?.slug}
-                                    }} 
+                                    to={`/products?categories=${item?.slug}`}
                                     className="category-box category-dark"
                                 >
                                     <div>
@@ -85,7 +82,7 @@ export default function SlideCategories() {
                     <div className="row">
                         {data.map((item, key) => 
                             <div className='col-md-3 col-6 mb-3' key={`category-${key}`}>
-                                <Link to={`/products`} className="category-box category-dark">
+                                <Link to={`/products?categories=${item?.slug}`} className="category-box category-dark">
                                     <div>
                                         <img src={item?.full_image ?? Icon} className="lazyload" alt={item?.name} />
                                         <h5>{item?.name}</h5>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
@@ -9,7 +9,9 @@ import { getProducts, getFilterCategories, getFilterBrands, getFilterMeasures, g
 
 export default function Products() {
     const location = useLocation()
-    const queryParameters = new URLSearchParams(location.state)
+    const history = useHistory()
+    const queryParameters = new URLSearchParams(location.search)
+    
     const [showMenu, setShowMenu] = useState(false)
 
     const [products, setProducts] = useState([])
@@ -31,59 +33,93 @@ export default function Products() {
     const [isLoadingMeasures, setIsLoadingMeasures] = useState(false)
     const [isLoadingProperties, setIsLoadingProperties] = useState(false)
 
-    // const [isLoading, setIsLoading] = useState({
-    //     status: true, 
-    //     type: 'products'
-    // })
-    const [page, setpage] = useState(1)
+    const [page, setPage] = useState(1)
     const [number, setNumber] = useState(15)
     const [maxPages, setMaxPages] = useState(1)
 
     useEffect(() => {
-        // console.log("parent => ", queryParameters.get('parent'))
-        // console.log("sub => ", queryParameters.get('sub'))
-        // console.log("sub_sub => ", queryParameters.get('sub_sub'))
-
-        // console.log('useffect 1')
-        // console.log("category => ", queryParameters.get('category'))
-        // console.log("brand => ", queryParameters.get('brand'))
-        // if(categories !== queryParameters.get("category")){ 
-            setCategories(queryParameters.get("category") ? [queryParameters.get("category")] : [])
-        // }
-        // if(brands !== queryParameters.get("brand")){ 
-            setBrands(queryParameters.get("brand") ? [queryParameters.get("brand")] : [])
-        // }
+        // console.log('queryParameters => ', queryParameters.getAll())
+        if(('products'+location?.search) !== curentUrl()){
+            if(queryParameters.get("categories")) {
+                setCategories(queryParameters.get("categories").split(","))
+            }
+            if(queryParameters.get("brands")) {
+                setBrands(queryParameters.get("brands").split(","))
+            }
+            if(queryParameters.get("properties")) {
+                setProperties(queryParameters.get("properties").split(","))
+            }
+            if(queryParameters.get("sort")) {
+                setSort(queryParameters.get("sort"))
+            }
+            if(queryParameters.get("page")) {
+                setPage(queryParameters.get("page"))
+            }
+            if(queryParameters.get("number")) {
+                setNumber(queryParameters.get("number"))
+            }
+        }
     }, [location])
 
     useEffect(() => {
-        fetchCategories()
-        fetchBrands()
-        fetchMeasures()
-        fetchProperties()
-    }, [])
-
-    useEffect(() => {
         fetchProducts()
-    }, [ categories, brands, measures, properties ])
+    }, [ categories, brands, properties ])
 
     useEffect(() => {
         if(products.length > 0) {
             fetchProducts()
         }
-    }, [ page, sort, number ])
+    }, [ page, sort, number])
+
+    // useEffect(() => {
+    //     let fullUrlProperties = `&`
+    //     // const keys = properties;
+    //     console.log('properties =>>>>>>> ', JSON.stringify(properties))
+
+    //     properties.map((items, key) => 
+    //         console.log('items =>>>>>>> ', items) 
+    //         )
+    //     //     // if(items.langth){
+    //     //     //     fullUrlProperties += `${key}=`
+    //     //     //     items.map((row ,key1) => {
+    //     //     //         console.log('row =>>>>>>> ', row)
+    //     //     //         fullUrlProperties += `${key}-${row},`
+    //     //     //     })
+    //     //     // }
+    //     // })
+    //     console.log('end properties =>>>> ', fullUrlProperties)
+    // }, [ properties ])
+
+
+    const curentUrl = () => {
+        let urlCategories = categories.length ? `categories=${categories.toString()}` : ''
+        let urlBrands = brands.length ? `&brands=${brands.toString()}` : ''
+        let urlProperties = `&properties=${properties.toString()}`
+        // let urlProperties = ``
+        let urlSort = `&sort=${sort}`
+        let urlPage = `&page=${page}`
+        let urlNumber = `&number=${number}`
+
+        return 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
+    }
+    const generateUrl = () => {
+        let fullurl = curentUrl()
+        history.push(fullurl);
+        // let fullurl = 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
+        // if(fullurl === 'products?'+location?.search){
+        //     console.log('the same')
+        // }else{
+        //     console.log('not the  same')
+        // }
+    }
 
     const fetchProducts = async () => {
         setIsLoadingProducts(true)
-        
-        // setIsLoading({
-        //     status: true, 
-        //     type: 'products'
-        // })
-        
+        // let addedProperties = getProps()
+        // console.log(addedProperties)
         const res = await getProducts({
             'categories': categories,
             'brands': brands,
-            'measures': measures,
             'properties': properties,
             'sort': sort,
             'page': page,
@@ -91,16 +127,15 @@ export default function Products() {
         });
 
         if (res.status === true) {
-            // console.log(res?.data?.data)
-            handleData(res?.data)
+            handleData(res?.data, res?.categories, res?.brands, res?.properties)
+            generateUrl()
         } else {
-            // console.log('empty')
             setProducts([])
             setMaxPages(1)
-            // setIsLoading(false)
             setIsLoadingProducts(false)
         }
     }
+
     const fetchCategories = async () => {
         setIsLoadingCategories(true)
         // setIsLoading({
@@ -175,31 +210,35 @@ export default function Products() {
         switch(type){
             case 'categories' :
                 filterResult = categories.filter(item => item !== selected);
-                setpage(1)
+                setPage(1)
                 setCategories(filterResult)
             break;
             case 'brands' :
                 filterResult = brands.filter(item => item !== selected);
-                setpage(1)
+                setPage(1)
                 setBrands(filterResult)
             break;
-            case 'measures' :
-                filterResult = measures.filter(item => item !== selected);
-                setpage(1)
-                setMeasures(filterResult)
-            break;
-            case 'properties' :
-                filterResult = properties.filter(item => item !== selected);
-                setpage(1)
-                setProperties(filterResult)
+            // case 'measures' :
+            //     filterResult = measures.filter(item => item !== selected);
+            //     setPage(1)
+            //     setMeasures(filterResult)
+            // break;
+            // case 'properties' :
+            //     filterResult = properties.filter(item => item !== selected);
+            //     setPage(1)
+            //     setProperties(filterResult)
             break;
         }
     }
 
-    const handleData = (data) => {
+    const handleData = (data, lcategories, lbrands, lproperties) => {
         setProducts(data?.data)
+        setListCategories(lcategories)
+        setListBrands(lbrands)
+        setListProperties(lproperties)
         setMaxPages(data?.last_page)
         setIsLoadingProducts(false)
+        // console.log(properties)
         window.scrollTo(0, 0)
     }
     const handleShowMenu = () => {
@@ -222,24 +261,38 @@ export default function Products() {
     }
     const handlePage = (selected) => {
         if(selected !== page) {
-            setpage(selected)
+            setPage(selected)
         }
     }
+    const handleAttributes = (value, key, action) => {
+        // let current = [...properties]
+        action = action.toLowerCase()
+        key = key.toLowerCase()
+
+        // let row = []
+        //     key: [
+        //         action => value
+        //     ]
+        // }
+
+        console.log(value, key, action)
+    }
+    
     const handleCategoriesFilter = (selected) => {
         if(categories.length > 0){
             const list = [...categories]
             const filterResult = list.filter(item => item === selected);
             if(filterResult.length){
                 const filterResult = list.filter(item => item !== selected);
-                setpage(1)
+                setPage(1)
                 setCategories(filterResult)
             }else{
                 list.push(selected)
-                setpage(1)
+                setPage(1)
                 setCategories(list)
             }
         }else{
-            setpage(1)
+            setPage(1)
             setCategories([selected])
         }
     }
@@ -250,15 +303,15 @@ export default function Products() {
             const filterResult = list.filter(item => item === selected);
             if(filterResult.length){
                 const filterResult = list.filter(item => item !== selected);
-                setpage(1)
+                setPage(1)
                 setBrands(filterResult)
             }else{
                 list.push(selected)
-                setpage(1)
+                setPage(1)
                 setBrands(list)
             }
         }else{
-            setpage(1)
+            setPage(1)
             setBrands([selected])
         }
     }
@@ -269,35 +322,37 @@ export default function Products() {
             const filterResult = list.filter(item => item === selected);
             if(filterResult.length){
                 const filterResult = list.filter(item => item !== selected);
-                setpage(1)
+                setPage(1)
                 setMeasures(filterResult)
             }else{
                 list.push(selected)
-                setpage(1)
+                setPage(1)
                 setMeasures(list)
             }
         }else{
-            setpage(1)
+            setPage(1)
             setMeasures([selected])
         }
     }
-    const handlePropertiesFilter = (selected) => {
-        // console.log("Properties => ", properties)
-        if(properties.length > 0){
-            const list = [...properties]
-            const filterResult = list.filter(item => item === selected);
+    const handlePropertiesFilter = (label, selected) => {
+        if(properties[label] && properties[label].length){
+            const list = structuredClone(properties)
+            const filterResult = list[label].filter(item => item === selected);
             if(filterResult.length){
-                const filterResult = list.filter(item => item !== selected);
-                setpage(1)
-                setProperties(filterResult)
-            }else{
-                list.push(selected)
-                setpage(1)
+                const filterResult = list[label].filter(item => item !== selected);
+                list[label] = filterResult
                 setProperties(list)
+                setPage(1)
+            }else{
+                list[label].push(selected)
+                setProperties(list)
+                setPage(1)
             }
         }else{
-            setpage(1)
-            setProperties([selected])
+            const list = structuredClone(properties)
+            list[label] = [selected]
+            setProperties(list)
+            setPage(1)
         }
     }
 
@@ -343,6 +398,7 @@ export default function Products() {
                     products={products}
                     maxPages={maxPages}
                     handlePage={handlePage}
+                    handleAttributes={handleAttributes}
                 />
             </section>
         </Layout>

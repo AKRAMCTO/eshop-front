@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Eye } from "react-feather";
+import { Eye, Mail } from "react-feather";
 import { AuthProvider } from "../../contexts/AuthContext";
 
-export default function MyProfile({ userData, SelectModelForm }) {    
+export default function MyProfile({ userData, isLoggedIn, SelectModelForm }) {    
     return (
         <div className="dashboard-profile">
             <div className="title">
@@ -17,6 +17,14 @@ export default function MyProfile({ userData, SelectModelForm }) {
                 <div className="dashboard-title">
                     <h3>Nom de profil</h3>
                 </div>
+
+                {(isLoggedIn && userData && userData?.type === 'seller' && userData?.status === 1) ?
+                    <div className="btn btn-animation proceed-btn fw-bold mb-3" style={{ cursor: 'default' }}>
+                        Votre Compte n'est pas encore validé.<br />Vous ne pouvez pas encore faire des commandes.
+                    </div>
+                :
+                    null
+                }
                 <div className="profile-name-detail">
                     <div className="d-sm-flex align-items-center d-block">
                         <h3>{userData?.full_name}</h3>
@@ -29,7 +37,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                         {(userData?.email) &&
                             <li>
                                 <div className="location-box">
-                                    <i data-feather="mail"></i>
+                                    <Mail />
                                     <h6>{ userData?.email }</h6>
                                 </div>
                             </li>
@@ -46,7 +54,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                             <li>
                                 <div className="location-box">
                                     <i data-feather="map-pin"></i>
-                                    <h6>{(userData?.status === 1) ? 'Nouveau' : ((userData?.status === 2) ? 'Approuvé' : '')}</h6>
+                                    <h6>{(userData?.status === 1) ? 'Non activé' : ((userData?.status === 2) ? 'Approuvé' : '')}</h6>
                                 </div>
                             </li>
                         }
@@ -68,7 +76,7 @@ export default function MyProfile({ userData, SelectModelForm }) {
                                         <tr>
                                             <td>Phone Number :</td>
                                             <td>
-                                                <Link to={`tel:${userData?.mobile}`}>{userData?.mobile ?? '-'}</Link>
+                                                <Link to={`tel:${userData?.mobile}`}>+212-{userData?.mobile ?? '-'}</Link>
                                             </td>
                                         </tr>
                                     }

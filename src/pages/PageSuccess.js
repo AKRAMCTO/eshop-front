@@ -9,11 +9,14 @@ import { AuthProvider } from '../contexts/AuthContext';
 import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 
 export default function PageSuccess() {
-  const { isLoggedIn, ordersLoading, ordersFetching } = useContext(AuthProvider);
-  const { clearAfterCheckout } = useContext(CartAndWishlistProvider)
   const location = useLocation()
-  const queryParameters = new URLSearchParams(location.search)
-  const invoice = queryParameters.get("invoice") ?? null;
+  const {paid} = location.state ?? {}
+
+  const { isLoggedIn, ordersLoading, ordersFetching, userData } = useContext(AuthProvider);
+  const { clearAfterCheckout } = useContext(CartAndWishlistProvider)
+  // const location = useLocation()
+  // const queryParameters = new URLSearchParams(location.search)
+  // const invoice = queryParameters.get("invoice") ?? null;
 
   useEffect(() => {
     clearAfterCheckout()
@@ -23,9 +26,9 @@ export default function PageSuccess() {
     return <div />
   }
 
-  if(!invoice){
-    return <Redirect to='/' />
-  }
+  // if(!invoice){
+  //   return <Redirect to='/' />
+  // }
 
   return (
     <Layout>
@@ -50,20 +53,44 @@ export default function PageSuccess() {
                   </div>
 
                   <div className="order-contain mt-3">
-                    <h3 className="theme-color">Succès de la commande</h3>
-                    <h5 className="text-content">Le paiement est réussi et votre commande est en route</h5>
-                    <h5 className="text-content mb-2">Si vous souhaitez une facture, vous pouvez la demander à l'équipe support via l'email suivant : support@ ecowatt.com</h5>
-                    <h5 className="text-content mb-2">Vous recevrez le bon de commande par votre mail</h5>
-                    {isLoggedIn ?
-                      <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
-                      : 
-                      (invoice) ? 
+                    {(isLoggedIn && userData && (userData?.type === 'professional' || (userData?.type === 'seller' && !paid))) ?
                       <>
-                        <h6>Identifiant de transaction: {invoice}</h6>
-                        <Link to={`/check-order`} className="quick-access d-inline-block mt-3">Vérifier L'état de votre commande</Link>
+                        <h3 className="theme-color">Succès de la commande</h3>
+                        <h5 className="text-content">Le paiement est réussi et votre commande est en route.</h5>
+                        <h5 className="text-content mb-2">Si vous souhaitez une facture, Vous pouvez la télécharger en cliquant sur le button ci-dessous.</h5>
+                        <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
                       </>
-                      : <div />
+                      :
+                      null
                     }
+
+                    {(isLoggedIn && userData && userData?.type === 'seller' && ["cheque", "effet"].includes(paid)) ?
+                      <>
+                        <h3 className="theme-color">Commande Initié</h3>
+                        <h5 className="text-content mb-2">Votre commande a été initié et elle est en cours de traitement. </h5>
+                        <h5 className="text-content mb-2">Notre équipe dévouée travaille activement pour préparer et expédier votre commande dans les plus brefs délais.</h5>
+                        <h5 className="text-content mb-2">Si vous souhaitez une facture, vous pouvez la demander à l'équipe support via l'email suivant : support@ecowatt.com</h5>
+                        <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
+                      </>
+                      :
+                      null
+                    }
+
+                    {((isLoggedIn && userData && userData?.type === 'individual') || !isLoggedIn) ?
+                      <>
+                        <h3 className="theme-color">Succès de la commande</h3>
+                        <h5 className="text-content">Le paiement est réussi et votre commande est en route.</h5>            
+                        <h5 className="text-content mb-2">Si vous souhaitez une facture, vous pouvez la demander à l'équipe support via l'email suivant : support@ ecowatt.com</h5>
+                        <h5 className="text-content mb-2">Vous recevrez le bon de commande par votre mail</h5>
+                        {isLoggedIn ?
+                          <Link to={`/account/orders`} className="quick-access d-inline-block mt-3">Accédez à mes commandes</Link>
+                          : 
+                          <Link to={`/check-order`} className="quick-access d-inline-block mt-3">Vérifier L'état de votre commande</Link>
+                        }
+                      </>
+                    :
+                    null
+                  }
                   </div>
                 </div>
               </div>

@@ -15,6 +15,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import Tabs from "../components/Product/Tabs";
 import moment from "moment";
 import 'moment/locale/fr';
+import { DataProvider } from "../contexts/DataContext";
 
 export default function Product() {
     const { product } = useParams();
@@ -24,6 +25,8 @@ export default function Product() {
         { retry: true, refetchOnWindowFocus: false }
     );
     const { isLoggedIn } = useContext(AuthProvider)
+    const { settings } = React.useContext(DataProvider);
+
     const { 
         wishListDataKeys, addToWishListMutation, storeGuestWishlistItem, removeFromWishListMutation, removeGuestWishlistItem, 
         cartDataChecker, addToCartMutation, storeGuestCartItem
@@ -39,7 +42,7 @@ export default function Product() {
     const [removeLoading, setRemoveLoading] = useState(false)
 
     var fr = moment().locale('fr');
-    var dateDelivery = fr.add(3, 'days').format('dddd D MMMM YYYY')
+    var dateDelivery = (data?.is_active === 1) ? fr.add(7, 'days').format('dddd D MMMM YYYY') : fr.add(30, 'days').format('dddd D MMMM YYYY')
 
     useEffect(() => {
         if(data && wishListDataKeys.includes(data?.id)){
@@ -228,10 +231,10 @@ export default function Product() {
                                             </ul>
                                         </div> */}
 
-                                        {(data?.is_active != 0 && data?.is_active != 3) ?
+                                        {(data?.is_active !== 0 && data?.is_active !== 3) ?
                                             <>
-                                                {(data?.is_active == 1) && <div className='h6 text-success mt-4'><strong>En stock</strong></div>}
-                                                {(data?.is_active == 2) && <div className='h6 text-orange mt-4'><strong>En arrivage</strong></div>}
+                                                {(data?.is_active === 1) && <div className='h6 text-success mt-4'><strong>En stock</strong></div>}
+                                                {(data?.is_active === 2) && <div className='h6 text-orange mt-4'><strong>En arrivage</strong></div>}
                                                 <div className="note-box product-packege">
                                                     <div className="cart_qty qty-box product-qty">
                                                         <div className="input-group">
@@ -330,7 +333,7 @@ export default function Product() {
 
                                 <div className="pt-25">
                                     <div className="hot-line-number">
-                                        <p className="vendor-detail">- Si vous avez des questions, vous pouvez appeler ce numéro de téléphone 000000000</p>
+                                        <p className="vendor-detail">- Si vous avez des questions, vous pouvez appeler ce numéro de téléphone {settings?.store_fix ?? ''}</p>
                                         <p className="vendor-detail m-0">- Si vous commandez maintenant, vous recevrez votre commande le {dateDelivery}</p>
                                     </div>
                                 </div>
@@ -350,7 +353,7 @@ export default function Product() {
                 </div>
             </section>
 
-            {(data?.related && data?.related.length) ? 
+            {(data?.active_related && data?.active_related.length) ? 
                 <section className="product-list-section section-b-space">
                     <div className="container-fluid-lg">
                         <div className="title">
@@ -359,7 +362,7 @@ export default function Product() {
                         </div>
                         <div className="row">
                             <div className="col-12">
-                                <SlideProducts products={data?.related} />
+                                <SlideProducts products={data?.active_related} />
                             </div>
                         </div>
                     </div>
@@ -368,7 +371,7 @@ export default function Product() {
                 null
             }
 
-            {(data?.accessories && data?.accessories.length) ? 
+            {(data?.active_accessories && data?.active_accessories.length) ? 
                 <section className="product-list-section section-b-space">
                     <div className="container-fluid-lg">
                         <div className="title">
@@ -377,7 +380,7 @@ export default function Product() {
                         </div>
                         <div className="row">
                             <div className="col-12">
-                                <SlideProducts products={data?.accessories} />
+                                <SlideProducts products={data?.active_accessories} />
                             </div>
                         </div>
                     </div>

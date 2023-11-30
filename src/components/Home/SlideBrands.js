@@ -73,10 +73,7 @@ export default function SlideBrands() {
                                                 <div className="product-header">
                                                     <div className="product-image">
                                                         <Link 
-                                                            to={{
-                                                                pathname: "/products",
-                                                                state: {brand: item?.slug}
-                                                            }} 
+                                                            to={`/products?brands=${item?.slug}`}
                                                         >
                                                             <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
                                                         </Link>
@@ -93,10 +90,7 @@ export default function SlideBrands() {
                                             <div className="product-header">
                                                 <div className="product-image">
                                                     <Link 
-                                                        to={{
-                                                            pathname: "/products",
-                                                            state: {brand: item?.slug}
-                                                        }} 
+                                                        to={`/products?brands=${item?.slug}`} 
                                                     >
                                                         <img src={item?.full_logo ?? Icon} className="img-fluid lazyload" alt={item?.name} />
                                                     </Link>

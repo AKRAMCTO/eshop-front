@@ -72,7 +72,7 @@ export default function Register() {
         lname: string().min(1, 'Trop court!').max(191, 'Trop long!').required('Ce champ est obligatoire'),
         email: string().email('Email invalide').required('Ce champ est obligatoire'),
         type: string().oneOf(['individual', 'professional', 'seller']).defined().required('Ce champ est obligatoire'),
-        mobile: string().required('Ce champ est obligatoire').matches(/^(\+212)(\-)(6|7)[0-9]{8}?$/, 'Le numéro de téléphone doit être au format: +212-601020304'),
+        mobile: string().required('Ce champ est obligatoire').matches(/^[0-9]{9}?$/, 'Le numéro de téléphone doit être composé de 9 chiffres et respecter ce format: 601020304'),
         password: string().required('Ce champ est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!+@#\$%\^&\*])(?=.{8,})/, "Doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et une casse spéciale"),
         rc: string().when('type', {
             is: (val) => ["professional"].includes(val),
@@ -173,17 +173,18 @@ export default function Register() {
                                                         </div>
                                                         <span className='error-form'>{errors.lname && touched.lname && errors.lname}</span>
                                                     </div>
-                                                    <div className="col-12 col-md-6">
+                                                    <div className="col-12">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="email" className="form-control" id="email" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                                                             <label htmlFor="email">Email Address</label>
                                                         </div>
                                                         <span className='error-form'>{errors.email && touched.email && errors.email}</span>
                                                     </div>
-                                                    <div className="col-12 col-md-6">
-                                                        <div className="form-floating theme-form-floating">
+                                                    <div className="col-12">
+                                                        <div className="form-floating theme-form-floating group-mobile">
                                                             <input type="text" className="form-control" id="mobile" name="mobile" onChange={handleChange} onBlur={handleBlur} value={values.mobile} />
                                                             <label htmlFor="mobile">Téléphone</label>
+                                                            <span>+212-</span>
                                                         </div>
                                                         <span className='error-form'>{errors.mobile && touched.mobile && errors.mobile}</span>
                                                     </div>

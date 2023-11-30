@@ -30,40 +30,31 @@ export default function MenuCategories() {
                             <li className="onhover-category-list" key={`menu-category-${key}`}>
                                 
                                 <Link 
-                                    to={{
-                                        pathname: `/products`,
-                                        state: {category: item?.slug}
-                                    }} 
+                                    to={`/products?categories=${item?.slug}`} 
                                     className="category-name"
                                 >
                                     <h6>{item?.name}</h6>
-                                    {(item?.childrens && item?.childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
+                                    {(item?.active_childrens && item?.active_childrens.length) ? <i className="fa-solid fa-angle-right"></i> : null}
                                 </Link>
-                                {(item?.childrens && item?.childrens.length) ?
+                                {(item?.active_childrens && item?.active_childrens.length) ?
                                     <div className="onhover-category-box">
                                         <div className="list-1">
                                             <ul>
-                                                {item?.childrens.map((sub, keysub) => 
+                                                {item?.active_childrens.map((sub, keysub) => 
                                                     <li key={`menu-sub-category-${keysub}`}>
                                                         <Link 
-                                                            to={{
-                                                                pathname: `/products`,
-                                                                state: {category: sub?.slug}
-                                                            }} 
+                                                            to={`/products?categories=${item?.slug},${sub?.slug}`} 
                                                         >
                                                             {sub?.name}
                                                         </Link>
-                                                        {(sub?.childrens && sub?.childrens.length) ?
+                                                        {(sub?.active_childrens && sub?.active_childrens.length) ?
                                                             <div className="onhover-category-box">
                                                                 <div className="list-1">
                                                                     <ul>
-                                                                        {sub?.childrens.map((sub1, keysub1) => 
+                                                                        {sub?.active_childrens.map((sub1, keysub1) => 
                                                                             <li key={`menu-sub-category-${keysub1}`}>
                                                                                 <Link 
-                                                                                    to={{
-                                                                                        pathname: `/products`,
-                                                                                        state: {category: sub1?.slug}
-                                                                                    }} 
+                                                                                    to={`/products?categories=${item?.slug},${sub?.slug},${sub1?.slug}`} 
                                                                                 >{sub1?.name}</Link>
                                                                             </li>
                                                                         )}

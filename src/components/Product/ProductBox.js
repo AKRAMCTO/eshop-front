@@ -126,7 +126,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     <Link to={`/product/${product?.slug}`}>
                         <img src={product?.full_image} className="img-fluid lazyload" alt={product?.title} />
                     </Link>
-                    {isWishlist ?
+                    {(!isHorizontal && isWishlist) ?
                         <div className="product-header-top">
                             <button                           
                                 onClick={() => handleRemoveFromWishList(product.id) }
@@ -148,7 +148,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     :
                         <div />
                     }
-                    {!isWishlist ?
+                    {(!isHorizontal && !isWishlist) ?
                         <ul className="product-option">
                             <li><Link to={`/product/${product?.slug}`}><Eye /></Link></li>
                             <li>
@@ -178,59 +178,117 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             <div className="product-footer">
                 <div className="product-detail position-relative">
                     <Link to={`/product/${product?.slug}`}><h6 className="name">{product?.title}</h6></Link>
-                    {(product?.units_measurement && product?.values) && <h6 className="sold weight text-content fw-normal">{`${product?.units_measurement ?? ''} ${product?.values ?? ''}`}</h6>}
-                    <h6 className="price theme-color">{product?.price_ttc} DH TTC</h6>
-                    <div className="add-to-cart-box">
-                        <div className={`cart_qty qty-box`}>
-                            <div className="input-group bg-white">
-                                <button 
-                                    type="button"
-                                    disabled={addLoadingCart}
-                                    className="qty-left-minus" 
-                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('minus') : null}
-                                >
-                                    <Minus />
-                                </button>
-                                <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
-                                <button 
-                                    type="button"
-                                    disabled={addLoadingCart}
-                                    className="qty-right-plus" 
-                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('plus') : null}
-                                >
-                                    <Plus />
-                                </button>
+                    {(!isHorizontal) ? 
+                        <>
+                            <h6 className="price theme-color">{product?.price_ttc} <span>DH TTC</span></h6>
+                            <div className="add-to-cart-box">
+                                <div className={`cart_qty qty-box`}>
+                                    <div className="input-group bg-white">
+                                        <button 
+                                            type="button"
+                                            disabled={addLoadingCart}
+                                            className="qty-left-minus" 
+                                            onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('minus') : null}
+                                        >
+                                            <Minus />
+                                        </button>
+                                        <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                        <button 
+                                            type="button"
+                                            disabled={addLoadingCart}
+                                            className="qty-right-plus" 
+                                            onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('plus') : null}
+                                        >
+                                            <Plus />
+                                        </button>
+                                    </div>
+                                    {/* ${quantityElement && "open"}`} */}
+                                    <div className='text-center'>
+                                        <button
+                                            type="button"
+                                            disabled={addLoadingCart}
+                                            className={`btn btn-add-cart addcart-button`}
+                                            onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => handleAddToCard() : null}
+                                        >
+                                            {(addLoadingCart) ?  
+                                                <TailSpin
+                                                    color="#2A3466"
+                                                    height={20}
+                                                    width={20}
+                                                    visible={addLoadingCart}
+                                                />
+                                            :
+                                                "Ajouter"
+                                            }
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            {/* ${quantityElement && "open"}`} */}
-                            <div className='text-center'>
-                                <button
-                                    type="button"
-                                    disabled={addLoadingCart}
-                                    className={`btn btn-add-cart addcart-button`}
-                                    onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => handleAddToCard() : null}
-                                >
-                                    {(addLoadingCart) ?  
-                                        <TailSpin
-                                            color="#2A3466"
-                                            height={20}
-                                            width={20}
-                                            visible={addLoadingCart}
-                                        />
-                                    :
-                                        "Ajouter"
-                                    }
-                                </button>
+                            </>
+                    :
+                        null
+                    }
+                </div>
+                {(isHorizontal && product?.product_properties) ?
+                    <div className="list-properties">
+                        <ul className="product-info-list product-info">
+                            {product?.product_properties.map((item, key) =>
+                                <li key={`product_${product?.id}_properties_${item?.id}`}><strong>{item?.property?.label}:</strong> {item?.value} {item?.measure?.label}</li>
+                            )}
+                        </ul>
+                    </div>
+                    :
+                    null
+                }
+                {(isHorizontal) ?
+                    <div className='horizontal-quantity-box'>
+                        <h6 className="price theme-color">{product?.price_ttc} <span>DH TTC</span></h6>
+                        <div className="add-to-cart-box">
+                            <div className={`cart_qty qty-box`}>
+                                <div className="input-group bg-white">
+                                    <button 
+                                        type="button"
+                                        disabled={addLoadingCart}
+                                        className="qty-left-minus" 
+                                        onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('minus') : null}
+                                    >
+                                        <Minus />
+                                    </button>
+                                    <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                    <button 
+                                        type="button"
+                                        disabled={addLoadingCart}
+                                        className="qty-right-plus" 
+                                        onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => toggleQuantity('plus') : null}
+                                    >
+                                        <Plus />
+                                    </button>
+                                </div>
+                                {/* ${quantityElement && "open"}`} */}
+                                <div className='text-center'>
+                                    <button
+                                        type="button"
+                                        disabled={addLoadingCart}
+                                        className={`btn btn-add-cart addcart-button`}
+                                        onClick={(product?.is_active === 1 || product?.is_active === 2) ? () => handleAddToCard() : null}
+                                    >
+                                        {(addLoadingCart) ?  
+                                            <TailSpin
+                                                color="#2A3466"
+                                                height={20}
+                                                width={20}
+                                                visible={addLoadingCart}
+                                            />
+                                        :
+                                            "Ajouter"
+                                        }
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {(isHorizontal && product?.product_properties) && <div className="list-properties">
-                    <ul className="product-info-list product-info">
-                        {product?.product_properties.map((item, key) =>
-                            <li key={`product_${product?.id}_properties_${item?.id}`}><strong>{item?.property?.label}:</strong> {item?.value} {item?.measure?.label}</li>
-                        )}
-                    </ul>
-                </div>
+                    :
+                    null
                 }
             </div>
         </div>

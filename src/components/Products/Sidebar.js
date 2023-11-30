@@ -1,13 +1,12 @@
 import React from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
-import Slider from 'react-slick';
 import AccordionItem from './AccordionItem';
+import Range from './Range';
 
-export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingMeasures, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleShowMenu, showMenu}) {
+export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingMeasures, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
     
     return (
         <div className="col-12 col-md-3">
-            {/* {(isLoading && isLoading?.status && isLoading?.type !== 'products') ? */}
             {(isLoadingCategories || isLoadingBrands || isLoadingMeasures || isLoadingProperties) ?
                 <div className="px-4 py-5 d-flex align-items-center justify-content-center">
                     <InfinitySpin
@@ -15,7 +14,6 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                         color="#2A3466"
                         height={220}
                         width={220}
-                        // visible={isLoading && isLoading?.status && isLoading?.type !== 'products'}
                         visible={isLoadingCategories || isLoadingBrands || isLoadingMeasures || isLoadingProperties}
                     />
                 </div>
@@ -39,7 +37,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                         </div>
                         : <div />
                     }
-                    {(measures && measures.length) ? 
+                    {/* {(measures && measures.length) ? 
                         <div className={`selected-rows mb-3`}>
                             <h5>Les mesures</h5>
                             {measures.map((item, i) => 
@@ -47,8 +45,8 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                             )}
                         </div>
                         : <div />
-                    }
-                    {(properties && properties.length) ? 
+                    } */}
+                    {/* {(properties && properties.length) ? 
                         <div className={`selected-rows mb-3`}>
                             <h5>Les propriétés</h5>
                             {properties.map((item, i) => 
@@ -56,7 +54,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                             )}
                         </div>
                         : <div />
-                    }
+                    } */}
 
                     <div className={`bg-overlay ${(showMenu) ? 'show' : ''}`}></div>
                     <div className={`left-box wow fadeInUp ${(showMenu) ? 'show' : ''}`}>
@@ -78,30 +76,30 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                                             <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(item?.slug)} id={item?.slug} />
                                                             <label className="form-check-label" htmlFor={item?.slug} onClick={() => handleCategoriesFilter(item?.slug)}>
                                                                 <span className="name">{item?.name}</span>
-                                                                <span className="number">{item?.active_products_count}</span>
+                                                                <span className="number">{item?.products_count}</span>
                                                             </label>
                                                         </div>
                                                     </li>
-                                                    {(item?.childrens) && (
-                                                        item?.childrens.map((sub, a) => 
+                                                    {(item?.active_childrens) && (
+                                                        item?.active_childrens.map((sub, a) => 
                                                             <>
                                                                 <li key={sub?.slug}>
                                                                     <div className="form-check ps-0 m-0 category-list-box">
                                                                         <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(sub?.slug)} id={sub?.slug} />
                                                                         <label className="form-check-label" htmlFor={sub?.slug} onClick={() => handleCategoriesFilter(sub?.slug)}>
                                                                             <span className="name">&nbsp;&nbsp;&nbsp;{sub?.name}</span>
-                                                                            <span className="number">{sub?.active_products_count}</span>
+                                                                            <span className="number">{sub?.products_count}</span>
                                                                         </label>
                                                                     </div>
                                                                 </li>
-                                                                {(sub?.childrens) && (
-                                                                    sub?.childrens.map((subsub, b) =>                             
+                                                                {(sub?.active_childrens) && (
+                                                                    sub?.active_childrens.map((subsub, b) =>                             
                                                                         <li key={subsub?.slug}>
                                                                             <div className="form-check ps-0 m-0 category-list-box">
                                                                                 <input readOnly className="checkbox_animated" name='categories' type="checkbox" checked={categories.includes(subsub?.slug)} id={subsub?.slug} />
                                                                                 <label className="form-check-label" htmlFor={subsub?.slug} onClick={() => handleCategoriesFilter(subsub?.slug)}>
                                                                                     <span className="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{subsub?.name}</span>
-                                                                                    <span className="number">{subsub?.active_products_count}</span>
+                                                                                    <span className="number">{subsub?.products_count}</span>
                                                                                 </label>
                                                                             </div>
                                                                         </li>
@@ -113,13 +111,13 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                                 </>
                                             )
                                             :
-                                            <div />
+                                            <p className="text-danger">Liste vide</p>
                                         }
                                     </ul>
                                 </AccordionItem>
                                 <AccordionItem
                                     title={`Les marques`}
-                                    defaultStatus={false}
+                                    defaultStatus={true}
                                 >
                                     <ul className="category-list custom-padding custom-height">
                                         {listBrands && listBrands.length ?
@@ -129,60 +127,50 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                                         <input readOnly className="checkbox_animated" checked={brands.includes(item?.slug)} type="checkbox" id={item?.slug} />
                                                         <label className="form-check-label" htmlFor={item?.slug} onClick={() => handleBrandsFilter(item?.slug)}>
                                                             <span className="name">{item?.name}</span>
-                                                            <span className="number">{item?.active_products_count}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            )
-                                            :
-                                            <div />
-                                        }
-                                    </ul>
-                                </AccordionItem>
-                                <AccordionItem
-                                    title={`Les mesures`}
-                                    defaultStatus={false}
-                                >
-                                    <ul className="category-list custom-padding custom-height">
-                                        {listMeasures && listMeasures.length ?
-                                            listMeasures.map((item) => 
-                                                <li key={`measure-${item?.id}`}>
-                                                    <div className="form-check ps-0 m-0 category-list-box">
-                                                        <input readOnly className="checkbox_animated" checked={measures.includes(item?.label)} type="checkbox" id={`measure-${item?.id}`} />
-                                                        <label className="form-check-label" htmlFor={`measure-${item?.id}`} onClick={() => handleMeasuresFilter(item?.label)}>
-                                                            <span className="name">{item?.label}</span>
                                                             <span className="number">{item?.products_count}</span>
                                                         </label>
                                                     </div>
                                                 </li>
                                             )
                                             :
-                                            <div />
+                                            <p className="text-danger">Liste vide</p>
                                         }
                                     </ul>
                                 </AccordionItem>
-                                <AccordionItem
-                                    title={`Les propriétés`}
-                                    defaultStatus={false}
-                                >
-                                    <ul className="category-list custom-padding custom-height">
-                                        {listProperties && listProperties.length ?
-                                            listProperties.map((item) => 
-                                                <li key={`properties-${item?.id}`}>
-                                                    <div className="form-check ps-0 m-0 category-list-box">
-                                                        <input readOnly className="checkbox_animated" checked={properties.includes(item?.label)} type="checkbox" id={`properties-${item?.id}`} />
-                                                        <label className="form-check-label" htmlFor={`properties-${item?.id}`} onClick={() => handlePropertiesFilter(item?.label)}>
-                                                            <span className="name">{item?.label}</span>
-                                                            <span className="number">{item?.products_count}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            )
-                                            :
-                                            <div />
-                                        }
-                                    </ul>
-                                </AccordionItem>
+                                {/* {(listProperties && listProperties.length) ?
+                                    listProperties.map((item, key) => 
+                                        (item?.chooses) ? 
+                                            <AccordionItem
+                                                title={item?.label}
+                                                defaultStatus={true}
+                                            >
+                                                <ul className="category-list custom-padding custom-height">
+                                                    {item?.chooses.map((row, key1) => 
+                                                        <li key={`${item?.label}-${key}-${key1}`}>
+                                                            <div className="form-check ps-0 m-0 category-list-box">
+                                                                <input 
+                                                                    readOnly
+                                                                    className="checkbox_animated" 
+                                                                    name='prop' 
+                                                                    type="checkbox"
+                                                                    checked={properties[item?.label] && properties[item?.label].includes(row)} 
+                                                                    id={`${row}-${key}-${key1}`}
+                                                                />
+                                                                <label className="form-check-label" htmlFor={`${row}-${key}-${key1}`} onClick={() => handlePropertiesFilter(item?.label, row)} >
+                                                                    <span className="name">{row}</span>
+                                                                    <span className="number"></span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                    )}
+                                                </ul>
+                                            </AccordionItem>
+                                        :
+                                        <div />
+                                    )
+                                    :
+                                    <div />
+                                } */}
                             </div>
                         </div>
                     </div>

@@ -4,8 +4,8 @@ import { TailSpin } from 'react-loader-spinner';
 import SuccessSnackbar from '../SuccessSnackbar';
 import ErrorSnackbar from '../ErrorSnackbar';
 
-export default function RightSide({ orderSuccess, orderError, loading, handleSubmitting }) {
-    const { cartItems, cartCalculation } = useContext(CartAndWishlistProvider);
+export default function RightSide({ cartCalculation, orderSuccess, orderError, loading, isConfirmed, handleSubmitting }) {
+    const { cartItems } = useContext(CartAndWishlistProvider);
 
     return (
         <div className="col-lg-4">
@@ -49,7 +49,7 @@ export default function RightSide({ orderSuccess, orderError, loading, handleSub
                     type="button" 
                     className="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold"
                     onClick={handleSubmitting}
-                    disabled={loading}
+                    disabled={loading || !isConfirmed}
                 >
                     {(loading) ? 
                         <TailSpin

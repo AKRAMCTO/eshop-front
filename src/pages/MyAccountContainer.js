@@ -21,7 +21,7 @@ import { useParams, Redirect } from "react-router-dom";
 
 export default function MyAccountContainer() {
     const { key } = useParams();
-    const { userData } = useContext(AuthProvider);
+    const { userData, isLoggedIn } = useContext(AuthProvider);
     const [ type, setType ] = useState(key)
     const [ modelType, setModelType ] = useState(null)
     const [ modelTitle, setModelTitle ] = useState(null)
@@ -68,7 +68,7 @@ export default function MyAccountContainer() {
                 {(type === 'orders') && <MyOrders />}
                 {(type === 'wishlist') && <MyWishlist />}
                 {(type === 'addresses') && <MyAddresses selectCurrentAddress={selectCurrentAddress} SelectModelForm={SelectModelForm} />}
-                {(type === 'profile') && <MyProfile userData={userData} SelectModelForm={SelectModelForm} />}
+                {(type === 'profile') && <MyProfile isLoggedIn={isLoggedIn} userData={userData} SelectModelForm={SelectModelForm} />}
             </LayoutAccount>
 
             <ModelUpdate title={modelTitle} modelStatus={modelStatus} modelClose={modelClose}>

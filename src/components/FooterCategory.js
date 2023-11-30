@@ -10,10 +10,7 @@ export default function FooterCategory({ items }) {
                 {items.map((item, key) =>
                     <li key={key}>
                         <Link 
-                            to={{
-                                pathname: "/products",
-                                state: {category: item?.slug}
-                            }} 
+                            to={`/products?categories=${item?.slug}`} 
                             className="text-content"
                         >
                             {item?.name}

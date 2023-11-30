@@ -7,7 +7,7 @@ import { CartAndWishlistProvider } from '../../contexts/CartAndWishlistContext';
 import CartHeaderItem from './CartHeaderItem';
 
 export default function CartButton() {
-    const { isLoggedIn } = useContext(AuthProvider);
+    const { isLoggedIn, userData } = useContext(AuthProvider);
     const {
         cartItemsLength, cartCalculation, cartItems, removeFromCartMutation, removeGuestCartItem,
         cartItemsLoading, cartItemsFetching, addCartLoading, updateCartLoading, removeCartLoading, combineCartLoading
@@ -78,7 +78,9 @@ export default function CartButton() {
 
                                     <div className="button-group">
                                         <Link to={`/cart`} className="btn btn-sm cart-button">Voir le panier</Link>
-                                        <Link to={'/checkout'} className="btn btn-sm cart-button theme-bg-color text-white">Commander</Link>
+                                        {(!isLoggedIn || (isLoggedIn && userData && userData?.status !== 1)) ?
+                                            <Link to={'/checkout'} className="btn btn-sm cart-button theme-bg-color text-white">Commander</Link>
+                                        : null}
                                     </div>
                                 </>
                                 :

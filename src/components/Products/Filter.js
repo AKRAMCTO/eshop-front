@@ -19,10 +19,10 @@ export default function Filter({handleSort, sort, handleNumber, number, handleGr
                                 <option></option>
                                 {/* <option value="latest">Dernier</option>
                                 <option value="pop">Popularité</option> */}
-                                <option selecte={sort === 'priceLow'} value="priceLow">Prix bas – élevé</option>
-                                <option selecte={sort === 'priceHigh'} value="priceHigh">Prix élevé - bas</option>
-                                <option selecte={sort === 'aToz'} value="aToz">A - Z</option>
-                                <option selecte={sort === 'zToa'} value="zToa">Z-A</option>
+                                <option selected={sort === 'priceLow'} value="priceLow">Prix bas – élevé</option>
+                                <option selected={sort === 'priceHigh'} value="priceHigh">Prix élevé - bas</option>
+                                <option selected={sort === 'aToz'} value="aToz">A - Z</option>
+                                <option selected={sort === 'zToa'} value="zToa">Z-A</option>
                             </select>
                         </div>
                     </div>
@@ -30,9 +30,9 @@ export default function Filter({handleSort, sort, handleNumber, number, handleGr
                         <h5 className="text-content">Number :</h5>
                         <div className="dropdown">
                             <select className="dropdown-toggle" onChange={(event) => handleNumber(event.target.value)}>
-                                <option selecte={number === 15} value={15}>15</option>
-                                <option selecte={number === 30} value={30}>30</option>
-                                <option selecte={number === 60} value={60}>60</option>
+                                <option selected={number === 15} value={15}>15</option>
+                                <option selected={number === 30} value={30}>30</option>
+                                <option selected={number === 60} value={60}>60</option>
                             </select>
                         </div>
                     </div>

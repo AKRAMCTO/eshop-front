@@ -9,7 +9,7 @@
 **/
 
 
-@import url('bulk-style.css');
+/* @import url('bulk-style.css');
 
 @font-face {
     font-family: iconly;
@@ -21,7 +21,7 @@
         url('./../assets/fonts/Iconly-light.ttf') format('truetype'),
         url('./../assets/fonts/Iconly-light.svg#Iconly-light') format('svg');
     ;
-}
+} */
 
 /*
 @font-face {
@@ -37,7 +37,7 @@
 }
 */
 
-@font-face {
+/* @font-face {
     font-family: iconly;
     font-style: normal;
     font-weight: 700;
@@ -47,7 +47,7 @@
         url('./../assets/fonts/Iconly-Bold.ttf') format('truetype'),
         url('./../assets/fonts/Iconly-Bold.svg#Iconly-Bold') format('svg');
     ;
-}
+} */
 
 /*
 @font-face {

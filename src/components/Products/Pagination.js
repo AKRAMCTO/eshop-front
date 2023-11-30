@@ -19,7 +19,7 @@ const Pagination = props => {
     pageSize
   });
 
-  if (currentPage === 0 || paginationRange.length < 2) {
+  if (currentPage == 0 || paginationRange.length < 2) {
     return null;
   }
 
@@ -37,28 +37,29 @@ const Pagination = props => {
         <ul className={classnames('pagination justify-content-center', { [className]: className })}>
             <li
                 className={classnames('page-item', {
-                disabled: currentPage === 1
+                disabled: currentPage == 1
                 })}
                 onClick={onPrevious}
             >
                 <span className="page-link"><i className="fa-solid fa-angles-left"></i></span>
             </li>
-            {paginationRange.map(pageNumber => {
+            {paginationRange.map((pageNumber, i) => {
                 if (pageNumber === DOTS) {
-                    return <li className="page-item dots">&#8230;</li>;
+                    return <li className="page-item dots" key={`paginate-prod-${Math.floor(Math.random() * 100)}`}>&#8230;</li>;
                 }
 
                 return (
                     <li
-                        className={classnames('page-item', {selected: pageNumber === currentPage})}
-                        onClick={() => onPageChange(pageNumber)}
+                      key={`paginate-prod-${Math.floor(Math.random() * 100)}`}
+                      className={classnames('page-item', {selected: pageNumber == currentPage})}
+                      onClick={() => onPageChange(pageNumber)}
                     >
                         <span className={`page-link`}>{pageNumber}</span>
                     </li>
                 );
             })}
             <li
-                className={classnames('page-item', { disabled: currentPage === lastPage })}
+                className={classnames('page-item', { disabled: currentPage == lastPage })}
                 onClick={onNext}
             >
                 <span className="page-link"><span className="fa-solid fa-angles-right"></span></span>

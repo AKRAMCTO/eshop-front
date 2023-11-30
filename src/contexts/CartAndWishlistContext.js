@@ -208,7 +208,6 @@ export default function CartAndWishlistContext({ children }) {
       localStorage.setItem('ecowattCart', JSON.stringify([]));
       queryClient.invalidateQueries('cartItemsGuest')
     }
-
     
 
     /**

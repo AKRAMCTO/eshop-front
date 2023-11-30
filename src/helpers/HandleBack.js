@@ -7,7 +7,7 @@ export default function HandleBack() {
   const history = useHistory()
   
   history.listen(navData => {
-    console.log(navData.pathname)
+    console.log('')
   })
 
   useEffect(() => {

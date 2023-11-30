@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthProvider } from './../../contexts/AuthContext';
 
 export default function MyAccount({ userData, SelectModelForm }) {
-    const { listAddresses, addressesLoading, addressesFetching, listOrdersCounter }  = useContext(AuthProvider)
+    const { listAddresses, addressesLoading, addressesFetching, isLoggedIn }  = useContext(AuthProvider)
     const [addressDelivery, setAddressDelivery]  = useState(null)
     const [addressInvoice, setAddressInvoice]  = useState(null)
 
@@ -18,12 +18,20 @@ export default function MyAccount({ userData, SelectModelForm }) {
 
     return (
         <div className="dashboard-home">
-            <div className="title">
+            <div className="title mb-3">
                 <h2>Mon compte</h2>
                 <span className="title-leaf">
                     <img src={require("./../../assets/svg/leaf.png")} alt="" className="icon-width bg-gray" />
                 </span>
             </div>
+
+            {(isLoggedIn && userData && userData?.type === 'seller' && userData?.status === 1) ?
+                <div className="btn btn-animation proceed-btn fw-bold mb-3" style={{ cursor: 'default' }}>
+                    Votre Compte n'est pas encore validé.<br />Vous ne pouvez pas encore faire des commandes.
+                </div>
+            :
+                null
+            }
 
             <div className="dashboard-user-name">
                 <h6 className="text-content">Bonjour, <b className="text-title">{userData?.full_name}</b></h6>
@@ -110,7 +118,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                                                     <td>{(addressInvoice?.country) ? addressInvoice?.country?.name : '-'}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Provinces :</td>
+                                                    <td>Ville :</td>
                                                     <td>{(addressInvoice?.city) ? addressInvoice?.city?.name : '-'}</td>
                                                 </tr>
                                                 <tr>
@@ -142,7 +150,7 @@ export default function MyAccount({ userData, SelectModelForm }) {
                                                     <td>{(addressDelivery?.country) ? addressDelivery?.country?.name  : '-'}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Provinces :</td>
+                                                    <td>Ville :</td>
                                                     <td>{(addressDelivery?.city) ? addressDelivery?.city?.name  : '-'}</td>
                                                 </tr>
                                                 <tr>

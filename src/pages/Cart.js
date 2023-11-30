@@ -11,7 +11,7 @@ import Layout from '../components/Layout';
 import PageCartItem from '../components/Cart/PageCartItem';
 
 export default function Cart() {
-  const { isLoggedIn, authenticationLoading, authenticationFetching } = useContext(AuthProvider);
+  const { isLoggedIn, authenticationLoading, authenticationFetching, userData } = useContext(AuthProvider);
   const { cartItems, getCartItemsGuestLoading, cartCalculation, 
     removeFromCartMutation, removeGuestCartItem, updateToCartMutation, storeGuestCartItem
   } = useContext(CartAndWishlistProvider)
@@ -72,6 +72,15 @@ export default function Cart() {
               </div>
               : ((cartItems && cartItems.length) ?
                 <>
+                  {(isLoggedIn && userData && userData?.type === 'seller' && userData?.status === 1) ?
+                    <div className="col-12">
+                      <div className="btn btn-animation proceed-btn fw-bold" style={{ cursor: 'default' }}>
+                        Votre Compte n'est pas encore validé.<br />Vous ne pouvez pas encore faire des commandes.
+                      </div>
+                    </div>
+                    :
+                    <div />
+                  }
                   <div className="col-xxl-9">
                     <div className="cart-table">
                       <div className="table-responsive-xl">
@@ -119,14 +128,17 @@ export default function Cart() {
                         <ul className="summery-total">
                           <li className="list-total border-top-0">
                             <h4>Total (DH TTC)</h4>
-                            <h4 className="price theme-color">{cartCalculation?.total} DH TTC</h4>
+                            <h4 className="price theme-color">{cartCalculation?.total} <span>DH TTC</span></h4>
                           </li>
                         </ul>
                         <div className="button-group cart-button">
                           <ul>
-                            <li>
-                              <Link to={'/checkout'} className="btn btn-animation proceed-btn fw-bold">Processus de paiement</Link>
-                            </li>
+                            {(!isLoggedIn || (isLoggedIn && userData && userData?.status !== 1)) ?
+                              <li>
+                                <Link to={'/checkout'} className="btn btn-animation proceed-btn fw-bold">Processus de paiement</Link>
+                              </li>
+                            : <div />
+                            }
                             <li>
                               <Link to={'/'} className="btn btn-light shopping-button text-dark">
                                 <i className="fa-solid fa-arrow-left-long"></i>

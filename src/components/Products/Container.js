@@ -1,9 +1,7 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import Sidebar from './Sidebar';
 import Filter from './Filter';
 import { InfinitySpin } from 'react-loader-spinner';
-import { getProducts } from '../../queries/queries';
 import ProductBox from '../Product/ProductBox';
 import Pagination from './Pagination';
 
@@ -44,7 +42,8 @@ export default function Container({
                                     grid,
                                     products,
                                     maxPages,
-                                    handlePage
+                                    handlePage,
+                                    handleAttributes
                                 }) {
 
     return (
@@ -74,6 +73,7 @@ export default function Container({
                     handleMeasuresFilter={handleMeasuresFilter}
                     handlePropertiesFilter={handlePropertiesFilter}
                     handleShowMenu={handleShowMenu}
+                    handleAttributes={handleAttributes}
                     showMenu={showMenu}
                 />
 

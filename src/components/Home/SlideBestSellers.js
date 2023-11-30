@@ -78,7 +78,7 @@ export default function SlideBestSellers() {
                                                             <h6 className="name">{item?.title}</h6>
                                                         </Link>
                                                         <span>{`${item?.units_measurement ?? ''} ${item?.values ?? ''}`}</span>
-                                                        <h6 className="price theme-color">{item?.price_ttc} DH TTC</h6>
+                                                        <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +106,7 @@ export default function SlideBestSellers() {
                                                             <h6 className="name">{item?.title}</h6>
                                                         </Link>
                                                         <span>{`${item?.units_measurement ?? ''} ${item?.values ?? ''}`}</span>
-                                                        <h6 className="price theme-color">{item?.price_ttc} DH TTC</h6>
+                                                        <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
                                                     </div>
                                                 </div>
                                             </div>
