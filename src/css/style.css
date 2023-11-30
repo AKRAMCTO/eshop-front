@@ -23139,6 +23139,10 @@ input.input-error{
   width: calc(50% - 10px);
 }
 
+.checkout-add-address .modal-body{
+  padding: 1.7rem 1rem 1rem;
+}
+
 @media screen and (max-width: 768px) {
   .product-box.horizontal{
     flex-direction: column;
