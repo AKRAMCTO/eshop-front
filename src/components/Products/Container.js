@@ -22,6 +22,7 @@ export default function Container({
                                     brands, 
                                     measures, 
                                     properties,
+                                    showProperties,
                                     // sort, 
                                     sort, 
                                     page, 
@@ -56,7 +57,6 @@ export default function Container({
                     isLoadingProducts={isLoadingProducts}
                     isLoadingCategories={isLoadingCategories}
                     isLoadingBrands={isLoadingBrands}
-                    isLoadingMeasures={isLoadingMeasures}
                     isLoadingProperties={isLoadingProperties}
 
                     removeItem={removeItem} 
@@ -68,6 +68,7 @@ export default function Container({
                     brands={brands} 
                     measures={measures} 
                     properties={properties} 
+                    showProperties={showProperties} 
                     handleCategoriesFilter={handleCategoriesFilter}
                     handleBrandsFilter={handleBrandsFilter}
                     handleMeasuresFilter={handleMeasuresFilter}

@@ -1,0 +1,431 @@
+// import React, { useEffect, useState } from "react";
+// import { Helmet } from "react-helmet";
+// import { useHistory, useLocation } from "react-router-dom";
+
+// import Layout from "../components/Layout";
+// import Breadcrumb from "../components/Breadcrumb";
+// import Container from "../components/Products/Container";
+// import { getProducts, getFilterCategories, getFilterBrands, getFilterMeasures, getFilterProperties } from "../queries/queries";
+
+// export default function Products() {
+//     const location = useLocation()
+//     const history = useHistory()
+//     const queryParameters = new URLSearchParams(location.search)
+    
+//     const [showMenu, setShowMenu] = useState(false)
+
+//     const [products, setProducts] = useState([])
+//     const [listCategories, setListCategories] = useState([])
+//     const [listBrands, setListBrands] = useState([])
+//     const [listMeasures, setListMeasures] = useState([])
+//     const [listProperties, setListProperties] = useState([])
+
+//     const [grid, setGrid] = useState(3)
+//     const [categories, setCategories] = useState([])
+//     const [brands, setBrands] = useState([])
+//     const [measures, setMeasures] = useState([])
+//     const [properties, setProperties] = useState([])
+//     const [sort, setSort] = useState('latest')
+    
+//     const [isLoadingProducts, setIsLoadingProducts] = useState(false)
+//     const [isLoadingCategories, setIsLoadingCategories] = useState(false)
+//     const [isLoadingBrands, setIsLoadingBrands] = useState(false)
+//     const [isLoadingMeasures, setIsLoadingMeasures] = useState(false)
+//     const [isLoadingProperties, setIsLoadingProperties] = useState(false)
+
+//     const [page, setPage] = useState(1)
+//     const [number, setNumber] = useState(15)
+//     const [maxPages, setMaxPages] = useState(1)
+
+//     useEffect(() => {
+//         if(('products'+location?.search) !== curentUrl()){
+//             console.log('products our', queryParameters.keys());
+//             for (const key of queryParameters.keys()) {
+//                 if(key === 'categories' && queryParameters.get(key)) {
+//                     setCategories(queryParameters.get("categories").split(","))
+//                 }else if(key === 'brands' && queryParameters.get(key)) {
+//                     setBrands(queryParameters.get("brands").split(","))
+//                 }else if(key === 'sort' && queryParameters.get(key)) {
+//                     setSort(queryParameters.get("sort"))
+//                 }else if(key === 'page' && queryParameters.get(key)) {
+//                     setPage(queryParameters.get("page"))
+//                 }else if(key === 'number' && queryParameters.get(key)) {
+//                     setNumber(queryParameters.get("number"))
+//                 }else{
+//                     console.log(queryParameters.get(key))
+//                 }
+//             }
+//         }
+//     }, [location])
+
+//     useEffect(() => {
+//         fetchProducts()
+//     }, [ categories, brands, properties ])
+
+//     useEffect(() => {
+//         if(products.length > 0) {
+//             fetchProducts()
+//         }
+//     }, [ page, sort, number])
+
+
+//     const curentUrl = () => {
+//         let urlCategories = categories.length ? `categories=${categories.toString()}` : ''
+//         let urlBrands = brands.length ? `&brands=${brands.toString()}` : ''
+//         let urlProperties = `` //`&properties=${properties.toString()}`
+//         if(properties?.length){
+//             properties.map((row) => {
+//                 if(row?.items && row?.items.length){
+//                     urlProperties += `&${row?.attr}=${row?.items.toString()}`
+//                 }
+
+//             })
+//         }
+//         let urlSort = `&sort=${sort}`
+//         let urlPage = `&page=${page}`
+//         let urlNumber = `&number=${number}`
+
+//         return 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
+//     }
+//     const generateUrl = () => {
+//         let fullurl = curentUrl()
+//         history.push(fullurl);
+//         // let fullurl = 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
+//         // if(fullurl === 'products?'+location?.search){
+//         //     console.log('the same')
+//         // }else{
+//         //     console.log('not the  same')
+//         // }
+//     }
+
+//     const fetchProducts = async () => {
+//         setIsLoadingProducts(true)
+//         // let addedProperties = getProps()
+//         // console.log('fetchProducts')
+//         console.log(properties)
+//         const res = await getProducts({
+//             'categories': categories,
+//             'brands': brands,
+//             // 'properties': (properties && properties?.length) ? properties : null,
+//             'sort': sort,
+//             'page': page,
+//             'number': number
+//         });
+
+//         if (res.status === true) {
+//             handleData(res)
+//             generateUrl()
+//         } else {
+//             setProducts([])
+//             setMaxPages(1)
+//             setIsLoadingProducts(false)
+//         }
+//     }
+
+//     const fetchCategories = async () => {
+//         setIsLoadingCategories(true)
+//         // setIsLoading({
+//         //     status: true, 
+//         //     type: 'categories'
+//         // })
+//         const res = await getFilterCategories();
+//         if (res.status === true) {
+//             setListCategories(res?.data)
+//             setIsLoadingCategories(false)
+//             // setIsLoading(false)
+//         } else {
+//             setListCategories([])
+//             setIsLoadingCategories(false)
+//             // setIsLoading(false)
+//         }
+//     }
+//     const fetchBrands = async () => {
+//         setIsLoadingBrands(true)
+//         // setIsLoading({
+//         //     status: true, 
+//         //     type: 'brands'
+//         // })
+//         const res = await getFilterBrands();
+//         if (res.status === true) {
+//             setListBrands(res?.data)
+//             setIsLoadingBrands(false)
+//             // setIsLoading(false)
+//         } else {
+//             setListBrands([])
+//             setIsLoadingBrands(false)
+//             // setIsLoading(false)
+//         }
+//     }
+//     const fetchMeasures = async () => {
+//         setIsLoadingMeasures(true)
+//         // setIsLoading({
+//         //     status: true, 
+//         //     type: 'measures'
+//         // })
+//         const res = await getFilterMeasures();
+//         if (res.status === true) {
+//             setListMeasures(res?.data)
+//             setIsLoadingMeasures(false)
+//             // setIsLoading(false)
+//         } else {
+//             setListMeasures([])
+//             setIsLoadingMeasures(false)
+//             // setIsLoading(false)
+//         }
+//     }
+//     const fetchProperties = async () => {
+//         setIsLoadingProperties(true)
+//         // setIsLoading({
+//         //     status: true, 
+//         //     type: 'properties'
+//         // })
+//         const res = await getFilterProperties();
+//         if (res.status === true) {
+//             setListProperties(res?.data)
+//             setIsLoadingProperties(false)
+//             // setIsLoading(false)
+//         } else {
+//             setListProperties([])
+//             setIsLoadingProperties(false)
+//             // setIsLoading(false)
+//         }
+//     }
+
+//     const removeItem = (selected, type) => {
+//         let filterResult = []
+//         switch(type){
+//             case 'categories' :
+//                 filterResult = categories.filter(item => item !== selected);
+//                 setPage(1)
+//                 setCategories(filterResult)
+//             break;
+//             case 'brands' :
+//                 filterResult = brands.filter(item => item !== selected);
+//                 setPage(1)
+//                 setBrands(filterResult)
+//             break;
+//             default:
+
+//         }
+//     }
+
+//     const handleData = (data) => {
+//         // console.log('handleData')
+//         // console.log(data?.old['properties'])
+
+//         setProducts(data?.data?.data)
+//         setListCategories(data?.categories)
+//         setListBrands(data?.brands)
+//         setListProperties(data?.properties)
+//         setMaxPages(data?.last_page)
+//         setIsLoadingProducts(false)
+        
+//         if((!properties || !properties.length) && data?.old && data?.old['properties'] && data?.old['properties'].length) {
+//             setProperties(data?.old['properties'])
+//         }
+        
+//         // console.log(properties)
+//         // window.scrollTo(0, 0)
+//     }
+//     const handleShowMenu = () => {
+//         setShowMenu(!showMenu)
+//     }
+//     const handleGrid = (selected) => {
+//         if(selected !== grid) {
+//             setGrid(selected)
+//         }
+//     }
+//     const handleSort = (selected) => {
+//         if(selected !== sort) {
+//             setSort(selected)
+//         }
+//     }
+//     const handleNumber = (selected) => {
+//         if(selected !== number) {
+//             setNumber(selected)
+//         }
+//     }
+//     const handlePage = (selected) => {
+//         if(selected !== page) {
+//             setPage(selected)
+//         }
+//     }
+//     const handleAttributes = (value, key, action) => {
+//         // let current = [...properties]
+//         action = action.toLowerCase()
+//         key = key.toLowerCase()
+
+//         // let row = []
+//         //     key: [
+//         //         action => value
+//         //     ]
+//         // }
+
+//         console.log(value, key, action)
+//     }
+    
+//     const handleCategoriesFilter = (selected) => {
+//         if(categories.length > 0){
+//             const list = [...categories]
+//             const filterResult = list.filter(item => item === selected);
+//             if(filterResult.length){
+//                 const filterResult = list.filter(item => item !== selected);
+//                 setPage(1)
+//                 setCategories(filterResult)
+//             }else{
+//                 list.push(selected)
+//                 setPage(1)
+//                 setCategories(list)
+//             }
+//         }else{
+//             setPage(1)
+//             setCategories([selected])
+//         }
+//     }
+//     const handleBrandsFilter = (selected) => {
+//         // console.log("brands => ", brands)
+//         if(brands.length > 0){
+//             const list = [...brands]
+//             const filterResult = list.filter(item => item === selected);
+//             if(filterResult.length){
+//                 const filterResult = list.filter(item => item !== selected);
+//                 setPage(1)
+//                 setBrands(filterResult)
+//             }else{
+//                 list.push(selected)
+//                 setPage(1)
+//                 setBrands(list)
+//             }
+//         }else{
+//             setPage(1)
+//             setBrands([selected])
+//         }
+//     }
+//     const handleMeasuresFilter = (selected) => {
+//         // console.log("Measures => ", measures)
+//         if(measures.length > 0){
+//             const list = [...measures]
+//             const filterResult = list.filter(item => item === selected);
+//             if(filterResult.length){
+//                 const filterResult = list.filter(item => item !== selected);
+//                 setPage(1)
+//                 setMeasures(filterResult)
+//             }else{
+//                 list.push(selected)
+//                 setPage(1)
+//                 setMeasures(list)
+//             }
+//         }else{
+//             setPage(1)
+//             setMeasures([selected])
+//         }
+//     }
+//     const handlePropertiesFilter = (label, selected) => {
+//         // console.log('properties => ', properties)
+//         const list = [...properties]
+//         // console.log('list => ', list)
+
+//         if(list && list.length){
+//             let searchOnAttr = list.filter((row) => {
+//                 return row?.attr === label
+//             });
+//             // console.log('seach result => ', searchOnAttr)
+//             if(searchOnAttr && searchOnAttr.length){
+//                 // console.log('searchOnAttr => ', searchOnAttr)
+//                 const newList = list.map((row) => {
+//                     let rowItems = (row?.items && row?.items.length ) ? [...row?.items] : []
+//                     if(row?.attr === label){
+//                         if(rowItems && rowItems.length){
+//                             let searchOnItems = rowItems.indexOf(selected)
+//                             // console.log('search => ', searchOnItems)
+//                             if(searchOnItems === -1){
+//                                 // console.log('push => ', selected)
+//                                 rowItems.push(selected)
+//                             }else{
+//                                 // console.log('before rowItems => ', rowItems)
+//                                 rowItems = rowItems.filter((b, key) => {
+//                                     return key !== searchOnItems
+//                                 });
+//                                 // console.log('after rowItems => ', rowItems)
+//                             }
+//                         }else{
+//                             rowItems.push(selected)
+//                         }
+
+//                     }
+//                     return {
+//                         attr: row?.attr, 
+//                         items: rowItems
+//                     }
+//                 })
+                
+//                 // console.log('newList => ', newList)
+
+//                 setProperties(newList)
+//             }else{
+//                 let row = {
+//                     attr: label,
+//                     items: [selected]
+//                 }
+//                 // console.log('new row => ', row)
+//                 setProperties([...properties, row])
+//             }
+//         }else{
+//             // console.log('fresh => ')
+//             let row = {
+//                 attr: label,
+//                 items: [selected]
+//             }
+//             setPage(1)
+//             setProperties(prev => [...prev, row])
+//         }
+//     }
+
+//     return (
+//         <Layout>
+//             <Helmet>
+//                 <title>{`Les produits | Ecowatt`}</title>
+//             </Helmet>
+//             <Breadcrumb title={`Les produits`} />
+
+//             <section className="section-b-space shop-section">
+//                 <Container 
+//                     // isLoading={isLoading}
+//                     isLoadingProducts={isLoadingProducts}
+//                     isLoadingCategories={isLoadingCategories}
+//                     isLoadingBrands={isLoadingBrands}
+//                     isLoadingMeasures={isLoadingMeasures}
+//                     isLoadingProperties={isLoadingProperties}
+
+//                     removeItem={removeItem}
+//                     // handleData={handleData}
+//                     categories={categories}
+//                     brands={brands}
+//                     measures={measures}
+//                     properties={properties}
+//                     sort={sort}
+//                     page={page}
+//                     number={number}
+//                     listCategories={listCategories}
+//                     listBrands={listBrands}
+//                     listMeasures={listMeasures}
+//                     listProperties={listProperties}
+//                     handleCategoriesFilter={handleCategoriesFilter}
+//                     handleBrandsFilter={handleBrandsFilter}
+//                     handleMeasuresFilter={handleMeasuresFilter}
+//                     handlePropertiesFilter={handlePropertiesFilter}
+//                     handleShowMenu={handleShowMenu}
+//                     showMenu={showMenu}
+//                     handleSort={handleSort}
+//                     handleNumber={handleNumber}
+//                     handleGrid={handleGrid}
+//                     grid={grid}
+//                     products={products}
+//                     maxPages={maxPages}
+//                     handlePage={handlePage}
+//                     handleAttributes={handleAttributes}
+//                 />
+//             </section>
+//         </Layout>
+//     );
+// }

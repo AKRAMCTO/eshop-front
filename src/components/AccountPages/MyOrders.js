@@ -226,7 +226,7 @@ export default function MyOrders() {
                                                                     <div className="size-box">
                                                                         <h6 className="text-content">Prix : </h6>
                                                                         {/* <h5>{productItem?.price} DH TTC</h5> */}
-                                                                        <h5>{productItem?.total_ttc.toFixed(2)} DH TTC</h5>
+                                                                        <h5>{Math.round(productItem?.total_ttc * 100) / 100} DH TTC</h5>
                                                                     </div>
                                                                 </li>
                                                                 <li>

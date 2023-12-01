@@ -3,18 +3,18 @@ import { InfinitySpin } from 'react-loader-spinner';
 import AccordionItem from './AccordionItem';
 import Range from './Range';
 
-export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingMeasures, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
+export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingProducts, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, showProperties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
     
     return (
         <div className="col-12 col-md-3">
-            {(isLoadingCategories || isLoadingBrands || isLoadingMeasures || isLoadingProperties) ?
+            {(isLoadingProducts || isLoadingCategories || isLoadingBrands || isLoadingProperties) ?
                 <div className="px-4 py-5 d-flex align-items-center justify-content-center">
                     <InfinitySpin
                         type="ThreeDots"
                         color="#2A3466"
                         height={220}
                         width={220}
-                        visible={isLoadingCategories || isLoadingBrands || isLoadingMeasures || isLoadingProperties}
+                        visible={isLoadingProducts || isLoadingCategories || isLoadingBrands || isLoadingProperties}
                     />
                 </div>
             :
@@ -37,24 +37,27 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                         </div>
                         : <div />
                     }
-                    {/* {(measures && measures.length) ? 
-                        <div className={`selected-rows mb-3`}>
-                            <h5>Les mesures</h5>
-                            {measures.map((item, i) => 
-                                <button type='button' key={`side-measures-${i}`} className={`rows-tags`} onClick={() => removeItem(item, 'measures')}>x {item.replace(/-/g, " ")}</button>
-                            )}
-                        </div>
+                    {(showProperties && (typeof showProperties === 'object') && Object.keys(showProperties).length) ?
+                        Object.keys(showProperties).map((item, m) => 
+                            (showProperties[item] && showProperties[item].length) ? 
+                                <div className={`selected-rows mb-3`}>
+                                    <h5>{item}</h5>
+                                    {showProperties[item].map((row, i) => 
+                                        <button 
+                                            type='button' 
+                                            key={`properties-${m}-${i}`} 
+                                            className={`rows-tags`} 
+                                            onClick={() => handlePropertiesFilter(item, row)}
+                                        >
+                                            x {row}
+                                        </button>
+                                    )}
+                                </div>
+                            : 
+                            <div />
+                        )
                         : <div />
-                    } */}
-                    {/* {(properties && properties.length) ? 
-                        <div className={`selected-rows mb-3`}>
-                            <h5>Les propriétés</h5>
-                            {properties.map((item, i) => 
-                                <button type='button' key={`side-properties-${i}`} className={`rows-tags`} onClick={() => removeItem(item, 'properties')}>x {item.replace(/-/g, " ")}</button>
-                            )}
-                        </div>
-                        : <div />
-                    } */}
+                    }
 
                     <div className={`bg-overlay ${(showMenu) ? 'show' : ''}`}></div>
                     <div className={`left-box wow fadeInUp ${(showMenu) ? 'show' : ''}`}>
@@ -137,7 +140,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                         }
                                     </ul>
                                 </AccordionItem>
-                                {/* {(listProperties && listProperties.length) ?
+                                {(listProperties && listProperties.length) ?
                                     listProperties.map((item, key) => 
                                         (item?.chooses) ? 
                                             <AccordionItem
@@ -153,12 +156,12 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                                                     className="checkbox_animated" 
                                                                     name='prop' 
                                                                     type="checkbox"
-                                                                    checked={properties[item?.label] && properties[item?.label].includes(row)} 
+                                                                    checked={properties && properties.includes(`${item?.label}-${row?.value}`)} 
                                                                     id={`${row}-${key}-${key1}`}
                                                                 />
-                                                                <label className="form-check-label" htmlFor={`${row}-${key}-${key1}`} onClick={() => handlePropertiesFilter(item?.label, row)} >
-                                                                    <span className="name">{row}</span>
-                                                                    <span className="number"></span>
+                                                                <label className="form-check-label" htmlFor={`${row?.value}-${key}-${key1}`} onClick={() => handlePropertiesFilter(item?.label, row?.value)} >
+                                                                    <span className="name">{row?.value}</span>
+                                                                    <span className="number">{row?.num}</span>
                                                                 </label>
                                                             </div>
                                                         </li>
@@ -170,7 +173,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                     )
                                     :
                                     <div />
-                                } */}
+                                }
                             </div>
                         </div>
                     </div>

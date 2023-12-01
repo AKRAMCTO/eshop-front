@@ -25,6 +25,7 @@ export default function Products() {
     const [brands, setBrands] = useState([])
     const [measures, setMeasures] = useState([])
     const [properties, setProperties] = useState([])
+    const [showProperties, setShowProperties] = useState([])
     const [sort, setSort] = useState('latest')
     
     const [isLoadingProducts, setIsLoadingProducts] = useState(false)
@@ -33,21 +34,21 @@ export default function Products() {
     const [isLoadingMeasures, setIsLoadingMeasures] = useState(false)
     const [isLoadingProperties, setIsLoadingProperties] = useState(false)
 
+    const [startLoad, setStartLoad] = useState(false)
     const [page, setPage] = useState(1)
     const [number, setNumber] = useState(15)
     const [maxPages, setMaxPages] = useState(1)
 
     useEffect(() => {
-        // console.log('queryParameters => ', queryParameters.getAll())
         if(('products'+location?.search) !== curentUrl()){
             if(queryParameters.get("categories")) {
                 setCategories(queryParameters.get("categories").split(","))
             }
-            if(queryParameters.get("brands")) {
-                setBrands(queryParameters.get("brands").split(","))
-            }
             if(queryParameters.get("properties")) {
                 setProperties(queryParameters.get("properties").split(","))
+            }
+            if(queryParameters.get("brands")) {
+                setBrands(queryParameters.get("brands").split(","))
             }
             if(queryParameters.get("sort")) {
                 setSort(queryParameters.get("sort"))
@@ -59,43 +60,35 @@ export default function Products() {
                 setNumber(queryParameters.get("number"))
             }
         }
+        setStartLoad(true)
     }, [location])
 
     useEffect(() => {
-        fetchProducts()
-    }, [ categories, brands, properties ])
+        console.log('startLoad 0 => ', startLoad)
+        if(startLoad) {
+            fetchProducts()
+        }
+    }, [ categories, brands, properties, startLoad ])
 
     useEffect(() => {
-        if(products.length > 0) {
+        console.log('startLoad 1 => ', startLoad)
+        if(products.length > 0 && startLoad) {
             fetchProducts()
         }
     }, [ page, sort, number])
 
-    // useEffect(() => {
-    //     let fullUrlProperties = `&`
-    //     // const keys = properties;
-    //     console.log('properties =>>>>>>> ', JSON.stringify(properties))
-
-    //     properties.map((items, key) => 
-    //         console.log('items =>>>>>>> ', items) 
-    //         )
-    //     //     // if(items.langth){
-    //     //     //     fullUrlProperties += `${key}=`
-    //     //     //     items.map((row ,key1) => {
-    //     //     //         console.log('row =>>>>>>> ', row)
-    //     //     //         fullUrlProperties += `${key}-${row},`
-    //     //     //     })
-    //     //     // }
-    //     // })
-    //     console.log('end properties =>>>> ', fullUrlProperties)
-    // }, [ properties ])
-
-
     const curentUrl = () => {
         let urlCategories = categories.length ? `categories=${categories.toString()}` : ''
         let urlBrands = brands.length ? `&brands=${brands.toString()}` : ''
-        let urlProperties = `&properties=${properties.toString()}`
-        // let urlProperties = ``
+        let urlProperties = properties.length ? `&properties=${properties.toString()}` : ''
+        // if(properties?.length){
+        //     properties.map((row) => {
+        //         if(row?.items && row?.items.length){
+        //             urlProperties += `&${row?.attr}=${row?.items.toString()}`
+        //         }
+
+        //     })
+        // }
         let urlSort = `&sort=${sort}`
         let urlPage = `&page=${page}`
         let urlNumber = `&number=${number}`
@@ -105,18 +98,11 @@ export default function Products() {
     const generateUrl = () => {
         let fullurl = curentUrl()
         history.push(fullurl);
-        // let fullurl = 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
-        // if(fullurl === 'products?'+location?.search){
-        //     console.log('the same')
-        // }else{
-        //     console.log('not the  same')
-        // }
     }
 
     const fetchProducts = async () => {
         setIsLoadingProducts(true)
-        // let addedProperties = getProps()
-        // console.log(addedProperties)
+        
         const res = await getProducts({
             'categories': categories,
             'brands': brands,
@@ -127,7 +113,7 @@ export default function Products() {
         });
 
         if (res.status === true) {
-            handleData(res?.data, res?.categories, res?.brands, res?.properties)
+            handleData(res)
             generateUrl()
         } else {
             setProducts([])
@@ -218,28 +204,20 @@ export default function Products() {
                 setPage(1)
                 setBrands(filterResult)
             break;
-            // case 'measures' :
-            //     filterResult = measures.filter(item => item !== selected);
-            //     setPage(1)
-            //     setMeasures(filterResult)
-            // break;
-            // case 'properties' :
-            //     filterResult = properties.filter(item => item !== selected);
-            //     setPage(1)
-            //     setProperties(filterResult)
-            break;
+            default:
+
         }
     }
 
-    const handleData = (data, lcategories, lbrands, lproperties) => {
-        setProducts(data?.data)
-        setListCategories(lcategories)
-        setListBrands(lbrands)
-        setListProperties(lproperties)
+    const handleData = (data) => {
+        setProducts(data?.data?.data)
+        setListCategories(data?.categories)
+        setListBrands(data?.brands)
+        setListProperties(data?.properties)
         setMaxPages(data?.last_page)
+        setShowProperties(data?.old)
         setIsLoadingProducts(false)
-        // console.log(properties)
-        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0)
     }
     const handleShowMenu = () => {
         setShowMenu(!showMenu)
@@ -335,24 +313,14 @@ export default function Products() {
         }
     }
     const handlePropertiesFilter = (label, selected) => {
-        if(properties[label] && properties[label].length){
-            const list = structuredClone(properties)
-            const filterResult = list[label].filter(item => item === selected);
-            if(filterResult.length){
-                const filterResult = list[label].filter(item => item !== selected);
-                list[label] = filterResult
-                setProperties(list)
-                setPage(1)
-            }else{
-                list[label].push(selected)
-                setProperties(list)
-                setPage(1)
-            }
+        if(properties.includes(`${label}-${selected}`)){
+            setProperties(current =>
+                current.filter(row => {
+                  return row !== `${label}-${selected}`;
+                })
+            )
         }else{
-            const list = structuredClone(properties)
-            list[label] = [selected]
-            setProperties(list)
-            setPage(1)
+            setProperties(prev => [...prev, `${label}-${selected}`])
         }
     }
 
@@ -378,6 +346,7 @@ export default function Products() {
                     brands={brands}
                     measures={measures}
                     properties={properties}
+                    showProperties={showProperties}
                     sort={sort}
                     page={page}
                     number={number}
