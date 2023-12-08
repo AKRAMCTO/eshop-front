@@ -27,6 +27,11 @@ const MyAccount = React.lazy(() => import('./pages/MyAccountContainer'));
 const Product = React.lazy(() => import('./pages/Product'));
 const Products = React.lazy(() => import('./pages/Products'));
 
+// Page Static
+const About = React.lazy(() => import('./pages/Account/About'));
+const Contact = React.lazy(() => import('./pages/Account/Contact'));
+const Faq = React.lazy(() => import('./pages/Account/Faq'));
+
 // GUEST
 const GuestWishlist = React.lazy(() => import('./pages/GuestWishlist'));
 const Cart = React.lazy(() => import('./pages/Cart'));
@@ -50,6 +55,10 @@ function App() {
           <Route path="/product/:product" component={Product} />
           <Route path="/products" component={Products} />
           <Route path="/page-404" component={Page404} />
+          
+          <Route path="/a-propos-de-nous" component={About} />
+          <Route path="/contactez-nous" component={Contact} />
+          <Route path="/centre-d-aide" component={Faq} />
           
           <Route path="/wishlist" component={GuestWishlist} />
           <Route path="/cart" component={Cart} />

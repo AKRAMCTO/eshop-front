@@ -21,6 +21,18 @@ export default function MenuPrimary({ menu, toggleMenu }) {
                                 <Link className="nav-link" to={`/`}>Accueil</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to={`/a-propos-de-nous`}>À propos de nous</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/contactez-nous`}>Contactez-nous</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/centre-d-aide`}>Centre d'aide</Link>
+                            </li>
+                            {/* <li className="nav-item">
+                                <Link className="nav-link" to={`/page/page-1`}>L’entreprise</Link>
+                            </li>
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to={`/page/page-1`}>L’entreprise</Link>
                             </li>
                             <li className="nav-item">
@@ -28,30 +40,6 @@ export default function MenuPrimary({ menu, toggleMenu }) {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/page-404`}>Page 404</Link>
-                            </li>
-
-                            {/* <li className="nav-item">
-                                <a className="nav-link" href="./pages/seller-grid.html">
-                                    Nos magasin
-                                </a>
-                            </li>
-
-                            <li className="nav-item">
-                                <a className="nav-link" href="./pages/about-us.html">
-                                    A propos de nous
-                                </a>
-                            </li>
-
-                            <li className="nav-item">
-                                <a className="nav-link" href="./pages/contact-us.html">
-                                    Contactez-nous
-                                </a>
-                            </li>
-
-                            <li className="nav-item">
-                                <a className="nav-link" href="./pages/blog-list.html">
-                                    Blog
-                                </a>
                             </li> */}
                         </ul>
                     </div>

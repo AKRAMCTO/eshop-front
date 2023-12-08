@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
-import { Eye, Heart } from 'react-feather';
 
 import { DataProvider } from '../contexts/DataContext';
 import ProductBox from './Product/ProductBox';
