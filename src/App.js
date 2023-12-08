@@ -28,9 +28,9 @@ const Product = React.lazy(() => import('./pages/Product'));
 const Products = React.lazy(() => import('./pages/Products'));
 
 // Page Static
-const About = React.lazy(() => import('./pages/Account/About'));
-const Contact = React.lazy(() => import('./pages/Account/Contact'));
-const Faq = React.lazy(() => import('./pages/Account/Faq'));
+const About = React.lazy(() => import('./pages/static/About'));
+const Contact = React.lazy(() => import('./pages/static/Contact'));
+const Faq = React.lazy(() => import('./pages/static/Faq'));
 
 // GUEST
 const GuestWishlist = React.lazy(() => import('./pages/GuestWishlist'));

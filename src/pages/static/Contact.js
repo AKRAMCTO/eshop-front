@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import Breadcrumb from '../../components/Breadcrumb';
 import Layout from '../../components/Layout';
 
 export default function Contact() {
-
+    const [isActive, setIsActive] = useState('agadir')
   return (
     <Layout>
       <Helmet>
@@ -20,28 +20,24 @@ export default function Contact() {
               <div className="col-12">
                   <div className="product-section-box m-0">
                       <ul className="nav nav-tabs custom-nav" id="myTab" role="tablist">
-                          <li className="nav-item" role="presentation">
-                              <button className="nav-link active" id="description-tab" data-bs-toggle="tab"
-                                  data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                                  aria-selected="true">AGADIR</button>
+                          <li className="nav-item">
+                              <button className={`nav-link ${(isActive === 'agadir') ? 'active' : ''}`} type="button" onClick={() => setIsActive('agadir')}>AGADIR</button>
                           </li>
 
-                          <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info"
-                                  type="button" role="tab" aria-controls="info" aria-selected="false">FKIH BEN SALH​</button>
+                          <li className="nav-item">
+                              <button className={`nav-link ${(isActive === 'fkih-ben-salh') ? 'active' : ''}`} type="button" onClick={() => setIsActive('fkih-ben-salh')}>FKIH BEN SalH</button>
                           </li>
 
-                          <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care" type="button" role="tab" aria-controls="care" aria-selected="false">OUJDA​</button>
+                          <li className="nav-item">
+                              <button className={`nav-link ${(isActive === 'oujda') ? 'active' : ''}`} type="button" onClick={() => setIsActive('oujda')}>OUJDA</button>
                           </li>
-                          <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="meknes-tab" data-bs-toggle="tab" data-bs-target="#meknes" type="button" role="tab" aria-controls="care" aria-selected="false">MEKNES</button>
+                          <li className="nav-item">
+                              <button className={`nav-link ${(isActive === 'meknes') ? 'active' : ''}`} type="button" onClick={() => setIsActive('meknes')}>MEKNES</button>
                           </li>
                       </ul>
-
-                      <div className="tab-content custom-tab" id="myTabContent">
-                          <div className="tab-pane fade show active" id="description" role="tabpanel"
-                              aria-labelledby="description-tab">
+                      
+                      <div className="tab-content custom-tab">
+                          <div className={`tab-pane fade ${(isActive === 'agadir') ? 'show active' : ''}`}>
                               <div className="product-description">
                                   <section className="contact-box-section">
                                       <div className="container-fluid-lg">
@@ -246,8 +242,7 @@ export default function Contact() {
                                   </section>
                               </div>
                           </div>
-
-                          <div className="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+                          <div className={`tab-pane fade ${(isActive === 'fkih-ben-salh') ? 'show active' : ''}`}>
                               <section className="contact-box-section">
                                   <div className="container-fluid-lg">
                                       <div className="row g-lg-5 g-3">
@@ -444,8 +439,7 @@ export default function Contact() {
                                   </div>
                               </section>
                           </div>
-
-                          <div className="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab">
+                          <div className={`tab-pane fade ${(isActive === 'oujda') ? 'show active' : ''}`}>
                               <section className="contact-box-section">
                                   <div className="container-fluid-lg">
                                       <div className="row g-lg-5 g-3">
@@ -646,8 +640,7 @@ export default function Contact() {
                                   </div>
                               </section>
                           </div>
-
-                          <div className="tab-pane fade" id="meknes" role="tabpanel" aria-labelledby="meknes-tab">
+                          <div className={`tab-pane fade ${(isActive === 'meknes') ? 'show active' : ''}`}>
                               <section className="contact-box-section">
                                   <div className="container-fluid-lg">
                                       <div className="row g-lg-5 g-3">
@@ -789,8 +782,7 @@ export default function Contact() {
                                                           </div>
                                                       </div>
                                                   </div>
-                                                  <button className="btn btn-animation btn-md fw-bold ms-auto">Envoyer
-                                                      le message</button>
+                                                  <button className="btn btn-animation btn-md fw-bold ms-auto">Envoyer le message</button>
                                               </div>
                                           </div>
                                       </div>
