@@ -36,7 +36,7 @@ export default function Checkout() {
           if(!isLoggedIn) {
             clearGuestCartItem()
           }
-          // window.location.href = 'http://127.0.0.1:8001/complete-payment/' + orderID
+          // window.location.href = 'http://127.0.0.1:8000/complete-payment/' + orderID
           window.location.href = 'https://dev.ecowatt.ma/complete-payment/' + orderID
         }else{
           history.push({    // no need

@@ -478,6 +478,32 @@ export const getOrders = async () => {
         return error?.response?.data?.message
     }
 };
+export const getInvoices = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    try {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/invoices`, config);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
+export const getBls = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
+    try {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/bls`, config);
+        if (res.data.status === true) {
+            return res.data.data;
+        }
+    } catch (error) {
+        return error?.response?.data?.message
+    }
+};
 export const getOrder = async (data) => {
     try {
         const res = await axios.post(`${REACT_APP_MAIN_URL}/order`, data);
@@ -761,5 +787,32 @@ export const getCalculatedDeliveryGuest = async (city, deliveryMethod) => {
         if (res.data.status === true) {
             return res.data.data;
         }
+    }
+}
+export const downloadFileInvoice = async (file) => {
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/download-invoice`,
+        { file }
+    );
+    if (res.data.status === true) {
+        return res.data;
+    }
+}
+export const downloadFileBl = async (file) => {
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/download-bl`,
+        { file }
+    );
+    if (res.data.status === true) {
+        return res.data;
+    }
+}
+export const downloadFileBc = async (id) => {
+    const res = await axios.post(
+        `${REACT_APP_MAIN_URL}/download-bc`,
+        { id }
+    );
+    if (res.data.status === true) {
+        return res.data;
     }
 }

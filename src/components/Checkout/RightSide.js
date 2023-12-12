@@ -20,7 +20,12 @@ export default function RightSide({ cartCalculation, orderSuccess, orderError, l
                             <li key={`checkout-cart-item-${key}`}>
                                 <img src={item?.image_link} className="img-fluid blur-up lazyloaded checkout-image" alt={item?.name} />
                                 <h4>{item?.name} <span>X {item?.quantity}</span></h4>
-                                <h4 className="price">{item?.total} DH TTC</h4>
+                                {/* <h4 className="price">{item?.total} DH TTC</h4> */}
+                                {(item?.discount && item?.new_price) ? 
+                                    <h4 className='price'>{item?.total} DH TTC <del className="text-content">-{item?.new_price?.discount}% Remise</del></h4>
+                                    :
+                                    <h4 className='price'>{item?.total} DH TTC</h4>
+                                }
                             </li>
                         )}
                     </ul>

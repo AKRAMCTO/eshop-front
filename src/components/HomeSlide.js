@@ -5,8 +5,8 @@ import Slider from 'react-slick';
 import { settings } from 'nprogress';
 import HomeSlideItem from './HomeSlideItem';
 
-export default function HomeSlide() {
-    const type = 'HS1'
+export default function HomeSlide({ type, extraClass = null }) {
+    // const type = 'HS1'
     const { data, isLoading, isIdle } = useQuery(
         ['getHomeSlide', type],
         () => getSlide(type),
@@ -22,7 +22,7 @@ export default function HomeSlide() {
     };
 
     return (
-        <div className="col-xl-9 col-lg-8 ratio_50_1">
+        <div className={`${extraClass} ratio_50_1`}>
             {isLoading ?
                 <div style={{ background: 'gray', height: 400, opacity: .3 }}></div>
             :

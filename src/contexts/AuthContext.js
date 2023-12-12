@@ -8,6 +8,8 @@ import {
     getAddresses,
     removeAddress,
     getOrders,
+    getBls,
+    getInvoices,
 } from './../queries/queries';
 export const AuthProvider = React.createContext();
 
@@ -141,7 +143,7 @@ export default function AuthContextProvider({ children }) {
         isFetching: ordersFetching
     } = useQuery('orders', getOrders, {
         retry: 1,
-        enabled: (data?.userData?.id ? true : false),
+        enabled: ((data?.userData?.id) ? true : false),
         refetchOnWindowFocus: false
     });
 

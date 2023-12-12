@@ -57,7 +57,7 @@ export default function SlideBestOffers() {
     return (
         <div>
             <div className="title d-block">
-                <h2>Notre best-seller</h2>
+                <h2>Nos meilleures offres</h2>
                 <span className="title-leaf"></span>
                 <p>Un assistant virtuel récupère les produits de votre liste</p>
             </div>

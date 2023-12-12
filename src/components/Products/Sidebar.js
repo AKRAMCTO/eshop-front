@@ -160,7 +160,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                                                     id={`${row}-${key}-${key1}`}
                                                                 />
                                                                 <label className="form-check-label" htmlFor={`${row?.value}-${key}-${key1}`} onClick={() => handlePropertiesFilter(item?.label, row?.value)} >
-                                                                    <span className="name">{row?.value}</span>
+                                                                    <span className="name">{`${row?.value} ${row?.measure}`}</span>
                                                                     <span className="number">{row?.num}</span>
                                                                 </label>
                                                             </div>

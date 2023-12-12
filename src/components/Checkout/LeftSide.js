@@ -113,7 +113,7 @@ export default function LeftSide({ loading, deliveryAddress, billingAddress, del
                                                     />
                                                     <span className='d-block ml-5'>Ecowatt Logistique</span>
                                                 </div>
-                                                <img alt='Ecowatt' src={require('./../../assets/images/ecowatt.png')} />
+                                                <img alt='Ecowatt' src={require('./../../assets/images/ecowatt-log.jpeg')} />
                                             </div>
                                         </div>
                                         <div className="checkout-detail payment-details mb-3" onClick={(!loading) ? () => saveDelivery('ctm') : null}>

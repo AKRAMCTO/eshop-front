@@ -20,34 +20,6 @@ import PinnedCategories from "../components/Home/PinnedCategories";
 export default function Home() {
     const { settings } = React.useContext(DataProvider);
 
-    const slideBest = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                }
-            },
-            {
-                breakpoint: 786,
-                settings: {
-                    slidesToShow: 2,
-                }
-            },
-            {
-                breakpoint: 478,
-                settings: {
-                    slidesToShow: 1,
-                }
-            }
-        ]
-    };
-
     return (
         <Layout>
             <Helmet>
@@ -57,7 +29,7 @@ export default function Home() {
             <section className="home-section pt-2 ratio_50">
                 <div className="container-fluid-lg">
                     <div className="row g-4">
-                        <HomeSlide />
+                        <HomeSlide type={`HS1`} extraClass={`col-xl-9 col-lg-8`} />
                         {(settings && settings?.banners === 'on') ? 
                             <div className="col-xl-3 col-lg-4 d-lg-inline-block d-none">
                                 <BannerVertical keyBanner={'HPP1'} />

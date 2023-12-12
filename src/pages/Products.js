@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import Breadcrumb from "../components/Breadcrumb";
 import Container from "../components/Products/Container";
 import { getProducts, getFilterCategories, getFilterBrands, getFilterMeasures, getFilterProperties } from "../queries/queries";
+import HomeSlide from "../components/HomeSlide";
 
 export default function Products() {
     const location = useLocation()
@@ -330,6 +331,10 @@ export default function Products() {
                 <title>{`Les produits | Ecowatt`}</title>
             </Helmet>
             <Breadcrumb title={`Les produits`} />
+
+            <div className="container-fluid-lg mt-4">
+                <HomeSlide type={`CS1`} extraClass={`col-12`} />
+            </div>
 
             <section className="section-b-space shop-section">
                 <Container 

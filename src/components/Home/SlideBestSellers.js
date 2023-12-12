@@ -4,6 +4,9 @@ import Slider from 'react-slick';
 import { getBestSellers } from '../../queries/queries';
 import { DataProvider } from '../../contexts/DataContext';
 import { Link } from 'react-router-dom';
+import { TailSpin } from 'react-loader-spinner';
+import { Heart, ShoppingCart } from 'react-feather';
+import ProductSlideHorizontal from '../Product/ProductSlideHorizontal';
 
 export default function SlideBestSellers() {
     const { isDesktop, isTablet } = useContext(DataProvider)
@@ -55,7 +58,7 @@ export default function SlideBestSellers() {
     return (
         <div>
             <div className="title d-block">
-                <h2>Notre best-seller</h2>
+                <h2>Nos meilleures offres</h2>
                 <span className="title-leaf"></span>
                 <p>Un assistant virtuel récupère les produits de votre liste</p>
             </div>
@@ -66,23 +69,53 @@ export default function SlideBestSellers() {
                             <div key={`best-seller-${key}`}>
                                 <ul className="product-list">
                                     {items.map((item, key1) =>
-                                        <li key={`best-seller-items-${key1}`}>
-                                            <div className="offer-product">
-                                                <Link to={`/product/${item?.slug}`} className="offer-image">
-                                                    <img src={item?.full_image} className="lazyload" alt={item?.title} />
-                                                </Link>
+                                        <ProductSlideHorizontal product={item} key={`best-seller-items-${key1}`} />
+                                        // <li key={`best-seller-items-${key1}`}>
+                                        //     <div className="offer-product">
+                                        //         <Link to={`/product/${item?.slug}`} className="offer-image">
+                                        //             <img src={item?.full_image} className="lazyload" alt={item?.title} />
+                                        //         </Link>
 
-                                                <div className="offer-detail">
-                                                    <div>
-                                                        <Link to={`/product/${item?.slug}`} className="text-title" >
-                                                            <h6 className="name">{item?.title}</h6>
-                                                        </Link>
-                                                        <span>{`${item?.units_measurement ?? ''} ${item?.values ?? ''}`}</span>
-                                                        <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        //         <div className="offer-detail">
+                                        //             <div>
+                                        //                 <Link to={`/product/${item?.slug}`} className="text-title" >
+                                        //                     <h6 className="name">{item?.title}</h6>
+                                        //                 </Link>
+                                        //                 <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
+                                        //                 <ul>
+                                        //                     <li>
+                                        //                         <button 
+                                        //                             onClick={(addItemInWishlist) ? handleRemoveFromWishList : handleAddToWishList}
+                                        //                             type="button" 
+                                        //                             className={`notifi-wishlist ${addItemInWishlist && 'active'}`}
+                                        //                         >
+                                        //                             <Heart /> wishlist
+                                        //                         </button>
+                                        //                     </li>
+                                        //                     <li>
+                                        //                         <button
+                                        //                             type="button"
+                                        //                             disabled={addLoadingCart}
+                                        //                             className={`btn btn-add-cart addcart-button`}
+                                        //                             onClick={(item?.is_active === 1 || item?.is_active === 2) ? () => handleAddToCard() : null}
+                                        //                         >
+                                        //                             {(addLoadingCart) ?  
+                                        //                                 <TailSpin
+                                        //                                     color="#2A3466"
+                                        //                                     height={20}
+                                        //                                     width={20}
+                                        //                                     visible={addLoadingCart}
+                                        //                                 />
+                                        //                             :
+                                        //                                 <><ShoppingCart /> Ajouter</>
+                                        //                             }
+                                        //                         </button>
+                                        //                     </li>
+                                        //                 </ul>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>
+                                        // </li>
                                     )}
                                 </ul>
                             </div>
@@ -94,23 +127,23 @@ export default function SlideBestSellers() {
                             <div className="col-xxl-3 col-md-6 col-12" key={`best-seller-${key}`}>
                                 <ul className="product-list">
                                     {items.map((item, key1) =>
-                                        <li key={`best-seller-items-${key1}`}>
-                                            <div className="offer-product">
-                                                <Link to={`/product/${item?.slug}`} className="offer-image">
-                                                    <img src={item?.full_image} className="lazyload" alt={item?.title} />
-                                                </Link>
+                                        <ProductSlideHorizontal product={item} key={`best-seller-items-${key1}`} />
+                                        // <li key={`best-seller-items-${key1}`}>
+                                        //     <div className="offer-product">
+                                        //         <Link to={`/product/${item?.slug}`} className="offer-image">
+                                        //             <img src={item?.full_image} className="lazyload" alt={item?.title} />
+                                        //         </Link>
 
-                                                <div className="offer-detail">
-                                                    <div>
-                                                        <Link to={`/product/${item?.slug}`} className="text-title" >
-                                                            <h6 className="name">{item?.title}</h6>
-                                                        </Link>
-                                                        <span>{`${item?.units_measurement ?? ''} ${item?.values ?? ''}`}</span>
-                                                        <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        //         <div className="offer-detail">
+                                        //             <div>
+                                        //                 <Link to={`/product/${item?.slug}`} className="text-title" >
+                                        //                     <h6 className="name">{item?.title}</h6>
+                                        //                 </Link>
+                                        //                 <h6 className="price theme-color">{item?.price_ttc} <span>DH TTC</span></h6>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>
+                                        // </li>
                                     )}
                                 </ul>
                             </div>

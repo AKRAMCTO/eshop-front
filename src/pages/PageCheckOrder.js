@@ -209,7 +209,15 @@ export default function PageCheckOrder() {
 
                                                             <div className="order-details-name">
                                                                 <h5 className="text-content">Service</h5>
-                                                                <img src={require('./../assets/images/ctm.png')} className="img-fluid blur-up lazyload" alt="CTM"/>
+                                                                {(order?.new_tracking && order?.new_status) ? 
+                                                                    <img src={require('./../assets/images/logo-ctm.png')} className="img-fluid blur-up lazyload" alt="CTM"/>
+                                                                    :
+                                                                    ((order?.shipping_method_id && order?.shipping_method_id == 16) ? 
+                                                                        <img src={require('./../assets/images/ecowatt-log.jpeg')} className="img-fluid blur-up lazyload" alt="Ecowatt"/>
+                                                                        :
+                                                                        <img src={require('./../assets/images/in-place.png')} className="img-fluid blur-up lazyload" alt="In-place"/>
+                                                                    )
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>

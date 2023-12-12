@@ -18,6 +18,8 @@ import Profile from "../components/AccountPopups/Profile";
 import AddAddress from "../components/AccountPopups/AddAddress";
 import EditAddress from "../components/AccountPopups/EditAddress";
 import { useParams, Redirect } from "react-router-dom";
+import MyInvoices from "../components/AccountPages/MyInvoices";
+import MyBL from "../components/AccountPages/MyBL";
 
 export default function MyAccountContainer() {
     const { key } = useParams();
@@ -50,7 +52,7 @@ export default function MyAccountContainer() {
         setModelTitle(null)
     }
 
-    const pages = ['account', 'orders', 'wishlist', 'addresses', 'profile']
+    const pages = ['account', 'orders', 'wishlist', 'addresses', 'invoices', 'bls', 'profile']
     if(key && !pages.includes(key)){
         return <Redirect to={`/page-404`} />;
     }
@@ -66,6 +68,14 @@ export default function MyAccountContainer() {
             <LayoutAccount type={type}>
                 {(!type || type === 'account') && <MyAccount userData={userData} SelectModelForm={SelectModelForm} />}
                 {(type === 'orders') && <MyOrders />}
+                {userData && userData?.type && ['individual', 'professional', 'seller'].includes(userData?.type) ?
+                    <>
+                        {(type === 'invoices') && <MyInvoices />}
+                        {(type === 'bls') && <MyBL />}
+                    </>
+                    :
+                    <div />
+                }
                 {(type === 'wishlist') && <MyWishlist />}
                 {(type === 'addresses') && <MyAddresses selectCurrentAddress={selectCurrentAddress} SelectModelForm={SelectModelForm} />}
                 {(type === 'profile') && <MyProfile isLoggedIn={isLoggedIn} userData={userData} SelectModelForm={SelectModelForm} />}

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthProvider } from "../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
-import { InfinitySpin } from "react-loader-spinner";
+import { InfinitySpin, TailSpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import OrderStatus from "../OrderStatus";
 import Pagination from "../Products/Pagination";
 import { Package, Truck } from "react-feather";
+import { downloadFileBc } from "../../queries/queries";
 
 const perPage = 8
 const PageSize = 1
@@ -18,6 +19,10 @@ export default function MyOrders() {
     const [copyOrders, setCopyOrders] = useState([])
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
+    
+    const [error, setError] = useState('')
+    const [isFileLoading, setIsFileLoading] = useState(false)
+    const [isFile, setIsFile] = useState(null)
     
     // filter
     const [code, setCode] = useState('')
@@ -136,6 +141,27 @@ export default function MyOrders() {
         return date.toLocaleDateString("en-US")
     }
 
+    const downloadFile = async (file) => {
+        setIsFile(file)
+        setIsFileLoading(true)
+        try {
+            const res = await downloadFileBc(file);
+            if (res.status) {
+                window.open(res?.data, "_blank")
+                setIsFile(null)
+                setIsFileLoading(false)
+            } else {
+                setError('Le fichier est introuvable')
+                setIsFile(null)
+                setIsFileLoading(false)
+            }
+        } catch (error) {
+            setError('Le fichier est introuvable')
+            setIsFile(null)
+            setIsFileLoading(false)
+        }
+    }
+
     return (
         <div className="dashboard-order">
             <Helmet>
@@ -188,6 +214,7 @@ export default function MyOrders() {
                             <h2 className="text-center my-5">Vous n'avez pas encore passer aucune commande.</h2>
                             :
                             <div className="order-contain">
+                                {(error && !isFileLoading) ? <h4>{error}</h4> : <div />}
                                 {orders.map((item, key) => 
                                     <div className="order-box dashboard-bg-box" key={`commande-${key}`}>
                                         <div className="order-container" onClick={() => showOrder(item?.id)}>
@@ -210,6 +237,26 @@ export default function MyOrders() {
                                             </div>
                                         </div>
                                         <div className={`order-items ${selectedOrder === item?.id && 'show'}`}>
+                                            <div className="order-detail">
+                                                <button 
+                                                    type="button" 
+                                                    className="btn download-btn" 
+                                                    onClick={() => downloadFile(item?.id)}
+                                                    disabled={isFileLoading}
+                                                >
+                                                    Télécharger le bon de commande
+                                                    {(isFileLoading && isFile === item?.id) ? 
+                                                        <TailSpin
+                                                            color="#fff"
+                                                            height={16}
+                                                            width={16}
+                                                        />
+                                                    :
+                                                        ''
+                                                    }
+                                                </button>
+                                            </div>
+
                                             {(item?.lines && item?.lines.length) && 
                                                 (item?.lines.map((productItem, productKey) => 
                                                     <div className="product-order-detail" key={`commande-${key}-${productKey}`}>
@@ -240,9 +287,9 @@ export default function MyOrders() {
                                                     </div>
                                                 ))
                                             }
-                                            {(item?.new_tracking && item?.new_status) ? 
                                                 <div className="col-12 order-detail mt-4">
                                                     <div className="row g-sm-4 g-3">
+                                                        
                                                         <div className="col-6">
                                                             <div className="order-details-contain">
                                                                 <div className="order-tracking-icon">
@@ -262,11 +309,20 @@ export default function MyOrders() {
 
                                                                 <div className="order-details-name">
                                                                     <h5 className="text-content">Service</h5>
-                                                                    <img src={require('./../../assets/images/logo-ctm.png')} className="img-fluid blur-up lazyload" alt="CTM"/>
+                                                                    {(item?.new_tracking && item?.new_status) ? 
+                                                                        <img src={require('./../../assets/images/logo-ctm.png')} className="img-fluid blur-up lazyload" alt="CTM"/>
+                                                                        :
+                                                                        ((item?.shipping_method_id && item?.shipping_method_id == 16) ? 
+                                                                            <img src={require('./../../assets/images/ecowatt-log.jpeg')} className="img-fluid blur-up lazyload" alt="Ecowatt"/>
+                                                                            :
+                                                                            <img src={require('./../../assets/images/in-place.png')} className="img-fluid blur-up lazyload" alt="In-place"/>
+                                                                        )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
 
+                                                    {(item?.new_tracking && item?.new_status) ? 
                                                         <div className="col-12 overflow-hidden">
                                                             <ol className="progtrckr">
                                                                 <li className={(currentStatus(item?.new_status) >= 1 && currentStatus(item?.new_status) < 5) ? "progtrckr-done" : "progtrckr-todo"}>
@@ -308,11 +364,11 @@ export default function MyOrders() {
                                                                 }
                                                             </ol>
                                                         </div>
-                                                    </div>
+                                                    :
+                                                        null
+                                                    }
                                                 </div>
-                                            :
-                                                null
-                                            }
+                                            </div>
                                         </div>
                                     </div>
                                 )}

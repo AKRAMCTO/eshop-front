@@ -180,7 +180,14 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                     <Link to={`/product/${product?.slug}`}><h6 className="name">{product?.title}</h6></Link>
                     {(!isHorizontal) ? 
                         <>
-                            <h6 className="price theme-color">{product?.price_ttc} <span>DH TTC</span></h6>
+                            {(product?.new_price && product?.new_price?.discount) ? 
+                                <h6 className="price theme-color">
+                                    {product?.new_price?.new_price} DH TTC
+                                    <span>{product?.price_ttc} DH TTC</span>
+                                </h6>
+                            :
+                                <h6 className="price theme-color">{product?.price_ttc} DH TTC</h6>
+                            }
                             <div className="add-to-cart-box">
                                 <div className={`cart_qty qty-box`}>
                                     <div className="input-group bg-white">
@@ -242,7 +249,14 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                 }
                 {(isHorizontal) ?
                     <div className='horizontal-quantity-box'>
-                        <h6 className="price theme-color">{product?.price_ttc} <span>DH TTC</span></h6>
+                        {(product?.new_price && product?.new_price?.discount) ? 
+                            <h6 className="price theme-color">
+                                {product?.new_price?.new_price} DH TTC
+                                <span>{product?.price_ttc} DH TTC</span>
+                            </h6>
+                        :
+                            <h6 className="price theme-color">{product?.price_ttc} DH TTC</h6>
+                        }
                         <div className="add-to-cart-box">
                             <div className={`cart_qty qty-box`}>
                                 <div className="input-group bg-white">

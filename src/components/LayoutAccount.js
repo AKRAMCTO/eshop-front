@@ -71,6 +71,32 @@ export default function LayoutAccount({ type, children }) {
                   </Link>
                 </li>
 
+                {['individual', 'professional', 'seller'].includes(userData?.type) ?
+                  <>
+                    <li className="nav-item">
+                      <Link 
+                        className={`nav-link ${type === 'invoices' && 'active'}`} 
+                        to={`/account/invoices`}
+                      >
+                        <ShoppingBag />
+                        Factures
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link 
+                        className={`nav-link ${type === 'bls' && 'active'}`} 
+                        to={`/account/bls`}
+                      >
+                        <ShoppingBag />
+                        Bon de livraison
+                      </Link>
+                    </li>
+                  </>
+                  :
+                  <div />
+                }
+
                 <li className="nav-item">
                   <Link 
                     className={`nav-link ${type === 'wishlist' && 'active'}`} 

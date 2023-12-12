@@ -13,6 +13,7 @@ import { Check, Heart, Minus, Plus, ShoppingCart } from "react-feather";
 import { CartAndWishlistProvider } from "../contexts/CartAndWishlistContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import Tabs from "../components/Product/Tabs";
+import BannerHorizontal from "../components/BannerHorizontal";
 import moment from "moment";
 import 'moment/locale/fr';
 import { DataProvider } from "../contexts/DataContext";
@@ -155,11 +156,15 @@ export default function Product() {
 
                                 <div className="col-xl-6 wow fadeInUp">
                                     <div className="right-box-contain">
-                                        {/* <h6 className="offer-top">30% Off</h6> */}
-                                        <h6 className="mb-2 font-bold">#{data?.ref}</h6>
+                                        {(data?.new_price && data?.new_price?.discount) && <h6 className="offer-top">{data?.new_price?.discount}% de réduction</h6>}
+                                        {/* <h6 className="mb-2 font-bold">#{data?.ref}</h6> */}
                                         <h2 className="name">{data?.title}</h2>
                                         <div className="price-rating">
-                                            <h3 className="theme-color price">{data?.price_ttc} DH TTC</h3>
+                                            {(data?.new_price && data?.new_price?.discount) ? 
+                                                <h3 className="theme-color price">{data?.new_price?.new_price} DH TTC<span>{data?.price_ttc} DH TTC</span></h3>
+                                                :
+                                                <h3 className="theme-color price">{data?.price_ttc} DH TTC</h3>
+                                            }
                                         </div>
 
                                         {(data?.description) ?
@@ -388,6 +393,20 @@ export default function Product() {
                 :
                 null
             } 
+
+            {(settings && settings?.banners === 'on') ? 
+                <section className="banner-section">
+                    <div className="container-fluid-lg">
+                        <div className="row">
+                            <div className="col-12">
+                                <BannerHorizontal keyBanner={'CSP1'} />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            : 
+                <div />
+            }
         </Layout>
     );
 }
