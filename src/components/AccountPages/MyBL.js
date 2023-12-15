@@ -13,7 +13,6 @@ const PageSize = 1
 
 export default function MyBL() {
     const {userData}  = useContext(AuthProvider)
-    const [selectedOrder, setSelectedOrder] = useState(null)
     const [page, setPage] = useState(1)
     const [maxPages, setMaxPages] = useState(1)
     const [copyOrders, setCopyOrders] = useState([])
@@ -110,7 +109,9 @@ export default function MyBL() {
         return copylistOrders;
     }
     useEffect(() => {
-        if(!isLoading && !isFetching) setLoading(false)
+        if(!isLoading) {
+            setLoading(false)
+        }
     }, [orders])
 
     const downloadFile = async (file) => {

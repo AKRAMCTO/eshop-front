@@ -110,7 +110,9 @@ export default function MyInvoices() {
         return copylistOrders;
     }
     useEffect(() => {
-        if(!isLoading && !isFetching) setLoading(false)
+        if(!isLoading) {
+            setLoading(false)
+        }
     }, [orders])
 
     const downloadFile = async (file) => {
