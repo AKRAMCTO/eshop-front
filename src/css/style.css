@@ -12925,6 +12925,9 @@ header .offcanvas-backdrop {
   display: flex;
   align-items: center;
 }
+.product-list li .offer-product .offer-detail > div{
+  width: 100%;
+}
 [dir=rtl] .product-list li .offer-product .offer-detail {
   padding-left: unset;
   padding-right: calc(12px + 11 * (100vw - 320px) / 1600);
