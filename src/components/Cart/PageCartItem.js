@@ -61,7 +61,7 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
         <>
             <tr>
                 <td colSpan={5} className='pb-2 pt-3 border-0'>
-                    <p className={`m-0`}>
+                    <p className={`m-0 text-danger font-bold`}>
                         - Si vous commandez maintenant, vous recevrez votre commande le {dateDelivery}
                     </p>
                 </td>
