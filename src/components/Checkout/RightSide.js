@@ -3,9 +3,12 @@ import { CartAndWishlistProvider } from '../../contexts/CartAndWishlistContext';
 import { TailSpin } from 'react-loader-spinner';
 import SuccessSnackbar from '../SuccessSnackbar';
 import ErrorSnackbar from '../ErrorSnackbar';
+import moment from 'moment';
 
 export default function RightSide({ cartCalculation, orderSuccess, orderError, loading, isConfirmed, handleSubmitting }) {
     const { cartItems } = useContext(CartAndWishlistProvider);
+
+    var fr = moment().locale('fr');
 
     return (
         <div className="col-lg-4">
@@ -17,16 +20,21 @@ export default function RightSide({ cartCalculation, orderSuccess, orderError, l
 
                     <ul className="summery-contain">
                         {cartItems.map((item, key) =>
-                            <li key={`checkout-cart-item-${key}`}>
-                                <img src={item?.image_link} className="img-fluid blur-up lazyloaded checkout-image" alt={item?.name} />
-                                <h4>{item?.name} <span>X {item?.quantity}</span></h4>
-                                {/* <h4 className="price">{item?.total} DH TTC</h4> */}
-                                {(item?.discount && item?.new_price) ? 
-                                    <h4 className='price'>{item?.total} DH TTC <del className="text-content">-{item?.new_price?.discount}% Remise</del></h4>
-                                    :
-                                    <h4 className='price'>{item?.total} DH TTC</h4>
-                                }
-                            </li>
+                            <>
+                                <li key={`checkout-cart-item-${key}`}>
+                                    <img src={item?.image_link} className="img-fluid blur-up lazyloaded checkout-image" alt={item?.name} />
+                                    <h4>{item?.name} <span>X {item?.quantity}</span></h4>
+                                    {/* <h4 className="price">{item?.total} DH TTC</h4> */}
+                                    {(item?.discount && item?.new_price) ? 
+                                        <h4 className='price'>{item?.total} DH TTC <del className="text-content">-{item?.new_price?.discount}% Remise</del></h4>
+                                        :
+                                        <h4 className='price'>{item?.total} DH TTC</h4>
+                                    }
+                                </li>
+                                <p className={`mb-3 mt-0 text-primary font-bold`} style={{'lineHeight': '1.1'}}>
+                                    - Si vous commandez cet article, vous recevrez votre commande le {(item?.is_active === 1) ? fr.add(7, 'days').format('dddd D MMMM YYYY') : fr.add(30, 'days').format('dddd D MMMM YYYY')}
+                                </p>
+                            </>
                         )}
                     </ul>
 
