@@ -10,6 +10,9 @@ p{
   margin-bottom: calc(11px + 9 * (100vw - 320px) / 1600);
 }
 
+.text-primary{
+  color: #e42d32 !important;
+}
 .text-orange{
   color: #ff4d02;
 }
@@ -21,7 +24,7 @@ p{
   position: relative;
 }
 .error-form{
-  color: red;
+  color: #e42d32;
   display: block;
   margin-bottom: 20px;
   font-size: 12px;
