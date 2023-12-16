@@ -12,7 +12,7 @@ import PageCartItem from '../components/Cart/PageCartItem';
 
 export default function Cart() {
   const { isLoggedIn, authenticationLoading, authenticationFetching, userData } = useContext(AuthProvider);
-  const { cartItems, getCartItemsGuestLoading, cartCalculation, 
+  const { cartItems, getCartItemsGuestLoading, cartItemsLoading, cartCalculation, 
     removeFromCartMutation, removeGuestCartItem, updateToCartMutation, storeGuestCartItem
   } = useContext(CartAndWishlistProvider)
   const [loading, setLoading] = useState(null);
@@ -60,14 +60,14 @@ export default function Cart() {
       <section className="cart-section section-b-space">
         <div className="container-fluid-lg">
           <div className="row g-sm-5 g-3">
-            {getCartItemsGuestLoading ?
+            {(getCartItemsGuestLoading || cartItemsLoading) ?
               <div className="col-12 min-vh-100 px-4 py-2 d-flex align-items-center justify-content-center">
                 <InfinitySpin
                   type="ThreeDots"
                   color="#2A3466"
                   height={220}
                   width={220}
-                  visible={getCartItemsGuestLoading}
+                  visible={(getCartItemsGuestLoading || cartItemsLoading)}
                 />
               </div>
               : ((cartItems && cartItems.length) ?
