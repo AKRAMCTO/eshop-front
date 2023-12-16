@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { AuthProvider } from '../../contexts/AuthContext';
 import { TailSpin } from 'react-loader-spinner';
 
+import moment from "moment";
+import 'moment/locale/fr';
+
 export default function PageCartItem({ item, loading, handleUpdateToCard, RemoveCartItem }) {
     const { isLoggedIn } = useContext(AuthProvider)
     const [ quantity, setQuantity ] = useState(item?.quantity)
@@ -50,72 +53,84 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
         RemoveCartItem(id)
     };
 
+    var fr = moment().locale('fr');
+    var dateDelivery = (item?.is_active === 1) ? fr.add(7, 'days').format('dddd D MMMM YYYY') : fr.add(30, 'days').format('dddd D MMMM YYYY')
+
+
     return (
-        <tr className="product-box-contain">
-            <td className="product-detail">
-                <div className="product border-0">
-                    <Link to={`/product/${item?.slug}`} className="product-image">
-                        <img src={item?.image_link} className="img-fluid blur-up lazyload" alt={item?.name} />
-                    </Link>
-                    <div className="product-detail">
-                        <ul>
-                            <li className="name">
-                                <Link to={`/product/${item?.slug}`}>{item?.name}</Link>
-                            </li>
-                            {/* <li className="text-content"><span className="text-title">Sold By:</span> Fresho</li> */}
-                            <li className="text-content d-inline-block"><span className="text-title">Quantité</span> x{quantity}</li>
-                        </ul>
-                    </div>
-                </div>
-            </td>
-
-            <td className="price">
-                {(item?.discount && item?.new_price) ? 
-                    <h5 className='text-center'>{item?.discount} DH TTC <del className="text-content">{item?.price} DH TTC</del></h5>
-                    :
-                    <h5 className='text-center'>{item?.price} DH TTC</h5>
-                }
-            </td>
-
-            <td className="quantity">
-                <div className="quantity-price">
-                    <div className="cart_qty">
-                        <div className="input-group">
-                            <button type="button" className="btn qty-left-minus" onClick={() => toggleQuantity('minus')}>
-                                <Minus />
-                            </button>
-                            <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
-                            <button type="button" className="btn qty-right-plus" onClick={() => toggleQuantity('plus')}>
-                                <Plus />
-                            </button>
+        <>
+            <tr>
+                <td colSpan={5} className='pb-2 pt-3 border-0'>
+                    <p className={`m-0`}>
+                        - Si vous commandez maintenant, vous recevrez votre commande le {dateDelivery}
+                    </p>
+                </td>
+            </tr>
+            <tr className="product-box-contain">
+                <td className="product-detail pt-0">
+                    <div className="product border-0">
+                        <Link to={`/product/${item?.slug}`} className="product-image">
+                            <img src={item?.image_link} className="img-fluid blur-up lazyload" alt={item?.name} />
+                        </Link>
+                        <div className="product-detail">
+                            <ul>
+                                <li className="name">
+                                    <Link to={`/product/${item?.slug}`}>{item?.name}</Link>
+                                </li>
+                                {/* <li className="text-content"><span className="text-title">Sold By:</span> Fresho</li> */}
+                                <li className="text-content d-inline-block"><span className="text-title">Quantité</span> x{quantity}</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </td>
+                </td>
 
-            <td className="subtotal">
-                {(item?.discount && item?.new_price) ? 
-                    <h5 className='text-center'>{item?.total} DH TTC <del className="text-content">-{item?.new_price?.discount}% Remise</del></h5>
-                    :
-                    <h5 className='text-center'>{item?.total} DH TTC</h5>
-                }
-            </td>
+                <td className="price pt-0">
+                    {(item?.discount && item?.new_price) ? 
+                        <h5 className='text-center'>{item?.discount} DH TTC <del className="text-content">{item?.price} DH TTC</del></h5>
+                        :
+                        <h5 className='text-center'>{item?.price} DH TTC</h5>
+                    }
+                </td>
 
-            <td className="save-remove">
-                {/* <a className="save notifi-wishlist">Garder pour plus tard</a> */}
-                <button type="button" className="remove close_button" onClick={RemoveItem}>Retirer</button>
-            </td>
+                <td className="quantity pt-0">
+                    <div className="quantity-price">
+                        <div className="cart_qty">
+                            <div className="input-group">
+                                <button type="button" className="btn qty-left-minus" onClick={() => toggleQuantity('minus')}>
+                                    <Minus />
+                                </button>
+                                <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                <button type="button" className="btn qty-right-plus" onClick={() => toggleQuantity('plus')}>
+                                    <Plus />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
 
-            {loading &&
-                <div className='laoding-cart-item'>
-                    <TailSpin
-                        type="ThreeDots"
-                        color="#2A3466"
-                        height={35}
-                        width={35}
-                    />
-                </div>
-            }
-        </tr>
+                <td className="subtotal pt-0">
+                    {(item?.discount && item?.new_price) ? 
+                        <h5 className='text-center'>{item?.total} DH TTC <del className="text-content">-{item?.new_price?.discount}% Remise</del></h5>
+                        :
+                        <h5 className='text-center'>{item?.total} DH TTC</h5>
+                    }
+                </td>
+
+                <td className="save-remove pt-0">
+                    {/* <a className="save notifi-wishlist">Garder pour plus tard</a> */}
+                    <button type="button" className="remove close_button" onClick={RemoveItem}>Retirer</button>
+                    {loading &&
+                        <div className='laoding-cart-item'>
+                            <TailSpin
+                                type="ThreeDots"
+                                color="#2A3466"
+                                height={35}
+                                width={35}
+                            />
+                        </div>
+                    }
+                </td>
+            </tr>
+        </>
     )
 }
