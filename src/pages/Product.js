@@ -156,8 +156,8 @@ export default function Product() {
 
                                 <div className="col-xl-6 wow fadeInUp">
                                     <div className="right-box-contain">
+                                        <h6 className="mb-2 font-bold">#{data?.ref}</h6>
                                         {(data?.new_price && data?.new_price?.discount) && <h6 className="offer-top">{data?.new_price?.discount}% de réduction</h6>}
-                                        {/* <h6 className="mb-2 font-bold">#{data?.ref}</h6> */}
                                         <h2 className="name">{data?.title}</h2>
                                         <div className="price-rating">
                                             {(data?.new_price && data?.new_price?.discount) ? 
