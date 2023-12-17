@@ -31,9 +31,13 @@ export default function RightSide({ cartCalculation, orderSuccess, orderError, l
                                         <h4 className='price'>{item?.total} DH TTC</h4>
                                     }
                                 </li>
-                                <p className={`mb-3 mt-0 text-primary font-bold`} style={{'lineHeight': '1.1'}}>
-                                    - Si vous commandez cet article, vous recevrez votre commande le {(item?.is_active === 1) ? fr.add(7, 'days').format('dddd D MMMM YYYY') : fr.add(30, 'days').format('dddd D MMMM YYYY')}
-                                </p>
+                                {(item?.is_active === 2) ? 
+                                    <p className={`mb-3 mt-0 text-primary font-bold`} style={{'lineHeight': '1.1'}}>
+                                        - Si vous commandez cet article, vous recevrez votre commande le {fr.add(30, 'days').format('dddd D MMMM YYYY')}
+                                    </p>
+                                    :
+                                    <div />
+                                }
                             </>
                         )}
                     </ul>

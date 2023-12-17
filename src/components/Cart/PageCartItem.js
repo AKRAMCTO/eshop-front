@@ -54,18 +54,20 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
     };
 
     var fr = moment().locale('fr');
-    var dateDelivery = (item?.is_active === 1) ? fr.add(7, 'days').format('dddd D MMMM YYYY') : fr.add(30, 'days').format('dddd D MMMM YYYY')
-
 
     return (
         <>
-            <tr>
-                <td colSpan={5} className='pb-2 pt-3 border-0'>
-                    <p className={`m-0 text-primary font-bold`}>
-                        - Si vous commandez cet article, vous recevrez votre commande le {dateDelivery}
-                    </p>
-                </td>
-            </tr>
+            {(item?.is_active === 2) ? 
+                <tr>
+                    <td colSpan={5} className='pb-2 pt-3 border-0'>
+                        <p className={`m-0 text-primary font-bold`}>
+                            - Si vous commandez cet article, vous recevrez votre commande le {fr.add(30, 'days').format('dddd D MMMM YYYY')}
+                        </p>
+                    </td>
+                </tr>
+                :
+                <div className='pb-2 pt-3'></div>
+            }
             <tr className="product-box-contain">
                 <td className="product-detail pt-0">
                     <div className="product border-0">
