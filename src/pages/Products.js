@@ -215,7 +215,7 @@ export default function Products() {
         setListCategories(data?.categories)
         setListBrands(data?.brands)
         setListProperties(data?.properties)
-        setMaxPages(data?.last_page)
+        setMaxPages(data?.data?.last_page)
         setShowProperties(data?.old)
         setIsLoadingProducts(false)
         // window.scrollTo(0, 0)

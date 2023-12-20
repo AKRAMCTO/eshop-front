@@ -263,8 +263,10 @@ export const getFeaturedBrands = async () => {
 
 // Products
 export const getBestOffers = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-offers`);
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-offers`, config);
         if (res.data.status === true) {
             return res.data.data;
         }
@@ -273,8 +275,10 @@ export const getBestOffers = async () => {
     }
 };
 export const getBestSellers = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-sellers`);
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/best-sellers`, config);
         if (res.data.status === true) {
             return res.data.data;
         }
@@ -283,8 +287,10 @@ export const getBestSellers = async () => {
     }
 };
 export const getSingleProduct = async (keyPage) => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const res = await axios.get(`${REACT_APP_MAIN_URL}/product/${keyPage}`);
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/product/${keyPage}`, config);
         if (res.data.status === true) {
             return res.data.data;
         }
@@ -294,8 +300,10 @@ export const getSingleProduct = async (keyPage) => {
     }
 };
 export const getProducts = async (params) => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const res = await axios.post(`${REACT_APP_MAIN_URL}/products`, params);
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.post(`${REACT_APP_MAIN_URL}/products`, params, config);
         if (res.data.status === true) {
             return res.data;
         }
@@ -316,8 +324,10 @@ export const getSearchProducts = async (params) => {
     }
 };
 export const getFilterCategories = async () => {
+    const token = localStorage.getItem('ecowattAuthToken');
     try {
-        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-categories`);
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${REACT_APP_MAIN_URL}/filter-categories`, config);
         if (res.data.status === true) {
             return res.data;
         }

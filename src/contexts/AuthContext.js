@@ -100,6 +100,7 @@ export default function AuthContextProvider({ children }) {
             return { userData: { userId: null, userData: null, isLoggedIn: false } };
         });
         localStorage.removeItem('ecowattAuthToken');
+        window.location.reload()
     });
 
 
