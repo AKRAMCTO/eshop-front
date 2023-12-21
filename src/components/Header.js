@@ -111,7 +111,7 @@ export default function Heade() {
                                                     </div>
                                                     {(!isMobile) &&
                                                         <div className="delivery-detail">
-                                                            <h6>Recevez un apple gratuit</h6>
+                                                            <h6>Recevez un Appel gratuit</h6>
                                                         </div>
                                                     }
                                                 </div>

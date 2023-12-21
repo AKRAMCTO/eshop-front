@@ -74,7 +74,17 @@ export default function Products() {
         if(products.length > 0 && startLoad) {
             fetchProducts()
         }
-    }, [ page ]) // sort, number
+    }, [ page ])
+    useEffect(() => {
+        if(products.length > 0 && startLoad && page === 1) {
+            fetchProducts()
+        }
+    }, [ sort ])
+    useEffect(() => {
+        if(products.length > 0 && startLoad && page === 1) {
+            fetchProducts()
+        }
+    }, [ number ])
 
     const curentUrl = () => {
         let urlCategories = categories.length ? `categories=${categories.toString()}` : ''
