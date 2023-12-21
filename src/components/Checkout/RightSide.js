@@ -9,6 +9,7 @@ export default function RightSide({ cartCalculation, orderSuccess, orderError, l
     const { cartItems } = useContext(CartAndWishlistProvider);
 
     var fr = moment().locale('fr');
+    const newDate = fr.add(30, 'days').format('dddd D MMMM YYYY')
 
     return (
         <div className="col-lg-4">
@@ -33,7 +34,7 @@ export default function RightSide({ cartCalculation, orderSuccess, orderError, l
                                 </li>
                                 {(item?.is_active === 2) ? 
                                     <p className={`mb-3 mt-0 text-primary font-bold`} style={{'lineHeight': '1.1'}}>
-                                        - Si vous commandez cet article, vous recevrez votre commande le {fr.add(30, 'days').format('dddd D MMMM YYYY')}
+                                        - Si vous commandez cet article, vous recevrez votre commande le {newDate}
                                     </p>
                                     :
                                     <div />

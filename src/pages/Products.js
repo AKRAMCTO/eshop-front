@@ -65,18 +65,16 @@ export default function Products() {
     }, [location])
 
     useEffect(() => {
-        console.log('startLoad 0 => ', startLoad)
         if(startLoad) {
             fetchProducts()
         }
     }, [ categories, brands, properties, startLoad ])
 
     useEffect(() => {
-        console.log('startLoad 1 => ', startLoad)
         if(products.length > 0 && startLoad) {
             fetchProducts()
         }
-    }, [ page, sort, number])
+    }, [ page ]) // sort, number
 
     const curentUrl = () => {
         let urlCategories = categories.length ? `categories=${categories.toString()}` : ''
@@ -231,11 +229,13 @@ export default function Products() {
     const handleSort = (selected) => {
         if(selected !== sort) {
             setSort(selected)
+            setPage(1)
         }
     }
     const handleNumber = (selected) => {
         if(selected !== number) {
             setNumber(selected)
+            setPage(1)
         }
     }
     const handlePage = (selected) => {

@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthProvider } from '../../contexts/AuthContext';
 import { TailSpin } from 'react-loader-spinner';
 
-import moment from "moment";
-import 'moment/locale/fr';
-
-export default function PageCartItem({ item, loading, handleUpdateToCard, RemoveCartItem }) {
+export default function PageCartItem({ newDate, item, loading, handleUpdateToCard, RemoveCartItem }) {
     const { isLoggedIn } = useContext(AuthProvider)
     const [ quantity, setQuantity ] = useState(item?.quantity)
     const [ load, setLoad ] = useState(false)
@@ -53,7 +50,6 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
         RemoveCartItem(id)
     };
 
-    var fr = moment().locale('fr');
 
     return (
         <>
@@ -61,7 +57,7 @@ export default function PageCartItem({ item, loading, handleUpdateToCard, Remove
                 <tr>
                     <td colSpan={5} className='pb-2 pt-3 border-0'>
                         <p className={`m-0 text-primary font-bold`}>
-                            - Si vous commandez cet article, vous recevrez votre commande le {fr.add(30, 'days').format('dddd D MMMM YYYY')}
+                            - Si vous commandez cet article, vous recevrez votre commande le {newDate}
                         </p>
                     </td>
                 </tr>

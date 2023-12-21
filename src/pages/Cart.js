@@ -9,6 +9,8 @@ import { CartAndWishlistProvider } from '../contexts/CartAndWishlistContext';
 import Breadcrumb from '../components/Breadcrumb';
 import Layout from '../components/Layout';
 import PageCartItem from '../components/Cart/PageCartItem';
+import moment from 'moment';
+import 'moment/locale/fr';
 
 export default function Cart() {
   const { isLoggedIn, authenticationLoading, authenticationFetching, userData } = useContext(AuthProvider);
@@ -20,6 +22,9 @@ export default function Cart() {
   if (authenticationLoading || authenticationFetching) {
     return <div />
   }
+
+  var fr = moment().locale('fr');
+  const newDate = fr.add(30, 'days').format('dddd D MMMM YYYY')
 
   const handleUpdateToCard  = async (data) => {
     setLoading(data?.id);
@@ -87,7 +92,7 @@ export default function Cart() {
                         <table className="table">
                           <tbody>
                             {cartItems.map((item, key) =>
-                              <PageCartItem key={`cart-item-${key}`} item={item} loading={loading} handleUpdateToCard={handleUpdateToCard} RemoveCartItem={RemoveCartItem} />
+                              <PageCartItem key={`cart-item-${key}`} newDate={newDate} item={item} loading={loading} handleUpdateToCard={handleUpdateToCard} RemoveCartItem={RemoveCartItem} />
                             )}
                           </tbody>
                         </table>
