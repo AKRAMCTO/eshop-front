@@ -90,6 +90,16 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
             }
         }
     };
+    const addQuantity  = async (value) => {
+        if(product?.is_active === 1 || product?.is_active === 2){
+            if(value > 1){
+                setQuantity(parseInt(value))
+            }else{
+                setQuantity(1)
+            }
+        }
+    };
+
     const handleAddToCard = async () => {
         // console.log('handleAddToCard')
         // console.log(quantity + ' -- ' + currentQuantity)
@@ -199,7 +209,14 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                         >
                                             <Minus />
                                         </button>
-                                        <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                        <input 
+                                            type="number"
+                                            step={1} 
+                                            min={1} 
+                                            onChange={(event) => addQuantity(event?.target?.value)} 
+                                            className="form-control input-number qty-input" 
+                                            value={quantity} 
+                                        />
                                         <button 
                                             type="button"
                                             disabled={addLoadingCart}
@@ -268,7 +285,14 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                     >
                                         <Minus />
                                     </button>
-                                    <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                    <input 
+                                        type="number"
+                                        step={1} 
+                                        min={1} 
+                                        onChange={(event) => addQuantity(event?.target?.value)} 
+                                        className="form-control input-number qty-input" 
+                                        value={quantity} 
+                                    />
                                     <button 
                                         type="button"
                                         disabled={addLoadingCart}

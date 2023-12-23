@@ -38,6 +38,18 @@ export default function PageCartItem({ newDate, item, loading, handleUpdateToCar
             setQuantityUpdated(true)
         }
     };
+    const addQuantity  = async (value) => {
+        if(value > 1){
+            setQuantity(parseInt(value))
+            // setQuantityUpdated(true)
+        }else{
+            setQuantity(1)
+            // setQuantityUpdated(true)
+        }
+    };
+    const blurQuantity  = async () => {
+        setQuantityUpdated(true)
+    };
 
     const updateItem = async () => {
         // let data = (isLoggedIn) ? item?.cart_id : item?.id
@@ -97,7 +109,15 @@ export default function PageCartItem({ newDate, item, loading, handleUpdateToCar
                                 <button type="button" className="btn qty-left-minus" onClick={() => toggleQuantity('minus')}>
                                     <Minus />
                                 </button>
-                                <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                <input 
+                                    type="number"
+                                    step={1} 
+                                    min={1} 
+                                    onBlur={() => blurQuantity()} 
+                                    onChange={(event) => addQuantity(event?.target?.value)} 
+                                    className="form-control input-number qty-input" 
+                                    value={quantity} 
+                                />
                                 <button type="button" className="btn qty-right-plus" onClick={() => toggleQuantity('plus')}>
                                     <Plus />
                                 </button>

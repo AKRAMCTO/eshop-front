@@ -71,6 +71,13 @@ export default function Product() {
             setQuantity(quantity + 1)
         }
     };
+    const addQuantity  = async (value) => {
+        if(value > 1){
+            setQuantity(parseInt(value))
+        }else{
+            setQuantity(1)
+        }
+    };
 
     const handleAddToCart = async () => {
         setAddLoadingCart(true);
@@ -251,7 +258,14 @@ export default function Product() {
                                                             >
                                                                 <Minus />
                                                             </button>
-                                                            <input className="form-control input-number qty-input" type="text" readOnly value={quantity} />
+                                                            <input 
+                                                                type="number"
+                                                                step={1} 
+                                                                min={1} 
+                                                                onChange={(event) => addQuantity(event?.target?.value)} 
+                                                                className="form-control input-number qty-input" 
+                                                                value={quantity} 
+                                                            />
                                                             <button 
                                                                 type="button" 
                                                                 className="qty-right-plus"
