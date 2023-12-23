@@ -27,7 +27,7 @@ export default function BannerHorizontal({ keyBanner }) {
                 
             :
             data ? 
-                <div className="banner-contain-3 section-b-space section-t-space hover-effect overflow-visible bg-size" style={{ backgroundImage: `url(${currentImage()})` }}>
+                <div className="banner-contain-3 hover-effect overflow-visible bg-size">
                     <Link to={data?.link}>
                         <img
                             src={currentImage()}
