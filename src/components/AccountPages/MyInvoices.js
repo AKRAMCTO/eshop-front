@@ -13,7 +13,7 @@ const PageSize = 1
 
 export default function MyInvoices() {
     const {userData}  = useContext(AuthProvider)
-    const [selectedOrder, setSelectedOrder] = useState(null)
+    // const [selectedOrder, setSelectedOrder] = useState(null)
     const [page, setPage] = useState(1)
     const [maxPages, setMaxPages] = useState(1)
     const [copyOrders, setCopyOrders] = useState([])

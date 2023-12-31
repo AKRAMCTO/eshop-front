@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Loading from './Loading';
 import { Link, Redirect } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
@@ -13,6 +13,12 @@ export default function LayoutAccount({ type, children }) {
   const toggleMenu = (status) => {
     setMenu(status)
   }
+
+  useEffect(() => {
+      if(type) {
+        setMenu(false)
+      }
+  }, [type])
 
   return (
     <section className="user-dashboard-section section-b-space">

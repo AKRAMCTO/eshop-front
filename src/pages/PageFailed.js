@@ -25,7 +25,7 @@ export default function PageFailed() {
           <div className="row">
             <div className="col-12">
               <div className="breadscrumb-contain breadscrumb-order">
-                <div className="order-box">
+                <div className="order-box failed-order">
                   <div className="order-image">
                     <div className="checkmark">
                       <ThumbsDown />

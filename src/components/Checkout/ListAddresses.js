@@ -22,6 +22,12 @@ export default function ListAddresses({ loading, defaultChecked, checkTheSameAdd
         }
     }
 
+    useEffect(() => {
+        if(type === "delivery" && !current && addresses.length){
+            saveAddress(addresses[0]?.id)
+        }
+    }, [addresses])
+
     // const checkTheSameAddress = (event) => {
     //     // console.log('event => ', event)
     //     setDefaultChecked(event)

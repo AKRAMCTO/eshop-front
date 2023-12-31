@@ -93,16 +93,15 @@ export default function Heade() {
                                         </div>
                                     </div>
                                     <ul className="right-side-menu">
-                                        <li className="right-side">
+                                        {/* <li className="right-side">
                                             <div className="delivery-login-box">
                                                 <div className="delivery-icon">
                                                     <div className="search-box">
                                                         <Search />
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> */}
                                         <li className={`right-side d-block`}>
                                             <div className="onhover-dropdown">
                                                 <div className="delivery-login-box easy-contact">
@@ -148,7 +147,7 @@ export default function Heade() {
                                         <Link to={`/devenir-vendeur`} className="header-nav-right">
                                             <button className="btn deal-button">
                                                 <Zap />
-                                                <span>Devenir vendeur</span>
+                                                <span>Devenir un revendeur</span>
                                             </button>
                                         </Link>
                                     :

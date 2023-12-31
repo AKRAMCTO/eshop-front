@@ -138,15 +138,15 @@ export default function AuthContextProvider({ children }) {
     /**
      * List Orders
      */
-    const {
-        data: listOrders,
-        isLoading: ordersLoading,
-        isFetching: ordersFetching
-    } = useQuery('orders', getOrders, {
-        retry: 1,
-        enabled: ((data?.userData?.id) ? true : false),
-        refetchOnWindowFocus: false
-    });
+    // const {
+    //     data: listOrders,
+    //     isLoading: ordersLoading,
+    //     isFetching: ordersFetching
+    // } = useQuery('orders', getOrders, {
+    //     retry: 1,
+    //     enabled: ((data?.userData?.id) ? true : false),
+    //     refetchOnWindowFocus: false
+    // });
 
     return (
         <AuthProvider.Provider
@@ -171,10 +171,10 @@ export default function AuthContextProvider({ children }) {
                 successAuthContext,
                 emptySuccessAuthContext,
 
-                listOrders,
-                listOrdersCounter: listOrders?.length ?? 0,
-                ordersLoading,
-                ordersFetching
+                // listOrders,
+                // listOrdersCounter: listOrders?.length ?? 0,
+                // ordersLoading,
+                // ordersFetching
             }}
         >
             {children}

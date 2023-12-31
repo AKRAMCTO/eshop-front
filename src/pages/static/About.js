@@ -14,19 +14,13 @@ export default function About() {
         slidesToScroll: 1,
         responsive: [
             {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                }
-            },
-            {
-                breakpoint: 786,
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 2,
                 }
             },
             {
-                breakpoint: 478,
+                breakpoint: 581,
                 settings: {
                     slidesToShow: 1,
                 }

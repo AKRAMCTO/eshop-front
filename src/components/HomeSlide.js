@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { getSlide } from '../queries/queries';
 import Slider from 'react-slick';
-import { settings } from 'nprogress';
 import HomeSlideItem from './HomeSlideItem';
 
 export default function HomeSlide({ type, extraClass = null }) {
@@ -17,6 +16,8 @@ export default function HomeSlide({ type, extraClass = null }) {
         dots: true,
         infinite: true,
         speed: 500,
+        autoplaySpeed: 5000,
+        autoplay: true,
         slidesToShow: 1,
         slidesToScroll: 1
     };

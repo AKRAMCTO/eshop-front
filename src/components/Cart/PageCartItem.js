@@ -112,7 +112,7 @@ export default function PageCartItem({ newDate, item, loading, handleUpdateToCar
                                 <input 
                                     type="number"
                                     step={1} 
-                                    min={1} 
+                                    min={0} 
                                     onBlur={() => blurQuantity()} 
                                     onChange={(event) => addQuantity(event?.target?.value)} 
                                     className="form-control input-number qty-input" 

@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 import OrderStatus from "../OrderStatus";
 import Pagination from "../Products/Pagination";
 import { Package, Truck } from "react-feather";
-import { downloadFileBc } from "../../queries/queries";
+import { downloadFileBc, getOrders } from "../../queries/queries";
+import { useQuery } from "react-query";
 
 const perPage = 8
 const PageSize = 1
 
 export default function MyOrders() {
-    const {listOrders, ordersLoading, ordersFetching}  = useContext(AuthProvider)
+    const {userData}  = useContext(AuthProvider)
+    // const {listOrders, ordersLoading, ordersFetching}  = useContext(AuthProvider)
     const [selectedOrder, setSelectedOrder] = useState(null)
     const [page, setPage] = useState(1)
     const [maxPages, setMaxPages] = useState(1)
@@ -24,25 +26,38 @@ export default function MyOrders() {
     const [isFileLoading, setIsFileLoading] = useState(false)
     const [isFile, setIsFile] = useState(null)
     
+    const { data, isLoading, isFetching } = useQuery('orders', getOrders,
+        { 
+            retry: true, 
+            enabled: ((userData && (userData?.type === 'individual' || userData?.type === 'professional' || userData?.type === 'seller')) ? true : false),
+            refetchOnWindowFocus: false 
+        }
+    );
+
     // filter
     const [code, setCode] = useState('')
     const [status, setStatus] = useState('')
 
+    // useEffect(() => {
+    //     if(!isLoading && !isFetching){
+    //         setLoading(true)
+    //     }
+    // }, [ordersLoading, ordersFetching])
     useEffect(() => {
-        if(ordersLoading || ordersFetching){
-            setLoading(true)
+        if(!isLoading) {
+            setLoading(false)
         }
-    }, [ordersLoading, ordersFetching])
+    }, [orders])
 
     useEffect(() => {
         structureOrders()
-    }, [listOrders])
+    }, [data])
 
     useEffect(() => {
-        if(!ordersLoading && !ordersFetching){
-            setCopyOrders(listOrders)
+        if(!isLoading && !isFetching){
+            setCopyOrders(data)
         }
-    }, [listOrders])
+    }, [data])
 
     useEffect(() => {
         structureOrders()
@@ -85,8 +100,8 @@ export default function MyOrders() {
     const filterOrder = () => {
         let copylistOrders = []
 
-        if(listOrders && listOrders.length){
-            copylistOrders = [...listOrders]
+        if(data && data.length){
+            copylistOrders = [...data]
 
             if(code && code.length){
                 copylistOrders = copylistOrders.filter((item) => item?.ref.toLowerCase().includes(code.toLowerCase()));
@@ -102,9 +117,6 @@ export default function MyOrders() {
 
         return copylistOrders;
     }
-    useEffect(() => {
-        if(!ordersLoading && !ordersFetching) setLoading(false)
-    }, [orders])
 
     const currentStatus = (current) => {
         let status_1 = ["draft", "registred"]
@@ -189,7 +201,7 @@ export default function MyOrders() {
                 </div>
                 :
                 (
-                    (!listOrders || !listOrders.length) ?
+                    (!data || !data.length) ?
                         <h2 className="text-center my-5">Aucune commande trouvée</h2>
                 :
                     <>

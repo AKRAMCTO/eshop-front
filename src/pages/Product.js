@@ -66,32 +66,39 @@ export default function Product() {
 
     const toggleQuantity  = async (move) => {
         if(move === 'minus'){
-            if(quantity > 1) setQuantity(quantity - 1)
+            if(quantity > 0) setQuantity(quantity - 1)
         }else{
             setQuantity(quantity + 1)
         }
     };
     const addQuantity  = async (value) => {
-        if(value > 1){
+        if(value >= 0){
             setQuantity(parseInt(value))
         }else{
-            setQuantity(1)
+            setQuantity(0)
         }
+        // if(value > 1){
+        //     setQuantity(parseInt(value))
+        // }else{
+        //     setQuantity(1)
+        // }
     };
 
     const handleAddToCart = async () => {
-        setAddLoadingCart(true);
-        try {
-            if(isLoggedIn) await addToCartMutation({id: data?.id, quantity: quantity});
-            else await storeGuestCartItem({id: data?.id, quantity: quantity});
-            setAddLoadingCart(false);
-            // setAddItemInWishlist(true);
-        } catch (error) {
-            // // console.log('addToWishListMutation error => ', error)
-            // if (error.response.data.message === 'Item founded on the Wishlist') {
-            //     setAddItemInWishlist(true);
-            // }
-            setAddLoadingCart(false);
+        if(quantity > 0){
+            setAddLoadingCart(true);
+            try {
+                if(isLoggedIn) await addToCartMutation({id: data?.id, quantity: quantity});
+                else await storeGuestCartItem({id: data?.id, quantity: quantity});
+                setAddLoadingCart(false);
+                // setAddItemInWishlist(true);
+            } catch (error) {
+                // // console.log('addToWishListMutation error => ', error)
+                // if (error.response.data.message === 'Item founded on the Wishlist') {
+                //     setAddItemInWishlist(true);
+                // }
+                setAddLoadingCart(false);
+            }
         }
     };
 
@@ -261,7 +268,7 @@ export default function Product() {
                                                             <input 
                                                                 type="number"
                                                                 step={1} 
-                                                                min={1} 
+                                                                min={0} 
                                                                 onChange={(event) => addQuantity(event?.target?.value)} 
                                                                 className="form-control input-number qty-input" 
                                                                 value={quantity} 

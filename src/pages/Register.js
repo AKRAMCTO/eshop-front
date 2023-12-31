@@ -169,7 +169,7 @@ export default function Register() {
                                                     <div className="col-12 col-md-6">
                                                         <div className="form-floating theme-form-floating">
                                                             <input type="text" className="form-control" id="lname" name="lname" onChange={handleChange} onBlur={handleBlur} value={values.lname} />
-                                                            <label htmlFor="lname">Prenom</label>
+                                                            <label htmlFor="lname">Prénom</label>
                                                         </div>
                                                         <span className='error-form'>{errors.lname && touched.lname && errors.lname}</span>
                                                     </div>

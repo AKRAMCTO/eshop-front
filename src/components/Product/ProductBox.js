@@ -84,7 +84,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
     const toggleQuantity  = async (move) => {
         if(product?.is_active === 1 || product?.is_active === 2){
             if(move === 'minus'){
-                if(quantity > 1) setQuantity(quantity-1)
+                if(quantity > 0) setQuantity(quantity-1)
             }else{
                 setQuantity(quantity+1)
             }
@@ -92,11 +92,17 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
     };
     const addQuantity  = async (value) => {
         if(product?.is_active === 1 || product?.is_active === 2){
-            if(value > 1){
+            if(value >= 0){
                 setQuantity(parseInt(value))
             }else{
-                setQuantity(1)
+                setQuantity(0)
             }
+
+            // if(value > 1){
+            //     setQuantity(parseInt(value))
+            // }else{
+            //     setQuantity(1)
+            // }
         }
     };
 
@@ -212,7 +218,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                         <input 
                                             type="number"
                                             step={1} 
-                                            min={1} 
+                                            min={0} 
                                             onChange={(event) => addQuantity(event?.target?.value)} 
                                             className="form-control input-number qty-input" 
                                             value={quantity} 
@@ -288,7 +294,7 @@ export default function ProductBox({ product, isWishlist = false, isHorizontal =
                                     <input 
                                         type="number"
                                         step={1} 
-                                        min={1} 
+                                        min={0} 
                                         onChange={(event) => addQuantity(event?.target?.value)} 
                                         className="form-control input-number qty-input" 
                                         value={quantity} 

@@ -6,7 +6,7 @@ import Range from './Range';
 export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingProducts, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, showProperties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
     
     return (
-        <div className="col-12 col-md-3">
+        <div className="col-12 col-lg-3">
             {(isLoadingProducts || isLoadingCategories || isLoadingBrands || isLoadingProperties) ?
                 <div className="px-4 py-5 d-flex align-items-center justify-content-center">
                     <InfinitySpin
