@@ -276,25 +276,38 @@ export default function MyOrders() {
                                                             <img src={productItem?.image} className="blur-up lazyload" alt={productItem?.product?.title} />
                                                         </Link> */}
                                                         <div className="order-wrap">
-                                                            {/* <Link to={`/product/${productItem?.product?.slug}`}> */}
-                                                                {/* <h3>{productItem?.product?.title}</h3> */}
-                                                                <h3>{productItem?.product_label}</h3>
-                                                            {/* </Link> */}
-                                                            <ul className="product-size mt-2">
-                                                                <li>
-                                                                    <div className="size-box">
-                                                                        <h6 className="text-content">Prix : </h6>
-                                                                        {/* <h5>{productItem?.price} DH TTC</h5> */}
-                                                                        <h5>{Math.round(productItem?.total_ttc * 100) / 100} DH TTC</h5>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div className="size-box">
-                                                                        <h6 className="text-content">Quantité : </h6>
-                                                                        <h5>x{productItem?.qty}</h5>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                            {(productItem?.desc === 'Frais de livraison') ? 
+                                                                <>
+                                                                    <h3>{productItem?.desc}</h3>
+                                                                    <ul className="product-size mt-2">
+                                                                        <li>
+                                                                            <div className="size-box">
+                                                                                <h6 className="text-content">Total : </h6>
+                                                                                <h5>{Math.round(productItem?.total_ttc * 100) / 100} DH TTC</h5>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </>
+                                                            : 
+                                                                <>
+                                                                    <h3>{productItem?.product_label}</h3>
+                                                                    <ul className="product-size mt-2">
+                                                                        <li>
+                                                                            <div className="size-box">
+                                                                                <h6 className="text-content">Prix : </h6>
+                                                                                {/* <h5>{productItem?.price} DH TTC</h5> */}
+                                                                                <h5>{Math.round(productItem?.total_ttc * 100) / 100} DH TTC</h5>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div className="size-box">
+                                                                                <h6 className="text-content">Quantité : </h6>
+                                                                                <h5>x{productItem?.qty}</h5>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </>
+                                                            }
                                                         </div>
                                                     </div>
                                                 ))
