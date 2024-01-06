@@ -54,7 +54,7 @@ export default function SlideProducts({ products }) {
             :
                 <div className='row'>
                     {products.map((item, key) => 
-                        <div className="col-xxl-3 col-md-6 col-12 no-arrow" key={`related-${key}`}>
+                        <div className="col-xxl-3 col-md-6 col-12 mb-3 no-arrow" key={`related-${key}`}>
                             <ProductBox product={item?.related} key={`related-${key}`} />
                         </div>
                     )} 
