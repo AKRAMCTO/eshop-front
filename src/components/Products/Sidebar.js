@@ -154,6 +154,7 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                     listProperties.map((item, key) => 
                                         (item?.chooses) ? 
                                             <AccordionItem
+                                                key={`accordion-item-${key}`}
                                                 title={item?.label}
                                                 defaultStatus={true}
                                             >
