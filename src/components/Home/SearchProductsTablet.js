@@ -42,7 +42,7 @@ export default function SearchProductsTablet({toggleSearchTablet, status}) {
     return (
         <div className={`search-full ${status ? 'active' : ''}`}>
             <div className="input-group">
-                <span className="input-group-text">
+                <span className="input-group-text" to={`/products?search=${title}`}>
                     <Search />
                 </span>
                 <input
