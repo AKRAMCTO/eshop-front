@@ -42,9 +42,9 @@ export default function SearchProductsTablet({toggleSearchTablet, status}) {
     return (
         <div className={`search-full ${status ? 'active' : ''}`}>
             <div className="input-group">
-                <span className="input-group-text" onClick={`/products?search=${title}`}>
+                <Link className="input-group-text" to={`/products?search=${title}`}>
                     <Search />
-                </span>
+                </Link>
                 <input
                     type="text"
                     onChange={(event) => changeTitle(event.target.value)}
