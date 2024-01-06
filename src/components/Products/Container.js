@@ -18,6 +18,7 @@ export default function Container({
                                     
                                     removeItem, 
                                     // handleData, 
+                                    search, 
                                     categories, 
                                     brands, 
                                     measures, 
@@ -64,6 +65,7 @@ export default function Container({
                     listBrands={listBrands} 
                     listMeasures={listMeasures} 
                     listProperties={listProperties} 
+                    search={search} 
                     categories={categories} 
                     brands={brands} 
                     measures={measures} 

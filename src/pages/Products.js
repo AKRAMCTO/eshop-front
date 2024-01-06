@@ -22,6 +22,7 @@ export default function Products() {
     const [listProperties, setListProperties] = useState([])
 
     const [grid, setGrid] = useState(3)
+    const [search, setSearch] = useState('')
     const [categories, setCategories] = useState([])
     const [brands, setBrands] = useState([])
     const [measures, setMeasures] = useState([])
@@ -42,6 +43,9 @@ export default function Products() {
 
     useEffect(() => {
         if(('products'+location?.search) !== curentUrl()){
+            if(queryParameters.get("search")) {
+                setSearch(queryParameters.get("search"))
+            }
             if(queryParameters.get("categories")) {
                 setCategories(queryParameters.get("categories").split(","))
             }
@@ -68,7 +72,7 @@ export default function Products() {
         if(startLoad) {
             fetchProducts()
         }
-    }, [ categories, brands, properties, startLoad ])
+    }, [ categories, brands, properties, search, startLoad ])
 
     useEffect(() => {
         if(products.length > 0 && startLoad) {
@@ -98,11 +102,12 @@ export default function Products() {
 
         //     })
         // }
+        let urlSearch = search ? `&search=${search}` : ''
         let urlSort = `&sort=${sort}`
         let urlPage = `&page=${page}`
         let urlNumber = `&number=${number}`
 
-        return 'products?'+urlCategories+urlBrands+urlProperties+urlSort+urlPage+urlNumber
+        return 'products?'+urlCategories+urlBrands+urlProperties+urlSearch+urlSort+urlPage+urlNumber
     }
     const generateUrl = () => {
         let fullurl = curentUrl()
@@ -113,6 +118,7 @@ export default function Products() {
         setIsLoadingProducts(true)
         
         const res = await getProducts({
+            'search': search,
             'categories': categories,
             'brands': brands,
             'properties': properties,
@@ -203,6 +209,10 @@ export default function Products() {
     const removeItem = (selected, type) => {
         let filterResult = []
         switch(type){
+            case 'search' :
+                setPage(1)
+                setSearch('')
+            break;
             case 'categories' :
                 filterResult = categories.filter(item => item !== selected);
                 setPage(1)
@@ -220,6 +230,7 @@ export default function Products() {
 
     const handleData = (data) => {
         setProducts(data?.data?.data)
+        setListCategories(data?.categories)
         setListCategories(data?.categories)
         setListBrands(data?.brands)
         setListProperties(data?.properties)
@@ -357,6 +368,7 @@ export default function Products() {
 
                     removeItem={removeItem}
                     // handleData={handleData}
+                    search={search}
                     categories={categories}
                     brands={brands}
                     measures={measures}

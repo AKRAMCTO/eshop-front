@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DataProvider } from '../../contexts/DataContext';
 import { getSearchProducts } from '../../queries/queries';
-import { Search } from 'react-feather';
+import { Search, X } from 'react-feather';
 import { InfinitySpin } from 'react-loader-spinner';
 import useComponentVisible from '../useComponentVisible';
 
 const Icon = "https://via.placeholder.com/50x50"
 
-export default function SearchProducts() {
+export default function SearchProductsTablet({toggleSearchTablet, status}) {
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [title, setTitle] = useState('')
 
-    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
+    const { isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
     const fetchProducts = async (word) => {
         setIsLoading(true)
@@ -40,25 +40,22 @@ export default function SearchProducts() {
     }
 
     return (
-        <div className="middle-box">
-            <div className="search-box" ref={ref}>
-                <div className="input-group">
-                    <input
-                        onChange={(event) => changeTitle(event.target.value)}
-                        value={title}
-                        tabIndex={0} 
-                        type="text"
-                        className="form-control"
-                        placeholder="Rechercher sur Ecowatt" 
-                    />
-                    <Link 
-                        className="btn" 
-                        id="button-addon2"
-                        to={`/products?search=${title}`}
-                    >
-                        <Search />
-                    </Link>
-                </div>
+        <div className={`search-full ${status ? 'active' : ''}`}>
+            <div className="input-group">
+                <span className="input-group-text">
+                    <Search />
+                </span>
+                <input
+                    type="text"
+                    onChange={(event) => changeTitle(event.target.value)}
+                    value={title}
+                    tabIndex={0} 
+                    className="form-control search-type"
+                    placeholder="Rechercher sur Ecowatt"
+                />
+                <span className="input-group-text close-search" onClick={() => toggleSearchTablet(false)}>
+                    <X />
+                </span>
             </div>
             {(isComponentVisible && (title.length >= 2 || isLoading)) &&
                 <div className='search-result'>
@@ -87,7 +84,7 @@ export default function SearchProducts() {
                                 </div>
                             )
                             :
-                            <h2 className="text-center my-5">Aucune produit trouvée</h2>
+                            <h2 className="text-center py-5">Aucune produit trouvée</h2>
                         )
                     }
                 </div>

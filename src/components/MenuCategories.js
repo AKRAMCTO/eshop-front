@@ -3,22 +3,23 @@ import { AlignLeft } from 'react-feather';
 import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
 
-export default function MenuCategories() {
+export default function MenuCategories({ toggleCategories = null, status = null }) {
     const { menuCategories } = useContext(DataProvider)
 
     return (  
-        <div className="header-nav-left">
+        <div className="header-nav-left nav-categories">
             <button className="dropdown-category">
                 <AlignLeft />
                 <span>Toutes catégories</span>
             </button>
 
-            <div className="category-dropdown">
+            <div className={`category-dropdown ${status ? 'active' : ''}`}>
                 <div className="category-title">
                     <h5>Catégories</h5>
                     <button
                         type="button"
                         className="btn p-0 close-button text-content"
+                        onClick={() => toggleCategories(false)}
                     >
                         <i className="fa-solid fa-xmark"></i>
                     </button>

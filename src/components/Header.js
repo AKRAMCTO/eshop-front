@@ -12,14 +12,20 @@ import MenuCategories from './MenuCategories';
 import { DataProvider } from '../contexts/DataContext';
 import { AuthProvider } from '../contexts/AuthContext';
 import SearchProducts from './Home/SearchProducts';
+import SearchProductsTablet from './Home/SearchProductsTablet';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Heade() {
     const { settings, isMobile } = React.useContext(DataProvider);
     const { userId, authenticationFetching, authenticationLoading } = useContext(AuthProvider);
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1199 })
+    const isTabletOrMobile = useMediaQuery({ minWidth: 991 })
 
     const [ menu, setMenu ] = useState(false)
+    const [ searchTablet, setSearchTablet ] = useState(false)
 
     const toggleMenu = (value) => setMenu(value)
+    const toggleSearchTablet = (value) => setSearchTablet(value)
 
     return (
         <header className="pb-md-2 pb-0">
@@ -54,16 +60,18 @@ export default function Heade() {
                 <div className="container-fluid-lg">
                     <div className="row">
                         <div className="col-12">
-                            <div className="navbar-top">
-                                <button
-                                    className="navbar-toggler d-xl-none d-inline navbar-menu-button"
-                                    type="button"
-                                    onClick={() => toggleMenu(true)}
-                                >
-                                    <span className="navbar-toggler-icon">
-                                        <i className="fa-solid fa-bars"></i>
-                                    </span>
-                                </button>
+                            <div className={`navbar-top ${searchTablet ? 'active' : ''}`}>
+                                {isTabletOrMobile && 
+                                    <button
+                                        className="navbar-toggler d-xl-none d-inline navbar-menu-button"
+                                        type="button"
+                                        onClick={() => toggleMenu(true)}
+                                    >
+                                        <span className="navbar-toggler-icon">
+                                            <i className="fa-solid fa-bars"></i>
+                                        </span>
+                                    </button>
+                                }
                                 {(settings && settings?.store_logo) && 
                                     <Link to="/" className="web-logo nav-logo">
                                         <img
@@ -77,31 +85,23 @@ export default function Heade() {
                                 <SearchProducts />
 
                                 <div className="rightside-box">
-                                    <div className="search-full">
-                                        <div className="input-group">
-                                            <span className="input-group-text">
-                                                <Search />
-                                            </span>
-                                            <input
-                                                type="text"
-                                                className="form-control search-type"
-                                                placeholder="Rechercher sur Ecowatt"
-                                            />
-                                            <span className="input-group-text close-search">
-                                                <X />
-                                            </span>
-                                        </div>
-                                    </div>
+
+                                    {isTablet && 
+                                        <SearchProductsTablet toggleSearchTablet={toggleSearchTablet} status={searchTablet ? 'active' : ''} />
+                                    }
+                                    
                                     <ul className="right-side-menu">
-                                        {/* <li className="right-side">
-                                            <div className="delivery-login-box">
-                                                <div className="delivery-icon">
-                                                    <div className="search-box">
-                                                        <Search />
+                                        {isTablet && 
+                                            <li className="right-side">
+                                                <div className="delivery-login-box">
+                                                    <div className="delivery-icon">
+                                                        <div className="search-box" onClick={() => toggleSearchTablet(true)}>
+                                                            <Search />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li> */}
+                                            </li>
+                                        }
                                         <li className={`right-side d-block`}>
                                             <div className="onhover-dropdown">
                                                 <div className="delivery-login-box easy-contact">

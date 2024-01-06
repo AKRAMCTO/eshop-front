@@ -3,7 +3,7 @@ import { InfinitySpin } from 'react-loader-spinner';
 import AccordionItem from './AccordionItem';
 import Range from './Range';
 
-export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingProducts, isLoadingProperties, removeItem, listCategories, categories, listBrands, brands, listMeasures, measures, listProperties, properties, showProperties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
+export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingBrands, isLoadingProducts, isLoadingProperties, removeItem, listCategories, categories, search, listBrands, brands, listMeasures, measures, listProperties, properties, showProperties, handleCategoriesFilter, handleBrandsFilter, handleMeasuresFilter, handlePropertiesFilter, handleAttributes, handleShowMenu, showMenu}) {
     
     return (
         <div className="col-12 col-lg-3">
@@ -19,6 +19,13 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                 </div>
             :
                 <>
+                    {(search) ? 
+                        <div className={`selected-rows mb-3`}>
+                            <h5>Recherche</h5>
+                            <button type='button' key={`side-search`} className={`rows-tags`} onClick={() => removeItem(search, 'search')}>x {search}</button>
+                        </div>
+                        : <div />
+                    }
                     {(categories && categories.length) ? 
                         <div className={`selected-rows mb-3`}>
                             <h5>Catégories</h5>
@@ -66,6 +73,9 @@ export default function Sidebar({/* isLoading,*/ isLoadingCategories, isLoadingB
                                 <h3><i className="fa-solid fa-arrow-left"></i> Back</h3>
                             </div>
                             <div className="accordion custome-accordion">
+                                {/* <div className='form-group w-100'>
+                                    <input type="text" value={search} placeholder='Rechercher sur Ecowatt' className='form-control' />
+                                </div> */}
                                 <AccordionItem
                                     title={`Catégories`}
                                     defaultStatus={true}
