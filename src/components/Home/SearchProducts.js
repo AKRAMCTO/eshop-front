@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { DataProvider } from '../../contexts/DataContext';
+import { Link, useHistory } from 'react-router-dom';
 import { getSearchProducts } from '../../queries/queries';
 import { Search } from 'react-feather';
 import { InfinitySpin } from 'react-loader-spinner';
@@ -9,6 +8,7 @@ import useComponentVisible from '../useComponentVisible';
 const Icon = "https://via.placeholder.com/50x50"
 
 export default function SearchProducts() {
+    const history = useHistory()
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [title, setTitle] = useState('')
@@ -39,6 +39,11 @@ export default function SearchProducts() {
         }
     }
 
+    const GoToSearch = (url) => {
+        setIsComponentVisible(false)
+        history.push(url)
+    }
+
     return (
         <div className="middle-box">
             <div className="search-box" ref={ref}>
@@ -51,13 +56,13 @@ export default function SearchProducts() {
                         className="form-control"
                         placeholder="Rechercher sur Ecowatt" 
                     />
-                    <Link 
+                    <a 
                         className="btn" 
                         id="button-addon2"
-                        to={`/products?search=${title}`}
+                        onClick={() => GoToSearch(`/products?search=${title}`)}
                     >
                         <Search />
-                    </Link>
+                    </a>
                 </div>
             </div>
             {(isComponentVisible && (title.length >= 2 || isLoading)) &&

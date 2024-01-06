@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { DataProvider } from '../../contexts/DataContext';
 import { getSearchProducts } from '../../queries/queries';
 import { Search, X } from 'react-feather';
@@ -9,6 +9,7 @@ import useComponentVisible from '../useComponentVisible';
 const Icon = "https://via.placeholder.com/50x50"
 
 export default function SearchProductsTablet({toggleSearchTablet, status}) {
+    const history = useHistory()
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [title, setTitle] = useState('')
@@ -39,12 +40,17 @@ export default function SearchProductsTablet({toggleSearchTablet, status}) {
         }
     }
 
+    const GoToSearch = (url) => {
+        toggleSearchTablet(false)
+        history.push(url)
+    }
+
     return (
         <div className={`search-full ${status ? 'active' : ''}`}>
             <div className="input-group">
-                <Link className="input-group-text" to={`/products?search=${title}`}>
+                <a className="input-group-text" onClick={() => GoToSearch(`/products?search=${title}`)}>
                     <Search />
-                </Link>
+                </a>
                 <input
                     type="text"
                     onChange={(event) => changeTitle(event.target.value)}
