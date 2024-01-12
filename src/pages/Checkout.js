@@ -58,10 +58,10 @@ export default function Checkout() {
   }, [deliveryAddress, billingAddress, deliveryMethod, customer, paymentMethod])
 
   useEffect(() => {
-    console.log(
-      'deliveryAddress => ' ,deliveryAddress,
-      'deliveryMethod => ', deliveryMethod,
-    )
+    // console.log(
+    //   'deliveryAddress => ' ,deliveryAddress,
+    //   'deliveryMethod => ', deliveryMethod,
+    // )
     if(deliveryAddress && deliveryMethod && deliveryMethod !== 'in_place'){
       if(isLoggedIn){
         getCalculatedDeliveryAuth(deliveryAddress, deliveryMethod)

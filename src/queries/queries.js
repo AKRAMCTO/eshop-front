@@ -780,7 +780,7 @@ export const getCalculatedDeliveryAuth = async (city, deliveryMethod) => {
         headers: { Authorization: `Bearer ${token}` },
     };
     const res = await axios.post(`${REACT_APP_MAIN_URL}/delivery-fees`, {city: city, delivery_method: deliveryMethod}, config);
-    console.log('getCalculatedDeliveryAuth  => ', res.data)
+    // console.log('getCalculatedDeliveryAuth  => ', res.data)
     if (res.data.status === true) {
         return res.data.data;
     }
@@ -793,7 +793,7 @@ export const getCalculatedDeliveryGuest = async (city, deliveryMethod) => {
             `${REACT_APP_MAIN_URL}/guest-delivery-fees`,
             { products: cart, city, delivery_method: deliveryMethod }
         );
-        console.log('getCalculatedDeliveryGuest => ', res.data)
+        // console.log('getCalculatedDeliveryGuest => ', res.data)
         if (res.data.status === true) {
             return res.data.data;
         }

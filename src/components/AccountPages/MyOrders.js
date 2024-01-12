@@ -74,7 +74,7 @@ export default function MyOrders() {
                 setOrders(result)
             }else{
                 const offset = perPage * (page - 1)
-                console.log(offset, (perPage * page))
+                // console.log(offset, (perPage * page))
                 setOrders(result.slice(offset, perPage * page))
             }
         }else{
@@ -105,11 +105,11 @@ export default function MyOrders() {
 
             if(code && code.length){
                 copylistOrders = copylistOrders.filter((item) => item?.ref.toLowerCase().includes(code.toLowerCase()));
-                console.log('1 copylistOrders => ', copylistOrders)
+                // console.log('1 copylistOrders => ', copylistOrders)
             }
             if(status){
                 copylistOrders = copylistOrders.filter((item) => item?.status == status);
-                console.log('2 copylistOrders => ', copylistOrders)
+                // console.log('2 copylistOrders => ', copylistOrders)
             }
 
             setCopyOrders(copylistOrders)

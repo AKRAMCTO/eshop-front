@@ -275,7 +275,7 @@ export default function Products() {
         //     ]
         // }
 
-        console.log(value, key, action)
+        // console.log(value, key, action)
     }
     
     const handleCategoriesFilter = (selected) => {

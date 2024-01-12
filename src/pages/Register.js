@@ -51,9 +51,9 @@ export default function Register() {
         }
     }, [successOpen])
 
-    useEffect(() => {
-        console.log('here loading => ', loading)
-    }, [loading])
+    // useEffect(() => {
+    //     console.log('here loading => ', loading)
+    // }, [loading])
 
     useEffect(() => {
         if(errorAuthContext && errorAuthContext['register']){

@@ -61,7 +61,7 @@ export default function MyInvoices() {
                 setOrders(result)
             }else{
                 const offset = perPage * (page - 1)
-                console.log(offset, (perPage * page))
+                // console.log(offset, (perPage * page))
                 setOrders(result.slice(offset, perPage * page))
             }
         }else{
@@ -92,7 +92,7 @@ export default function MyInvoices() {
 
             if(code && code.length){
                 copylistOrders = copylistOrders.filter((item) => item?.ref.toLowerCase().includes(code.toLowerCase()));
-                console.log('1 copylistOrders => ', copylistOrders)
+                // console.log('1 copylistOrders => ', copylistOrders)
             }
             if(date){
                 let dateFormated = new Date(date);
@@ -100,8 +100,8 @@ export default function MyInvoices() {
 
                 
                 copylistOrders = copylistOrders.filter((item) => OrderDate(item?.date_creation) === dateFormated);
-                console.log('dateFormated => ', dateFormated)
-                console.log('copylistOrders => ', copylistOrders)
+                // console.log('dateFormated => ', dateFormated)
+                // console.log('copylistOrders => ', copylistOrders)
             }
 
             setCopyOrders(copylistOrders)
