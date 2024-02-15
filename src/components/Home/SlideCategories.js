@@ -59,7 +59,6 @@ export default function SlideCategories() {
             <div className="title">
                 <h2>Naviguer par catégories</h2>
                 <span className="title-leaf"></span>
-                <p>Principales catégories de la semaine</p>
             </div>
             <div className="category-slider-2 product-wrapper no-arrow">
                 {(addSlide) ? 

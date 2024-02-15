@@ -59,7 +59,6 @@ export default function SlideBestOffers() {
             <div className="title d-block">
                 <h2>Nos meilleures offres</h2>
                 <span className="title-leaf"></span>
-                <p>Un assistant virtuel récupère les produits de votre liste</p>
             </div>
             <div className="product-wrapper">
                 {(addSlide) ? 

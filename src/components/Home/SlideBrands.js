@@ -59,7 +59,7 @@ export default function SlideBrands() {
         <section className="product-list-section section-b-space">
             <div className="container-fluid-lg">
                 <div className="title">
-                    <h2>Les meilleures marques</h2>
+                    <h2>Nos partenaires</h2>
                     <span className="title-leaf"></span>
                 </div>
                 <div className="row">

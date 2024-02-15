@@ -60,7 +60,6 @@ export default function SlideBestSellers() {
             <div className="title d-block">
                 <h2>Notre Best-Seller</h2>
                 <span className="title-leaf"></span>
-                <p>Un assistant virtuel récupère les produits de votre liste</p>
             </div>
             <div className="banner-slider product-wrapper wow fadeInUp">
                 {(addSlide) ? 
