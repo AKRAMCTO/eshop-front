@@ -17,7 +17,7 @@ export default function SlideBrands() {
     );
 
     const settings = {
-        dots: true,
+        arrows: true,
         infinite: true,
         speed: 500,
         slidesToShow: 6,
@@ -26,7 +26,7 @@ export default function SlideBrands() {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 6,
+                    slidesToShow: 5,
                 }
             },
             {
@@ -64,7 +64,7 @@ export default function SlideBrands() {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <div className="slider-6_1 product-wrapper">
+                        <div className="slider-6_1 arrow-slider-3">
                             {(addSlide) ? 
                                 <Slider {...settings}>
                                     {data.map((item, key) => 

@@ -16,7 +16,7 @@ export default function SlideBestOffers() {
     );
 
     const settings = {
-        dots: true,
+        arrows: true,
         infinite: true,
         speed: 500,
         slidesToShow: 5,
@@ -60,7 +60,7 @@ export default function SlideBestOffers() {
                 <h2>Nos meilleures offres</h2>
                 <span className="title-leaf"></span>
             </div>
-            <div className="product-wrapper">
+            <div className="arrow-slider-3">
                 {(addSlide) ? 
                     <Slider {...settings}>
                         {data.map((item, key) => 

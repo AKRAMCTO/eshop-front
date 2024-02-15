@@ -16,22 +16,22 @@ export default function SlideCategories() {
     );
 
     const settings = {
-        dots: true,
+        arrows: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 1,
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 5,
                 }
             },
             {
                 breakpoint: 786,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 4,
                 }
             },
             {
@@ -60,7 +60,7 @@ export default function SlideCategories() {
                 <h2>Naviguer par catégories</h2>
                 <span className="title-leaf"></span>
             </div>
-            <div className="category-slider-2 product-wrapper no-arrow">
+            <div className="category-slider-2 arrow-slider-3">
                 {(addSlide) ? 
                     <Slider {...settings}>
                         {data.map((item, key) => 
