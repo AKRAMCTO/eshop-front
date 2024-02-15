@@ -41,15 +41,10 @@ export default function Home() {
                 </div>
             </section>
 
-            <Services />
-
-            <SlideBrands />
-
             <section className="product-section">
                 <div className="container-fluid-lg">
-                    <div className="row g-sm-4 g-3">
-                        <div className="col-xxl-9 col-xl-8">
-                            
+                    <div>
+                        <div>
                             <SlideCategories />
 
                             {(settings && settings?.banners === 'on') ? 
@@ -63,11 +58,10 @@ export default function Home() {
                                 : 
                                 <div />
                             }
-
                             <SlideBestOffers />
                         </div>
 
-                        <div className="col-xxl-3 col-xl-4 d-none d-xl-block">
+                        {/* <div className="col-xxl-3 col-xl-4 d-none d-xl-block">
                             <div className="p-sticky">
                                 <PinnedCategories />
 
@@ -83,7 +77,7 @@ export default function Home() {
                                     <div />
                                 }
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
@@ -108,7 +102,8 @@ export default function Home() {
                 </div>
             </section>
 
-            {(settings && settings?.newsletter === 'on') && <Newsletter />}
+            {/* {(settings && settings?.newsletter === 'on') && <Newsletter />} */}
+            <SlideBrands />
 
             <div className="theme-option">
                 <div className="back-to-top">
