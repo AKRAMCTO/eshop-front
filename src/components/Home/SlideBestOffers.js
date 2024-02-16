@@ -19,6 +19,8 @@ export default function SlideBestOffers() {
         arrows: true,
         infinite: true,
         speed: 500,
+        autoplaySpeed: 3000,
+        autoplay: true,
         slidesToShow: 5,
         slidesToScroll: 1,
         responsive: [

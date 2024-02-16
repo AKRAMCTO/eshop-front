@@ -110,7 +110,7 @@ export default function Home() {
 
             <div className="theme-option">
                 <div className="back-to-top">
-                    <a id="back-to-top">
+                    <a role="button" id="back-to-top" onClick={() => window.scrollTo({top:0})}>
                         <i className="fas fa-chevron-up"></i>
                     </a>
                 </div>

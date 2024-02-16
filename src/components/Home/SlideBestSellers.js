@@ -58,7 +58,7 @@ export default function SlideBestSellers() {
     return (
         <div>
             <div className="title d-block">
-                <h2>Notre Best-Seller</h2>
+                <h2>Notre meilleures ventes</h2>
                 <span className="title-leaf"></span>
             </div>
             <div className="banner-slider product-wrapper wow fadeInUp">

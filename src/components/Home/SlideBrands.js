@@ -20,6 +20,8 @@ export default function SlideBrands() {
         arrows: true,
         infinite: true,
         speed: 500,
+        autoplaySpeed: 3000,
+        autoplay: true,
         slidesToShow: 6,
         slidesToScroll: 1,
         responsive: [
