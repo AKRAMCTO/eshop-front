@@ -17,9 +17,9 @@ export default function MenuPrimary({ menu, toggleMenu }) {
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav">
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to={`/`}>Accueil</Link>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/a-propos-de-nous`}>À propos de nous</Link>
                             </li>

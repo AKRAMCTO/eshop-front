@@ -6233,11 +6233,11 @@ header .nav-about-2 {
   background-color: #222222;
 }
 header .top-nav {
-  padding: 24px 0;
+  padding: 15px 0;
 }
 @media (max-width: 767px) {
   header .top-nav {
-    padding: 24px 0 0;
+    padding: 10px 0;
   }
 }
 header .top-nav .navbar-top {
@@ -6855,8 +6855,8 @@ header .header-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(10px + 5 * (100vw - 320px) / 1600) calc(16px + 15 * (100vw - 320px) / 1600);
-  background: var(--theme-color2);
+  /* padding: calc(10px + 5 * (100vw - 320px) / 1600) calc(16px + 15 * (100vw - 320px) / 1600); */
+  background: transparent;
   color: #ffffff;
   border-radius: 5px;
   border: none;
@@ -7104,6 +7104,11 @@ header .header-nav .header-nav-right .deal-button, .seller-document {
   z-index: 0;
   background-color: #ff4d02;
 }
+header .header-nav .header-nav-right .deal-button {
+  border-radius: 0px;
+  border: 1px solid #ff4d02;
+}
+
 header .header-nav .header-nav-right .deal-button::before {
   content: "";
   position: absolute;
@@ -9914,7 +9919,14 @@ header .location-box button i {
 
 .header-bottom {
   /* border-bottom: 1px solid rgba(19, 32, 105, 0.9921568627); */
-  padding-bottom: 8px;
+  /* padding-bottom: 8px; */
+  background-color: var(--theme-color);
+}
+
+@media (max-width: 768px) {
+  .header-bottom {
+    display: none;
+  }
 }
 
 /**=====================
@@ -11289,7 +11301,10 @@ header .navbar-light .navbar-brand:focus {
   color: #222222;
 }
 header .navbar-light .navbar-nav .nav-link {
-  color: #222222;
+  color: #fff;
+}
+header .navbar-light .navbar-nav .nav-link:hover {
+  color: #fff !important;
 }
 header .navbar-light .navbar-nav .nav-link:hover {
   color: var(--theme-color);

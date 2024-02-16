@@ -28,7 +28,7 @@ export default function Heade() {
     const toggleSearchTablet = (value) => setSearchTablet(value)
 
     return (
-        <header className="pb-md-2 pb-0">
+        <header>
             {/* <div className="header-top">
                 <div className="container-fluid-lg">
                     <div className="row">
