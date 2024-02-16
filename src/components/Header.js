@@ -141,7 +141,7 @@ export default function Heade() {
 
                             <MenuPrimary menu={menu} toggleMenu={toggleMenu} />
 
-                            {(!authenticationLoading && !authenticationFetching)
+                            {/* {(!authenticationLoading && !authenticationFetching)
                                 ?
                                     (!userId ? 
                                         <Link to={`/devenir-vendeur`} className="header-nav-right">
@@ -155,7 +155,7 @@ export default function Heade() {
                                     )
                                 :
                                 <div />
-                            }
+                            } */}
                         </div>
                     </div>
                 </div>

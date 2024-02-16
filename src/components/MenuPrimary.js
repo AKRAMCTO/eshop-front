@@ -24,10 +24,13 @@ export default function MenuPrimary({ menu, toggleMenu }) {
                                 <Link className="nav-link" to={`/a-propos-de-nous`}>À propos de nous</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={`/contactez-nous`}>Contactez-nous</Link>
+                                <Link className="nav-link" to={`/contactez-nous`}>Contactez nous</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/centre-d-aide`}>Centre d'aide</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="">Rejoignez nous</Link>
                             </li>
                             {/* <li className="nav-item">
                                 <Link className="nav-link" to={`/page/page-1`}>L’entreprise</Link>
