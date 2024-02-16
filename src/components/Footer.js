@@ -114,7 +114,7 @@ const genInitialValues = () => ({
             
             <div className="col-xl-3 col-lg-4 col-sm-6">
               <div className="footer-title">
-                <h4>Contact Us</h4>
+                <h4>Contactez nous</h4>
               </div>
 
               <div className="footer-contact">
