@@ -16,18 +16,20 @@ export default function HomeSlide({ type, extraClass = null }) {
         dots: true,
         infinite: true,
         speed: 500,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 3000,
         autoplay: true,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        vertical:true,
+        verticalSwiping: true
     };
 
     return (
-        <div className={`${extraClass} ratio_50_1`}>
+        <div className={`${extraClass} dot-slider-left`}>
             {isLoading ?
                 <div style={{ background: 'gray', height: 400, opacity: .3 }}></div>
             :
-                <div className='product-wrapper'>
+                <div className=''>
                     {(data && data?.active_items  && data?.active_items.length > 1) &&
                         <Slider {...slideSettings}>
                             {data?.active_items.map(item => 

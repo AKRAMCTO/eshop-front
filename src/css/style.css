@@ -2549,6 +2549,52 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   height: 50px;
 }
 
+.dot-slider-left {
+  position: relative;
+  background-color: #fff;
+}
+.dot-slider-left:hover .slick-dots {
+  opacity: 1;
+}
+.dot-slider-left .slick-dots {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: fit-content;
+  display:flex !important;
+  flex-direction: column;
+  gap: 7px;
+  z-index: 10px;
+  opacity: .8;
+}
+.dot-slider-left .slick-dots li {
+  width: auto;
+  height: auto;
+}
+.dot-slider-left .slick-dots li button {
+  width: calc(7px + 2 * (100vw - 320px) / 1600);
+  height: calc(7px + 2 * (100vw - 320px) / 1600);
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  transition: all 0.5s ease;
+}
+.dot-slider-left .slick-dots li button::before {
+  display: none;
+}
+
+.dot-slider-left .slick-dots li.slick-active button {
+  margin: 0;
+  height: calc(20px + 10 * (100vw - 320px) / 1600);
+  background-color: transparent;
+  transition: all 0.5s ease;
+  border: 1px solid transparent;
+  outline: 1px solid white;
+}
+
 .form-group-password .form-floating{
   position: relative;
 }
@@ -4996,9 +5042,6 @@ span {
 }
 .category-box:hover::after {
   opacity: 1;
-}
-.category-box:hover img {
-  filter: invert(1) brightness(100);
 }
 .category-box:hover h5 {
   color: #ffffff;
@@ -10167,6 +10210,13 @@ header .location-box button i {
   border-radius: 100%;
   border: 1px solid #4a5568;
   color: #222222;
+}
+
+.home-section {
+  margin-top: -1.5rem; /* deal with the header default bottom margin. see line 22965 */
+}
+.home-section .home-contain {
+  border-radius: 0;
 }
 
 .home-section-2 {

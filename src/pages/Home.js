@@ -26,17 +26,20 @@ export default function Home() {
                 <title>Accueil | Ecowatt</title>
             </Helmet>
 
-            <section className="home-section pt-2 ratio_50">
-                <div className="container-fluid-lg">
-                    <div className="row g-4">
-                        <HomeSlide type={`HS1`} extraClass={`col-xl-9 col-lg-8`} />
-                        {(settings && settings?.banners === 'on') ? 
+            <section className="home-section pt-0 ratio_50">
+                <div>
+                {/* <div className="container-fluid-lg"> */}
+                    {/* <div className="row g-4"> */}
+                    <div>
+                        <HomeSlide type={`HS1`} extraClass="mt-0" />
+                        {/* <HomeSlide type={`HS1`} extraClass={`col-xl-9 col-lg-8`} /> */}
+                        {/* {(settings && settings?.banners === 'on') ? 
                             <div className="col-xl-3 col-lg-4 d-lg-inline-block d-none">
                                 <BannerVertical keyBanner={'HPP1'} />
                             </div>
                             : 
                             <div />
-                        }
+                        } */}
                     </div>
                 </div>
             </section>
@@ -47,7 +50,7 @@ export default function Home() {
                         <div>
                             <SlideCategories />
 
-                            {(settings && settings?.banners === 'on') ? 
+                            {/* {(settings && settings?.banners === 'on') ? 
                                 <div className="section-t-space section-b-space">
                                     <div className="row g-md-4 g-3">
                                         <div className="col-md-12">
@@ -57,7 +60,7 @@ export default function Home() {
                                 </div>
                                 : 
                                 <div />
-                            }
+                            } */}
                             <SlideBestOffers />
                         </div>
 

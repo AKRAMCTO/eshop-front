@@ -55,12 +55,12 @@ export default function SlideCategories() {
     if(isLoading || data?.length < 1) return <div />
 
     return (
-        <div>
+        <div className="section-b-space">
             <div className="title">
                 <h2>Naviguer par catégories</h2>
                 <span className="title-leaf"></span>
             </div>
-            <div className="category-slider-2 arrow-slider-3">
+            <div className="category-slider-2 slider-6_1 arrow-slider-3">
                 {(addSlide) ? 
                     <Slider {...settings}>
                         {data.map((item, key) => 

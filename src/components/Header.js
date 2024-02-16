@@ -29,16 +29,16 @@ export default function Heade() {
 
     return (
         <header className="pb-md-2 pb-0">
-            <div className="header-top">
+            {/* <div className="header-top">
                 <div className="container-fluid-lg">
                     <div className="row">
                         <div className="col-xxl-9 d-xxl-flex d-none">
-                            {/* {(settings && settings?.store_address) && 
+                            {(settings && settings?.store_address) && 
                                 <div className="top-left-header">
                                     <i className="iconly-Location icli text-white"></i>
                                     <span className="text-white">{settings?.store_address}</span>
                                 </div>
-                            } */}
+                            }
                             {(settings && settings?.store_email) && 
                                 <div className="top-left-header">
                                     <i className="iconly-Send icli text-white"></i>
@@ -54,7 +54,7 @@ export default function Heade() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="top-nav top-header sticky-header">
                 <div className="container-fluid-lg">
