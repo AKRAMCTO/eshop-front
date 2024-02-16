@@ -5997,7 +5997,7 @@ header .onhover-category-list > .onhover-category-box .onhover-category-box {
   background: #ffffff;
   box-shadow: 0 0 8px #ddd;
   padding: 20px 25px;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 250px;
   height: auto;
   overflow: visible;
@@ -6855,7 +6855,8 @@ header .header-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: calc(10px + 5 * (100vw - 320px) / 1600) calc(16px + 15 * (100vw - 320px) / 1600); */
+  padding: calc(10px + 5 * (100vw - 320px) / 1600) calc(16px + 15 * (100vw - 320px) / 1600);
+  padding-left: 0;
   background: transparent;
   color: #ffffff;
   border-radius: 5px;
@@ -6955,17 +6956,17 @@ header .header-nav {
 .nav-categories.header-nav-left:hover .category-dropdown {
   opacity: 1;
   visibility: visible;
-  top: 63px;
+  /* top: 63px; */
 }
 .nav-categories.header-nav-left .category-dropdown {
   position: absolute;
-  top: 72px;
+  /* top: 72px; */
   left: 0;
   background-color: #ffffff;
   box-shadow: 0 0 8px #ddd;
   z-index: 2;
   width: 300px;
-  border-radius: 6px;
+  border-radius: 0px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
