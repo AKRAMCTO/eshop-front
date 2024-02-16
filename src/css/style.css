@@ -4773,14 +4773,14 @@ span {
 .bank-section .bank-offer .bank-footer h4 input {
   pointer-events: none;
   background-color: transparent;
-  color: #ffffff;
+  color: #2A3466;
   border: none;
   font-weight: 600;
   width: 60%;
 }
 .bank-section .bank-offer .bank-footer .bank-coupon {
   margin-left: auto;
-  color: #ffffff;
+  color: #2A3466;
   font-weight: 600;
   padding: 6px 21px;
   position: relative;
@@ -5401,7 +5401,7 @@ span {
     Footer scss
 ==========================**/
 footer {
-  background-color: #2A3466;
+  background-color: #f8f8f8;
   position: relative;
   z-index: 0;
 }
@@ -5412,7 +5412,7 @@ footer::after {
   height: 100%;
   top: 0;
   left: 0;
-  background-image: url(./../assets/images/footer-shape-11.png);
+  /* background-image: url(./../assets/images/footer-bg-3.png); */
   background-repeat: no-repeat;
   z-index: -1;
 }
@@ -5438,11 +5438,11 @@ footer:before {
   }
 }
 footer .text-content {
-  color: #97a0c4 !important;
+  color: #2A3466 !important;
 }
-footer .main-footer {
+/* footer .main-footer {
   border-top: 1px dashed #42519b;
-}
+} */
 @media (max-width: 767px) {
   footer .main-footer {
     border: none;
@@ -5469,7 +5469,7 @@ footer .main-footer .footer-logo .footer-logo-contain {
 }
 footer .main-footer .footer-logo .footer-logo-contain p {
   font-size: calc(14px + 2 * (100vw - 320px) / 1600);
-  color: #97a0c4;
+  color: #2A3466;
   line-height: 27px;
   margin-bottom: 0;
   width: 88%;
@@ -5493,13 +5493,13 @@ footer .main-footer .footer-logo .footer-logo-contain .address li {
   display: flex;
   align-items: flex-start;
   width: 100%;
-  color: #97a0c4;
+  color: #2A3466;
 }
 footer .main-footer .footer-logo .footer-logo-contain .address li:hover a {
-  color: #ffffff;
+  color: #2A3466;
 }
 footer .main-footer .footer-logo .footer-logo-contain .address li:hover svg {
-  stroke: #ffffff;
+  stroke: #2A3466;
 }
 footer .main-footer .footer-logo .footer-logo-contain .address li svg {
   width: 18px;
@@ -5520,7 +5520,7 @@ footer .main-footer .footer-logo .footer-logo-contain .address li a {
 footer .main-footer .footer-title h4 {
   font-size: calc(17px + 3 * (100vw - 320px) / 1600);
   font-weight: 600;
-  color: #ffffff !important;
+  /* color: #2A3466 !important; */
 }
 @media (max-width: 575px) {
   footer .main-footer .footer-title h4 {
@@ -5532,7 +5532,7 @@ footer .main-footer .footer-contain {
 }
 footer .main-footer .footer-contain p {
   font-size: calc(14px + 2 * (100vw - 320px) / 1600);
-  color: #97a0c4;
+  color: #2A3466;
   line-height: 27px;
   margin-bottom: 0;
 }
@@ -5599,7 +5599,7 @@ footer .main-footer .footer-contain ul li a::after {
   right: -13px;
 }
 footer .main-footer .footer-contain ul li a:hover {
-  color: #ffffff;
+  color: #2A3466;
   margin-left: 13px;
 }
 [dir=rtl] footer .main-footer .footer-contain ul li a:hover {
@@ -5706,7 +5706,7 @@ footer .main-footer .footer-contact ul li .footer-number svg {
 footer .main-footer .footer-contact ul li .footer-number .contact-number h5 {
   margin-top: 6px;
   font-weight: 600;
-  color: #ffffff;
+  color: #2A3466;
 }
 footer .sub-footer {
   display: flex;
@@ -5764,7 +5764,7 @@ footer .sub-footer .social-link ul li a {
   display: block;
 }
 footer .sub-footer .social-link ul li a i {
-  color: #fff;
+  color: #2A3466;
   transition: all 0.3s ease-in-out;
 }
 footer .sub-footer .social-link ul li + li {
@@ -5793,7 +5793,7 @@ footer .sub-footer ul li {
 
 .footer-sm {
   margin-left: 320px;
-  background-color: #ffffff;
+  background-color: #2A3466;
 }
 [dir=rtl] .footer-sm {
   margin-left: unset;
@@ -22954,7 +22954,7 @@ header .offcanvas-backdrop {
 
 .adress_html{width: 100%;}
 .adress_html p{margin: 0;}
-.adress_html strong{font-weight: 900;color: #fff;}
+.adress_html strong{font-weight: 900;}
 
 .notifi-wishlist{
   padding: 0;

@@ -1,80 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataProvider } from '../contexts/DataContext';
 import { Link } from 'react-router-dom';
 import { Home, Mail, Phone } from 'react-feather';
 import FooterMenu from './FooterMenu';
 import FooterCategory from './FooterCategory';
+import { Formik } from 'formik';
+import { object, string } from 'yup';
+import { useMutation } from 'react-query';
+import { saveNewsletter } from '../queries/queries';
 
 export default function Footer() {
+  const [result, setResult] = useState(null)
+
+  const { mutate, isLoading } = useMutation(saveNewsletter, {
+      onSuccess: data => {
+          setResult(true)
+      },
+      onError: () => {
+          setResult(false)
+      }
+  });
+
+  useEffect(() => {
+      if(result != null){
+          const timer = setTimeout(() => {
+              setResult(null);
+          }, 3000);
+          
+          return () => clearTimeout(timer);
+      }
+  }, [result]);
   const { settings, menus } = useContext(DataProvider);
+  const ValidationSchemaForm = object({
+    name: string()
+        .min(1, 'Trop court!')
+        .max(191, 'Trop long!')
+        .required('Required'),
+    email: string().email('Email invalide').required('Required'),
+});
+
+const genInitialValues = () => ({ 
+    name: '',
+    email: '' 
+});
+
 
   return (
     <footer className="section-t-space">
       <div className="container-fluid-lg">
-        <div className="service-section">
-          <div className="row g-3">
-            <div className="col-12">
-              <div className="service-contain">
-                <div className="service-box">
-                  <div className="service-image">
-                    <img
-                      src={require("./../assets/svg/product.png")}
-                      className="lazyload"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="service-detail">
-                    <h5>Every Fresh Products</h5>
-                  </div>
-                </div>
-
-                <div className="service-box">
-                  <div className="service-image">
-                    <img
-                      src={require("./../assets/svg/delivery.png")}
-                      className="lazyload"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="service-detail">
-                    <h5>Free Delivery For Order Over $50</h5>
-                  </div>
-                </div>
-
-                <div className="service-box">
-                  <div className="service-image">
-                    <img
-                      src={require("./../assets/svg/discount.png")}
-                      className="lazyload"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="service-detail">
-                    <h5>Daily Mega Discounts</h5>
-                  </div>
-                </div>
-
-                <div className="service-box">
-                  <div className="service-image">
-                    <img
-                      src={require("./../assets/svg/market.png")}
-                      className="lazyload"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="service-detail">
-                    <h5>Best Price On The Market</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="main-footer section-b-space section-t-space">
           <div className="row g-md-4 g-3">
             <div className="col-xl-3 col-lg-4 col-sm-6">
@@ -136,6 +109,9 @@ export default function Footer() {
               <FooterMenu items={(menus && menus['footer-2']) ? menus['footer-2'] : null} />
             </div>
 
+            
+
+            
             <div className="col-xl-3 col-lg-4 col-sm-6">
               <div className="footer-title">
                 <h4>Contact Us</h4>
@@ -167,33 +143,84 @@ export default function Footer() {
                     </li>
                   }
 
+                  
+            {(settings && settings?.payment_images) &&
+              <div className="payment">
+                <img
+                  src={settings?.payment_images}
+                  className="lazyload"
+                  alt=""
+                />
+              </div>
+            }
+
+            <div className="input-box">
+            <Formik
+                initialValues={genInitialValues()}
+                validationSchema={ValidationSchemaForm}
+                validate={values => {
+                    const errors = {};
+                    if (!values.email) {
+                        errors.email = 'Required';
+                    } else if (
+                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                    ) {
+                        errors.email = 'Adresse e-mail invalide';
+                    }
+                    return errors;
+                }}
+                onSubmit={async (values, actions) => {
+                    await mutate(values);
+                    actions.resetForm({ 
+                        values: genInitialValues()
+                    })
+                }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div className='row pt-3' >
+                            <div className='pl-1 form-group'>
+                                <div className='relative'>
+                                    <input
+                                        type="email"
+                                        className="form-control space-more"
+                                        id="email"
+                                        placeholder="E-mail"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.email}
+                                    />
+                                    {/* <i className="fa-solid fa-envelope arrow"></i> */}
+                                    <span className='error-form'>{errors.email && touched.email && errors.email}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button 
+                            type="submit" 
+                            className=" mt-2 p-3 sub-btn btn-animation" 
+                            disabled={isSubmitting}
+                        >
+                            <span className="d-sm-block d-none">S'abonner</span>
+                            <i className="fa-solid fa-arrow-right icon"></i>
+                        </button>
+                    </form>
+                )}
+            </Formik>
+            {(result === false) && <span className='error-result'>Erreur trouvée, les données ne peuvent pas être enregistrées</span>}
+            {(result === true) && <span className='success-result'>Données enregistrées avec succès</span>}
+        </div>
+
                   {(settings && (settings?.android_link || settings?.apple_link)) &&
                     <li className="social-app mb-0">
-                      <h5 className="mb-2 text-content">Download App :</h5>
-                      <ul>
-                        {(settings && settings?.apple_link) &&
-                          <li className="mb-0">
-                            <a href={settings?.apple_link} target="_blank">
-                              <img
-                                src={require("./../assets/images/playstore.png")}
-                                className="lazyload"
-                                alt=""
-                              />
-                            </a>
-                          </li>
-                        }
-                        {(settings && settings?.android_link) &&
-                          <li className="mb-0">
-                            <a href={settings?.android_link} target="_blank">
-                              <img
-                                src={require("./../assets/images/appstore.png")}
-                                className="lazyload"
-                                alt=""
-                              />
-                            </a>
-                          </li>
-                        }
-                      </ul>
+                    
                     </li>
                   }
                 </ul>
@@ -210,15 +237,7 @@ export default function Footer() {
             </div>
           }
 
-          {(settings && settings?.payment_images) &&
-            <div className="payment">
-              <img
-                src={settings?.payment_images}
-                className="lazyload"
-                alt=""
-              />
-            </div>
-          }
+         
 
           <div className="social-link">
             <h6 className="text-content">Stay connected :</h6>
